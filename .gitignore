@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python virtual env
+.venv/
+__pycache__/
+
+# reference files
+/pdf_images/
+/Sample Page 1-14.pdf
