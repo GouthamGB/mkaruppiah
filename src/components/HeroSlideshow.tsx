@@ -39,7 +39,7 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
   // Static fallback render during SSR to prevent hydration mismatch errors
   if (!mounted) {
     return (
-      <section className="relative h-[80vh] min-h-[550px] w-full overflow-hidden bg-slate-950">
+      <section className="relative h-screen min-h-[550px] w-full overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-10">
           {imageUrl && (
             <Image
@@ -91,7 +91,7 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
   }
 
   return (
-    <section className="relative h-[80vh] min-h-[550px] w-full overflow-hidden bg-slate-950">
+    <section className="relative h-screen min-h-[550px] w-full overflow-hidden bg-slate-950">
       {/* Background Images with Framer Motion Cross-fade */}
       <AnimatePresence>
         <motion.div

@@ -12,7 +12,7 @@ export default async function ProjectsPage() {
   return (
     <div className="w-full">
       {/* Banner / Title Header */}
-      <section className="bg-slate-900 text-white py-20 relative overflow-hidden">
+      <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
         <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Our Completed Projects</h1>

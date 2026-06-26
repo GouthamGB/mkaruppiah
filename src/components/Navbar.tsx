@@ -45,9 +45,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
         isScrolled
-          ? "bg-white/95 dark:bg-slate-900/95 shadow-md backdrop-blur-md py-3"
+          ? "bg-white/95 shadow-md backdrop-blur-md py-3"
           : "bg-transparent py-5"
       }`}
     >
@@ -65,10 +65,14 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold tracking-tight text-slate-800 dark:text-white group-hover:text-brand-red transition-colors duration-200">
+              <span className={`text-lg font-bold tracking-tight transition-colors duration-200 ${
+                isScrolled ? "text-slate-800" : "text-white"
+              } group-hover:text-brand-red`}>
                 M. KARUPPIAH
               </span>
-              <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 -mt-1 uppercase tracking-wider">
+              <span className={`text-[10px] font-semibold -mt-1 uppercase tracking-wider transition-colors duration-200 ${
+                isScrolled ? "text-slate-500" : "text-slate-200/80"
+              }`}>
                 Pudukkottai & Karaikkudi
               </span>
             </div>
@@ -82,8 +86,12 @@ export default function Navbar() {
                 href={link.href}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                   isActive(link.href)
-                    ? "text-brand-red bg-brand-red/5 font-semibold"
-                    : "text-slate-600 dark:text-slate-300 hover:text-brand-red hover:bg-slate-50 dark:hover:bg-slate-800"
+                    ? isScrolled
+                      ? "text-brand-red bg-brand-red/5 font-semibold"
+                      : "text-brand-gold bg-white/10 font-semibold"
+                    : isScrolled
+                      ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
+                      : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
                 }`}
               >
                 {link.label}
@@ -95,7 +103,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="tel:+919842422046"
-              className="flex items-center text-slate-600 dark:text-slate-300 hover:text-brand-red transition-colors text-sm font-medium"
+              className={`flex items-center transition-colors text-sm font-medium ${
+                isScrolled ? "text-slate-600 hover:text-brand-red" : "text-slate-100 hover:text-brand-gold"
+              }`}
             >
               <PhoneCall className="h-4 w-4 mr-2 text-brand-gold animate-bounce" />
               <span>+91 98424 22046</span>
@@ -112,7 +122,11 @@ export default function Navbar() {
           <div className="flex md:hidden items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-500 hover:text-brand-red hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md transition-colors ${
+                isScrolled
+                  ? "text-slate-500 hover:text-brand-red hover:bg-slate-100"
+                  : "text-white hover:text-brand-gold hover:bg-white/10"
+              } focus:outline-none`}
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
