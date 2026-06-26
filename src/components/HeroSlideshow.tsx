@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { HeroSlide, mockData } from "@/data/mockData";
@@ -10,9 +9,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface HeroSlideshowProps {
   slides?: HeroSlide[];
+  fallbackTitle?: string;
+  fallbackSubtitle?: string;
+  fallbackDescription?: string;
 }
 
-export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps) {
+export default function HeroSlideshow({
+  slides: propSlides,
+  fallbackTitle,
+  fallbackSubtitle,
+  fallbackDescription,
+}: HeroSlideshowProps) {
   const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -36,18 +43,28 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
   const currentSlide = slides[currentIndex];
   const imageUrl = currentSlide?.image ? urlFor(currentSlide.image) : "";
 
+  // Resolve texts (use slide value, page-level fallback value, or mock value)
+  const slideTitle = currentSlide?.title || fallbackTitle || mockData.hero.title;
+  const slideSubtitle = currentSlide?.subtitle || fallbackSubtitle || mockData.hero.subtitle;
+  const slideDescription = currentSlide?.description || fallbackDescription || mockData.hero.description;
+
+  // Resolve buttons with defaults
+  const btnText1 = currentSlide?.btnText1 || mockData.hero.slides[0].btnText1;
+  const btnLink1 = currentSlide?.btnLink1 || mockData.hero.slides[0].btnLink1;
+  const btnText2 = currentSlide?.btnText2 || mockData.hero.slides[0].btnText2;
+  const btnLink2 = currentSlide?.btnLink2 || mockData.hero.slides[0].btnLink2;
+
   // Static fallback render during SSR to prevent hydration mismatch errors
   if (!mounted) {
     return (
       <section className="relative h-screen min-h-[550px] w-full overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-10">
           {imageUrl && (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={imageUrl}
-              alt={currentSlide.title || "M. Karuppiah Hero Slide"}
-              fill
-              priority
-              className="object-cover object-center"
+              alt={slideTitle || "M. Karuppiah Hero Slide"}
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/50 to-transparent"></div>
@@ -56,30 +73,30 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl space-y-6 text-white">
               <h4 className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
-                {currentSlide.subtitle || "Established in 1964"}
+                {slideSubtitle}
               </h4>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                {currentSlide.title}
+                {slideTitle}
               </h1>
               <p className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance">
-                {currentSlide.description}
+                {slideDescription}
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
-                {currentSlide.btnText1 && (
+                {btnText1 && (
                   <Link
-                    href={currentSlide.btnLink1 || "/contacts"}
+                    href={btnLink1 || "/contacts"}
                     className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200"
                   >
-                    {currentSlide.btnText1}
+                    {btnText1}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 )}
-                {currentSlide.btnText2 && (
+                {btnText2 && (
                   <Link
-                    href={currentSlide.btnLink2 || "/about"}
+                    href={btnLink2 || "/about"}
                     className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200"
                   >
-                    {currentSlide.btnText2}
+                    {btnText2}
                   </Link>
                 )}
               </div>
@@ -103,12 +120,11 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
           className="absolute inset-0 z-10"
         >
           {imageUrl && (
-            <Image
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
               src={imageUrl}
-              alt={currentSlide.title || "M. Karuppiah Hero Slide"}
-              fill
-              priority
-              className="object-cover object-center"
+              alt={slideTitle || "M. Karuppiah Hero Slide"}
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           )}
           {/* Dark Overlay for Text Readability */}
@@ -138,7 +154,7 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest"
               >
-                {currentSlide.subtitle || "Established in 1964"}
+                {slideSubtitle}
               </motion.h4>
 
               {/* Title - Fades up from Bottom */}
@@ -151,7 +167,7 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
                 transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight"
               >
-                {currentSlide.title}
+                {slideTitle}
               </motion.h1>
 
               {/* Description - Fades up from Bottom */}
@@ -164,7 +180,7 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance"
               >
-                {currentSlide.description}
+                {slideDescription}
               </motion.p>
 
               {/* Action Buttons - Fades up from Bottom */}
@@ -177,21 +193,21 @@ export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps
                 transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-wrap gap-4 pt-4"
               >
-                {currentSlide.btnText1 && (
+                {btnText1 && (
                   <Link
-                    href={currentSlide.btnLink1 || "/contacts"}
+                    href={btnLink1 || "/contacts"}
                     className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200 hover:scale-105"
                   >
-                    {currentSlide.btnText1}
+                    {btnText1}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 )}
-                {currentSlide.btnText2 && (
+                {btnText2 && (
                   <Link
-                    href={currentSlide.btnLink2 || "/about"}
+                    href={btnLink2 || "/about"}
                     className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200 hover:scale-105"
                   >
-                    {currentSlide.btnText2}
+                    {btnText2}
                   </Link>
                 )}
                 <a

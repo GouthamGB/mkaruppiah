@@ -44,7 +44,12 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col w-full">
       {/* 1. Hero Slideshow Section */}
-      <HeroSlideshow slides={slides} />
+      <HeroSlideshow
+        slides={slides}
+        fallbackTitle={pageData?.title}
+        fallbackSubtitle={pageData?.subtitle}
+        fallbackDescription={pageData?.description}
+      />
 
       {/* 2. Products Section */}
       <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
