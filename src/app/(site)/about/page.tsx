@@ -1,14 +1,21 @@
 import React from "react";
 import Image from "next/image";
-import { Award, History } from "lucide-react";
-import { sanityFetch, urlFor } from "@/sanity/client";
+import { History } from "lucide-react";
+import { sanityFetch } from "@/sanity/client";
 import AwardsCarousel from "@/components/AwardsCarousel";
+
+interface AwardItem {
+  image: unknown;
+  title: string;
+  description: string;
+  order?: number;
+}
 
 interface AboutPageData {
   about: {
     history: string;
   } | null;
-  awards: any[];
+  awards: AwardItem[];
 }
 
 export const dynamic = "force-dynamic";

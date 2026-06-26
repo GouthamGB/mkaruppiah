@@ -43,7 +43,7 @@ export default function CareersPage() {
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <h2 className="text-brand-red text-sm font-bold uppercase tracking-widest">Life at M. Karuppiah</h2>
             <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-              Why You'll Love Working Here
+              {"Why You'll Love Working Here"}
             </h3>
             <p className="text-slate-650 dark:text-slate-400 text-md">
               We believe our employees are our greatest strength. Our legacy of 60+ years is built on their loyalty, hard work, and technical expertise.
