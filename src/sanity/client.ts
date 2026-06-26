@@ -2,12 +2,16 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { mockData } from "@/data/mockData";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "6k0ekm0q";
+const envProjectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const projectId = (envProjectId && envProjectId !== "mock-project-id" && envProjectId !== "undefined" && envProjectId.trim() !== "")
+  ? envProjectId
+  : "6k0ekm0q";
+
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = "2024-03-11";
 
-// Check if we should use local mock data (if both env and fallback are empty)
-const useMock = !projectId;
+// Check if we should use local mock data
+const useMock = !projectId || projectId === "mock-project-id";
 
 export const client = !useMock
   ? createClient({
@@ -70,6 +74,17 @@ export async function sanityFetch<T>({
       console.log("Sanity query returned empty/null, falling back to mock data.");
     } catch (err) {
       console.warn("Sanity fetch failed, falling back to mock data:", err);
+      // Write error to sanity-debug.log (server-side only)
+      if (typeof window === "undefined") {
+        try {
+          const fs = eval("require")("fs");
+          const path = eval("require")("path");
+          const logMessage = `[${new Date().toISOString()}] Query: ${query.substring(0, 100)}...\nError: ${err instanceof Error ? err.stack : err}\n\n`;
+          fs.appendFileSync(path.join(process.cwd(), "sanity-debug.log"), logMessage);
+        } catch {
+          // ignore logging failures
+        }
+      }
     }
   }
 
