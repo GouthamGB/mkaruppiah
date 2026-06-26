@@ -45,7 +45,11 @@ export async function sanityFetch<T>({
 }): Promise<T> {
   if (!useMock && client) {
     try {
-      return await client.fetch<T>(query, params);
+      const result = await client.fetch<T>(query, params);
+      if (result !== null && result !== undefined && (!Array.isArray(result) || result.length > 0)) {
+        return result;
+      }
+      console.log("Sanity query returned empty/null, falling back to mock data.");
     } catch (err) {
       console.warn("Sanity fetch failed, falling back to mock data:", err);
     }

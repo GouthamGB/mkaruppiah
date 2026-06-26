@@ -4,16 +4,24 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
-import { HeroSlide } from "@/data/mockData";
+import { HeroSlide, mockData } from "@/data/mockData";
 import { urlFor } from "@/sanity/client";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface HeroSlideshowProps {
-  slides: HeroSlide[];
+  slides?: HeroSlide[];
 }
 
-export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
+export default function HeroSlideshow({ slides: propSlides }: HeroSlideshowProps) {
+  const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Guarantee slides fallback to mockData if none provided or array is empty
+  const slides = propSlides && propSlides.length > 0 ? propSlides : mockData.hero.slides;
 
   useEffect(() => {
     if (!slides || slides.length <= 1) return;
@@ -26,6 +34,61 @@ export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
   if (!slides || slides.length === 0) return null;
 
   const currentSlide = slides[currentIndex];
+  const imageUrl = currentSlide?.image ? urlFor(currentSlide.image) : "";
+
+  // Static fallback render during SSR to prevent hydration mismatch errors
+  if (!mounted) {
+    return (
+      <section className="relative h-[80vh] min-h-[550px] w-full overflow-hidden bg-slate-950">
+        <div className="absolute inset-0 z-10">
+          {imageUrl && (
+            <Image
+              src={imageUrl}
+              alt={currentSlide.title || "M. Karuppiah Hero Slide"}
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/50 to-transparent"></div>
+        </div>
+        <div className="absolute inset-0 z-20 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-3xl space-y-6 text-white">
+              <h4 className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
+                {currentSlide.subtitle || "Established in 1964"}
+              </h4>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                {currentSlide.title}
+              </h1>
+              <p className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance">
+                {currentSlide.description}
+              </p>
+              <div className="flex flex-wrap gap-4 pt-4">
+                {currentSlide.btnText1 && (
+                  <Link
+                    href={currentSlide.btnLink1 || "/contacts"}
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200"
+                  >
+                    {currentSlide.btnText1}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                )}
+                {currentSlide.btnText2 && (
+                  <Link
+                    href={currentSlide.btnLink2 || "/about"}
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200"
+                  >
+                    {currentSlide.btnText2}
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-[80vh] min-h-[550px] w-full overflow-hidden bg-slate-950">
@@ -39,9 +102,9 @@ export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0 z-10"
         >
-          {currentSlide.image && (
+          {imageUrl && (
             <Image
-              src={urlFor(currentSlide.image)}
+              src={imageUrl}
               alt={currentSlide.title || "M. Karuppiah Hero Slide"}
               fill
               priority
