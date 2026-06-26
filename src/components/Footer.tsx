@@ -130,7 +130,7 @@ export default function Footer() {
                 </div>
               </div>
               <div className="flex items-center space-x-2 pt-2 border-t border-slate-800 text-[11px] text-slate-500">
-                <ShieldCheck className="h-4 w-4 text-brand-green shrink-0" />
+                <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
                 <span>Open Early for Contractors</span>
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} M. Karuppiah Group. All Rights Reserved.</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
             <Link href="/studio" className="hover:text-brand-red transition-colors flex items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-green mr-1.5"></span>
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
               Admin Studio
             </Link>
             <span>•</span>

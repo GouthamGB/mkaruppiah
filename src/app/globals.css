@@ -3,15 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc; /* Slate 50 */
+  --background: #ffffff; /* Pure White */
   --foreground: #0f172a; /* Slate 900 */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a; /* Slate 900 */
-    --foreground: #f8fafc; /* Slate 50 */
-  }
 }
 
 body {

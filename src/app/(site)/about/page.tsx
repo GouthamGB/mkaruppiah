@@ -58,7 +58,7 @@ export default async function AboutPage() {
                   <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1">Projects Supplied</p>
                 </div>
                 <div>
-                  <h4 className="text-3xl font-extrabold text-brand-green">60+</h4>
+                  <h4 className="text-3xl font-extrabold text-brand-blue">60+</h4>
                   <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1">Years Legacy</p>
                 </div>
               </div>
