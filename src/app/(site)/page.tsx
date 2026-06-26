@@ -25,6 +25,8 @@ interface HomePageData {
   coreValues: CoreValue[];
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   // Fetch home page data and products list
   const pageData = await sanityFetch<HomePageData>({

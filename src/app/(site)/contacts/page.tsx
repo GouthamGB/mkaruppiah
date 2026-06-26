@@ -13,6 +13,8 @@ interface ContactPageData {
   offices: Office[];
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function ContactsPage() {
   const data = await sanityFetch<ContactPageData>({
     query: `*[_type == "contact"][0] { email, phonePudukkottai, phoneKaraikudi, weekdaysHours, sundayHours, offices }`,

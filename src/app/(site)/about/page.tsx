@@ -10,6 +10,8 @@ interface AboutPageData {
   awards: string[];
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function AboutPage() {
   const data = await sanityFetch<AboutPageData>({
     query: `*[_type == "aboutPage"][0] { history, directors, awards }`,

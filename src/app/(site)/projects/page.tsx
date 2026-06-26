@@ -4,6 +4,8 @@ import ProjectsGallery from "@/components/ProjectsGallery";
 import { sanityFetch } from "@/sanity/client";
 import { ProjectItem } from "@/data/mockData";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProjectsPage() {
   const projects = await sanityFetch<ProjectItem[]>({
     query: `*[_type == "projectItem"] | order(year desc) { id, title, category, location, year, image }`,

@@ -17,6 +17,8 @@ interface CsrPageData {
   initiatives: { title: string; description: string }[];
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function CsrPage() {
   const data = await sanityFetch<CsrPageData>({
     query: `*[_type == "csr"][0] { title, description, initiatives }`,
