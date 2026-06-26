@@ -2,11 +2,11 @@ import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 import { mockData } from "@/data/mockData";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "6k0ekm0q";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = "2024-03-11";
 
-// Check if we should use local mock data
+// Check if we should use local mock data (if both env and fallback are empty)
 const useMock = !projectId;
 
 export const client = !useMock
@@ -26,7 +26,25 @@ export function urlFor(source: any): string {
   if (!source) return "";
   if (typeof source === "string") return source;
   if (source.asset && typeof source.asset._ref === "string") {
-    return builder ? builder.image(source).url() : "";
+    try {
+      if (builder) {
+        return builder.image(source).url();
+      }
+    } catch (e) {
+      console.warn("Builder failed to generate URL, using manual parser:", e);
+    }
+    // Robust manual fallback parser for standard Sanity image refs
+    // Format: image-[assetId]-[dimensions]-[extension]
+    const ref = source.asset._ref;
+    const parts = ref.split("-");
+    if (parts.length >= 4) {
+      const id = parts[1];
+      const dims = parts[2];
+      const ext = parts[3];
+      const pId = projectId || "6k0ekm0q";
+      const dSet = dataset || "production";
+      return `https://cdn.sanity.io/images/${pId}/${dSet}/${id}-${dims}.${ext}`;
+    }
   }
   if (source.asset && typeof source.asset.url === "string") {
     return source.asset.url;
