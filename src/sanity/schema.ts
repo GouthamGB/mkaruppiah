@@ -26,12 +26,16 @@ export const homePage = {
         {
           type: "object",
           name: "slide",
-          fields: [
-            { name: "image", title: "Slide Image", type: "image", options: { hotspot: true } },
-            { name: "title", title: "Slide Title", type: "string" },
-            { name: "subtitle", title: "Slide Subtitle", type: "string" },
-            { name: "description", title: "Slide Description", type: "text" },
-          ],
+            fields: [
+              { name: "image", title: "Slide Image", type: "image", options: { hotspot: true } },
+              { name: "title", title: "Slide Title", type: "string" },
+              { name: "subtitle", title: "Slide Subtitle", type: "string" },
+              { name: "description", title: "Slide Description", type: "text" },
+              { name: "btnText1", title: "Primary Button Text (Optional)", type: "string" },
+              { name: "btnLink1", title: "Primary Button Link (Optional)", type: "string" },
+              { name: "btnText2", title: "Secondary Button Text (Optional)", type: "string" },
+              { name: "btnLink2", title: "Secondary Button Link (Optional)", type: "string" },
+            ],
         },
       ],
     },

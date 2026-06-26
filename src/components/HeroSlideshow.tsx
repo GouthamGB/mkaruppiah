@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { HeroSlide } from "@/data/mockData";
+import { urlFor } from "@/sanity/client";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface HeroSlideshowProps {
   slides: HeroSlide[];
@@ -17,79 +19,132 @@ export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
     if (!slides || slides.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
+    }, 6000); // 6 seconds slide loop duration
     return () => clearInterval(interval);
   }, [slides]);
 
   if (!slides || slides.length === 0) return null;
 
+  const currentSlide = slides[currentIndex];
+
   return (
     <section className="relative h-[80vh] min-h-[550px] w-full overflow-hidden bg-slate-950">
-      {/* Background Images with Fade Effect */}
-      {slides.map((slide, idx) => (
-        <div
-          key={idx}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
+      {/* Background Images with Framer Motion Cross-fade */}
+      <AnimatePresence>
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="absolute inset-0 z-10"
         >
-          {slide.image && (
+          {currentSlide.image && (
             <Image
-              src={slide.image}
-              alt={slide.title || "M. Karuppiah Hero Slide"}
+              src={urlFor(currentSlide.image)}
+              alt={currentSlide.title || "M. Karuppiah Hero Slide"}
               fill
-              priority={idx === 0}
+              priority
               className="object-cover object-center"
             />
           )}
           {/* Dark Overlay for Text Readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/50 to-transparent"></div>
-        </div>
-      ))}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/50 to-transparent"></div>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Hero Content Overlay */}
       <div className="absolute inset-0 z-20 flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-3xl space-y-6 text-white animate-fade-slow">
-            <h4 className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
-              Established in 1964
-            </h4>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              {slides[currentIndex].title}
-              <span className="block text-brand-gold mt-1">
-                {slides[currentIndex].subtitle}
-              </span>
-            </h1>
-            <p className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance">
-              {slides[currentIndex].description}
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Link
-                href="/contacts"
-                className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200 hover:scale-105"
+          {/* AnimatePresence for text overlay container */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="max-w-3xl space-y-6 text-white"
+            >
+              {/* Subtitle - Fades down from Top */}
+              <motion.h4
+                variants={{
+                  hidden: { y: -30, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                  exit: { y: -20, opacity: 0 }
+                }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest"
               >
-                Inquire Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200 hover:scale-105"
+                {currentSlide.subtitle || "Established in 1964"}
+              </motion.h4>
+
+              {/* Title - Fades up from Bottom */}
+              <motion.h1
+                variants={{
+                  hidden: { y: 50, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                  exit: { y: -30, opacity: 0 }
+                }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight"
               >
-                Our Legacy
-              </Link>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-slate-300 hover:text-white transition-colors"
+                {currentSlide.title}
+              </motion.h1>
+
+              {/* Description - Fades up from Bottom */}
+              <motion.p
+                variants={{
+                  hidden: { y: 40, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                  exit: { y: -20, opacity: 0 }
+                }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 mr-2 transition-colors">
-                  <Play className="h-3 w-3 fill-white text-white ml-0.5" />
-                </div>
-                Watch Video
-              </a>
-            </div>
-          </div>
+                {currentSlide.description}
+              </motion.p>
+
+              {/* Action Buttons - Fades up from Bottom */}
+              <motion.div
+                variants={{
+                  hidden: { y: 30, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                  exit: { y: -10, opacity: 0 }
+                }}
+                transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-wrap gap-4 pt-4"
+              >
+                {currentSlide.btnText1 && (
+                  <Link
+                    href={currentSlide.btnLink1 || "/contacts"}
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200 hover:scale-105"
+                  >
+                    {currentSlide.btnText1}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                )}
+                {currentSlide.btnText2 && (
+                  <Link
+                    href={currentSlide.btnLink2 || "/about"}
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200 hover:scale-105"
+                  >
+                    {currentSlide.btnText2}
+                  </Link>
+                )}
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-slate-350 hover:text-white transition-colors"
+                >
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 mr-2 transition-colors">
+                    <Play className="h-3 w-3 fill-white text-white ml-0.5" />
+                  </div>
+                  Watch Video
+                </a>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
@@ -101,7 +156,7 @@ export default function HeroSlideshow({ slides }: HeroSlideshowProps) {
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentIndex ? "w-8 bg-brand-red" : "w-2 bg-white/40 hover:bg-white/70"
+                idx === currentIndex ? "w-8 bg-brand-red" : "bg-white/40 hover:bg-white/70 w-2"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             ></button>

@@ -1,8 +1,13 @@
 export interface HeroSlide {
-  image: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image: any; // Can be string or Sanity image asset object
   title: string;
   subtitle: string;
   description: string;
+  btnText1?: string;
+  btnLink1?: string;
+  btnText2?: string;
+  btnLink2?: string;
 }
 
 export interface Product {
@@ -91,19 +96,31 @@ export const mockData: MockData = {
         image: "/images/hero_1.png",
         title: "Building Dreams,",
         subtitle: "Delivering Reliability",
-        description: "60+ years of trusted excellence in supplying construction materials and infrastructure solutions."
+        description: "60+ years of trusted excellence in supplying construction materials and infrastructure solutions.",
+        btnText1: "Inquire Now",
+        btnLink1: "/contacts",
+        btnText2: "Our Legacy",
+        btnLink2: "/about"
       },
       {
         image: "/images/hero_2.png",
         title: "Quality Materials,",
         subtitle: "Stronger Structures",
-        description: "Your one-stop destination for cement, steel, tiles, granites, sanitaryware, and custom fencing."
+        description: "Your one-stop destination for cement, steel, tiles, granites, sanitaryware, and custom fencing.",
+        btnText1: "Inquire Now",
+        btnLink1: "/contacts",
+        btnText2: "Our Legacy",
+        btnLink2: "/about"
       },
       {
         image: "/images/hero_3.png",
         title: "Complete Solutions,",
         subtitle: "End-to-End Execution",
-        description: "Serving construction, infrastructure, agriculture, and energy sectors across Pudukkottai & Karaikkudi."
+        description: "Serving construction, infrastructure, agriculture, and energy sectors across Pudukkottai & Karaikkudi.",
+        btnText1: "Inquire Now",
+        btnLink1: "/contacts",
+        btnText2: "Our Legacy",
+        btnLink2: "/about"
       }
     ]
   },
