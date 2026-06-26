@@ -4,6 +4,19 @@ import Image from "next/image";
 import { ArrowLeft, MapPin, Calendar, Building2, User, Maximize2, Layers } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
 
+interface Project {
+  _id: string;
+  id?: string;
+  title: string;
+  category: string;
+  location?: string;
+  year?: string;
+  image?: unknown;
+  description?: string;
+  client?: string;
+  area?: string;
+}
+
 interface ProjectDetailsPageProps {
   params: {
     id: string;
@@ -15,7 +28,7 @@ export const dynamic = "force-dynamic";
 export default async function ProjectDetailsPage({ params }: ProjectDetailsPageProps) {
   const { id } = params;
 
-  const project = await sanityFetch<any>({
+  const project = await sanityFetch<Project>({
     query: `*[_type == "projectItem" && (_id == $id || id == $id)][0] { _id, id, title, "category": coalesce(category->title, category), location, year, image, description, client, area }`,
     params: { id },
   });
@@ -29,7 +42,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Project Not Found</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            We couldn't retrieve the details for this project. It might have been deleted or the link is incorrect.
+            {"We couldn't retrieve the details for this project. It might have been deleted or the link is incorrect."}
           </p>
           <Link
             href="/projects"

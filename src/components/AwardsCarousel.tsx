@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Award } from "lucide-react";
 import { urlFor } from "@/sanity/client";
 
@@ -24,11 +24,7 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
 
   const displayAwards = initialAwards || [];
 
-  if (displayAwards.length === 0) {
-    return null;
-  }
-
-  const updateScrollState = () => {
+  const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
 
@@ -45,7 +41,7 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
       Math.max(0, Math.round(scrollLeft / cardWidth))
     );
     setActiveIndex(index);
-  };
+  }, [displayAwards.length]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -59,7 +55,11 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
         clearTimeout(timer);
       };
     }
-  }, [displayAwards]);
+  }, [updateScrollState]);
+
+  if (displayAwards.length === 0) {
+    return null;
+  }
 
   const scroll = (direction: "left" | "right") => {
     const el = scrollRef.current;

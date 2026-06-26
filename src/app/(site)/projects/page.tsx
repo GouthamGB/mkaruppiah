@@ -12,11 +12,17 @@ const defaultCategoryCards = [
   { label: "Commercial Spaces", image: "/images/categories/commercial.jpg" },
 ];
 
+interface SanityCategory {
+  _id: string;
+  title: string;
+  image?: unknown;
+}
+
 export const dynamic = "force-dynamic";
 
 export default async function ProjectsPage() {
   // Fetch categories from Sanity
-  const sanityCategories = await sanityFetch<any[]>({
+  const sanityCategories = await sanityFetch<SanityCategory[]>({
     query: `*[_type == "projectCategory"] | order(title asc) {
       _id,
       title,

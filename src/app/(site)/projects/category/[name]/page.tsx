@@ -4,6 +4,14 @@ import Image from "next/image";
 import { ArrowLeft, Layers } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
 
+interface CategoryProject {
+  _id: string;
+  id?: string;
+  title: string;
+  category: string;
+  image?: unknown;
+}
+
 interface CategoryPageProps {
   params: {
     name: string;
@@ -16,8 +24,7 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
   const categoryName = decodeURIComponent(params.name);
 
   // Fetch projects belonging to this category
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const projects = await sanityFetch<any[]>({
+  const projects = await sanityFetch<CategoryProject[]>({
     query: `*[_type == "projectItem" && coalesce(category->title, category) == $categoryName] | order(year desc) {
       _id,
       id,
