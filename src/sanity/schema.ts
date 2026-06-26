@@ -90,6 +90,30 @@ export const director = {
   ],
 };
 
+export const projectCategory = {
+  name: "projectCategory",
+  title: "Project Categories",
+  type: "document",
+  fields: [
+    {
+      name: "title",
+      title: "Category Title",
+      type: "string",
+    },
+    {
+      name: "image",
+      title: "Category Thumbnail Image",
+      type: "image",
+      options: { hotspot: true },
+    },
+    {
+      name: "description",
+      title: "Category Description (Optional)",
+      type: "text",
+    },
+  ],
+};
+
 export const projectItem = {
   name: "projectItem",
   title: "Completed Projects",
@@ -99,21 +123,15 @@ export const projectItem = {
     {
       name: "category",
       title: "Project Category",
-      type: "string",
-      options: {
-        list: [
-          { title: "Educational Institutions", value: "Educational Institutions" },
-          { title: "Hospitals", value: "Hospitals" },
-          { title: "Hotels & Resorts", value: "Hotels & Resorts" },
-          { title: "Government Buildings", value: "Government Buildings" },
-          { title: "Individual Houses", value: "Individual Houses" },
-          { title: "Commercial Spaces", value: "Commercial Spaces" },
-        ],
-      },
+      type: "reference",
+      to: [{ type: "projectCategory" }],
     },
     { name: "location", title: "Location", type: "string" },
     { name: "year", title: "Year Completed", type: "string" },
     { name: "image", title: "Project Image", type: "image", options: { hotspot: true } },
+    { name: "description", title: "Project Description", type: "text" },
+    { name: "client", title: "Client Name", type: "string" },
+    { name: "area", title: "Built Area (sq. ft.)", type: "string" },
   ],
 };
 
@@ -169,4 +187,17 @@ export const contact = {
   ],
 };
 
-export const schemaTypes = [homePage, product, director, projectItem, csr, contact];
+export const award = {
+  name: "award",
+  title: "Awards & Recognitions",
+  type: "document",
+  fields: [
+    { name: "title", title: "Award Title", type: "string" },
+    { name: "description", title: "Award Description", type: "text" },
+    { name: "image", title: "Award Image", type: "image", options: { hotspot: true } },
+    { name: "order", title: "Display Order (Ascending)", type: "number" },
+  ],
+};
+
+export const schemaTypes = [homePage, product, director, projectCategory, projectItem, csr, contact, award];
+

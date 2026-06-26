@@ -1,24 +1,27 @@
 import React from "react";
 import Image from "next/image";
-import { Award, Briefcase, Users, History } from "lucide-react";
+import { Award, History } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
-import { Director } from "@/data/mockData";
+import AwardsCarousel from "@/components/AwardsCarousel";
 
 interface AboutPageData {
-  history: string;
-  directors: Director[];
-  awards: string[];
+  about: {
+    history: string;
+  } | null;
+  awards: any[];
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
   const data = await sanityFetch<AboutPageData>({
-    query: `*[_type == "aboutPage"][0] { history, directors, awards }`,
+    query: `{
+      "about": *[_type == "aboutPage"][0] { history },
+      "awards": *[_type == "award"] | order(order asc)
+    }`,
   });
 
-  const historyText = data?.history || "";
-  const directors = data?.directors || [];
+  const historyText = data?.about?.history || "";
   const awards = data?.awards || [];
 
   return (
@@ -84,99 +87,22 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Board of Directors / Team */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-950">
+      {/* Awards & Recognitions Carousel Section */}
+      <section className="py-24 bg-brand-light dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <div className="flex justify-center items-center space-x-2 text-brand-red">
-              <Users className="h-5 w-5" />
-              <span className="text-xs uppercase font-bold tracking-wider">Leadership Team</span>
-            </div>
+          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-              Board of Directors
+              Our Awards and Recognitions
             </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-md">
-              Guided by experienced, values-driven leaders who continue our legacy of trust and forward-thinking industry expertise.
+            <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base font-medium">
+              Recognizing Excellence in Real Estate
             </p>
           </div>
 
-          {/* Directors Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {directors.map((member, index) => (
-              <div
-                key={index}
-                className="group bg-white dark:bg-slate-900 rounded-lg overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                {/* Portrait Wrapper */}
-                <div className="relative h-72 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-                  {member.image && (
-                    <Image
-                      src={urlFor(member.image)}
-                      alt={member.name}
-                      fill
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-102"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent opacity-60"></div>
-                </div>
-
-                {/* Info Content */}
-                <div className="p-6 space-y-1">
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {member.name}
-                  </h4>
-                  <p className="text-brand-red text-sm font-semibold flex items-center">
-                    <Briefcase className="h-3.5 w-3.5 mr-1.5 text-brand-gold" />
-                    {member.role}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Interactive Awards Slider Component */}
+          <AwardsCarousel initialAwards={awards} />
         </div>
       </section>
-
-      {/* Awards & Recognitions */}
-      {awards.length > 0 && (
-        <section className="py-20 bg-white dark:bg-slate-900/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <div className="flex justify-center items-center space-x-2 text-brand-red">
-                <Award className="h-5 w-5" />
-                <span className="text-xs uppercase font-bold tracking-wider">Achievements</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                Awards & Recognitions
-              </h2>
-              <p className="text-slate-600 dark:text-slate-400 text-md">
-                Recognized across the region for excellence in building materials distribution, real estate partnership, and corporate citizenship.
-              </p>
-            </div>
-
-            {/* Awards Timeline/List */}
-            <div className="max-w-4xl mx-auto space-y-6">
-              {awards.map((award, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-4 bg-slate-50 dark:bg-slate-900 border border-slate-200/40 dark:border-slate-800 p-6 rounded-lg hover:border-brand-gold/30 transition-all"
-                >
-                  <div className="h-10 w-10 rounded-full bg-brand-gold/10 flex items-center justify-center text-brand-gold shrink-0">
-                    <Award className="h-5 w-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <h4 className="text-lg font-bold text-slate-950 dark:text-white">
-                      {award.split(" - ")[0]}
-                    </h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      {award.split(" - ")[1] || "Regional recognition for corporate excellence and quality supplies."}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }

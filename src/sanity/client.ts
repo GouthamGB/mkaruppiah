@@ -67,13 +67,16 @@ export async function sanityFetch<T>({
 }): Promise<T> {
   if (!useMock && client) {
     try {
-      const result = await client.fetch<T>(query, params);
+      const result = await client.fetch<T>(query, params, {
+        next: { revalidate: 0 },
+      });
       if (result !== null && result !== undefined && (!Array.isArray(result) || result.length > 0)) {
+        console.log(`[Sanity] successfully fetched query: ${query.substring(0, 60)}...`);
         return result;
       }
-      console.log("Sanity query returned empty/null, falling back to mock data.");
+      console.log(`[Sanity] query returned empty/null, falling back to mock data for: ${query.substring(0, 60)}...`);
     } catch (err) {
-      console.warn("Sanity fetch failed, falling back to mock data:", err);
+      console.warn("[Sanity] fetch failed, falling back to mock data:", err);
       // Write error to sanity-debug.log (server-side only)
       if (typeof window === "undefined") {
         try {
@@ -107,15 +110,34 @@ export async function sanityFetch<T>({
     return mockData.products as unknown as T;
   }
 
+  if (lowercaseQuery.includes('_type == "award"') || lowercaseQuery.includes('award')) {
+    return [] as unknown as T;
+  }
+
   if (lowercaseQuery.includes('_type == "director"') || lowercaseQuery.includes('director') || lowercaseQuery.includes('aboutpage')) {
     return {
+      about: {
+        history: mockData.about.history,
+      },
       history: mockData.about.history,
       directors: mockData.about.directors,
-      awards: mockData.about.awards,
+      awards: [],
     } as unknown as T;
   }
 
+  if (lowercaseQuery.includes('_type == "projectcategory"') || lowercaseQuery.includes('projectcategory')) {
+    return [] as unknown as T;
+  }
+
   if (lowercaseQuery.includes('_type == "project"') || lowercaseQuery.includes('project')) {
+    if (params && params.id) {
+      const match = mockData.projects.find((p) => p.id === params.id);
+      return match as unknown as T;
+    }
+    if (params && params.categoryName) {
+      const matches = mockData.projects.filter((p) => p.category === params.categoryName);
+      return matches as unknown as T;
+    }
     return mockData.projects as unknown as T;
   }
 

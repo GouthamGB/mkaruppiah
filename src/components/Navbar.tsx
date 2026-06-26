@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, PhoneCall } from "lucide-react";
+import { Menu, X, PhoneCall, ChevronDown } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -43,12 +43,14 @@ export default function Navbar() {
     return pathname.startsWith(href);
   };
 
+  const showScrolledState = isScrolled;
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
-        isScrolled
-          ? "bg-white/95 shadow-md backdrop-blur-md py-3"
-          : "bg-transparent py-5"
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 border-b ${
+        showScrolledState
+          ? "bg-white/95 shadow-md backdrop-blur-md py-3 border-slate-200/60 dark:border-slate-800"
+          : "bg-transparent py-5 border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,64 +68,93 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className={`text-lg font-bold tracking-tight transition-colors duration-200 ${
-                isScrolled ? "text-slate-800" : "text-white"
+                showScrolledState ? "text-slate-800" : "text-white"
               } group-hover:text-brand-red`}>
                 M. KARUPPIAH
               </span>
               <span className={`text-[10px] font-semibold -mt-1 uppercase tracking-wider transition-colors duration-200 ${
-                isScrolled ? "text-slate-500" : "text-slate-200/80"
+                showScrolledState ? "text-slate-500" : "text-slate-200/80"
               }`}>
                 Pudukkottai & Karaikkudi
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex space-x-1 lg:space-x-2 items-center">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                  isActive(link.href)
-                    ? isScrolled
-                      ? "text-brand-red bg-brand-red/5 font-semibold"
-                      : "text-brand-gold bg-white/10 font-semibold"
-                    : isScrolled
-                      ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
-                      : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          {/* Desktop & Mobile Navigation / Menu Section */}
+          <div className="flex items-center space-x-6">
+            {/* Desktop Navigation Links (moved to the right) */}
+            <nav className="hidden md:flex space-x-1 lg:space-x-2 items-center">
+              {navLinks.map((link) => {
+                if (link.label === "About Us") {
+                  return (
+                    <div key={link.href} className="relative group py-2">
+                      <div
+                        className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium cursor-pointer select-none transition-all duration-200 ${
+                          isActive(link.href)
+                            ? showScrolledState
+                              ? "text-brand-red bg-brand-red/5 font-semibold"
+                              : "text-brand-gold bg-white/10 font-semibold"
+                            : showScrolledState
+                              ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
+                              : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
+                        }`}
+                      >
+                        <span>{link.label}</span>
+                        <ChevronDown className="h-3.5 w-3.5 ml-1 transition-transform duration-200 group-hover:rotate-180" />
+                      </div>
+                      
+                      {/* Hover Dropdown Menu styled with a golden top border */}
+                      <div className="absolute top-full right-0 mt-1 w-48 bg-white dark:bg-slate-900 border-t-4 border-brand-gold rounded-b-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-250 z-50 transform translate-y-2 group-hover:translate-y-0">
+                        <div className="py-1">
+                          <Link
+                            href="/about"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                          >
+                            Company Overview
+                          </Link>
+                          <Link
+                            href="/about/our-strength"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                          >
+                            Our Strength
+                          </Link>
+                          <Link
+                            href="/about/careers"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                          >
+                            Careers
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
 
-          {/* CTA & Phone Icon */}
-          <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="tel:+919842422046"
-              className={`flex items-center transition-colors text-sm font-medium ${
-                isScrolled ? "text-slate-600 hover:text-brand-red" : "text-slate-100 hover:text-brand-gold"
-              }`}
-            >
-              <PhoneCall className="h-4 w-4 mr-2 text-brand-gold animate-bounce" />
-              <span>+91 98424 22046</span>
-            </a>
-            <Link
-              href="/contacts"
-              className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-all duration-200 hover:scale-105"
-            >
-              Get in Touch
-            </Link>
-          </div>
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                      isActive(link.href)
+                        ? showScrolledState
+                          ? "text-brand-red bg-brand-red/5 font-semibold"
+                          : "text-brand-gold bg-white/10 font-semibold"
+                        : showScrolledState
+                          ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
+                          : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center">
+            {/* Hamburger Menu Button (at the end) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md transition-colors ${
-                isScrolled
+                showScrolledState
                   ? "text-slate-500 hover:text-brand-red hover:bg-slate-100"
                   : "text-white hover:text-brand-gold hover:bg-white/10"
               } focus:outline-none`}
@@ -135,9 +166,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Sidebar Drawer */}
+      {/* Sidebar Drawer (accessible on all viewport sizes) */}
       <div
-        className={`fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsOpen(false)}
@@ -167,32 +198,79 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col space-y-4 py-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-3 py-2 rounded-md text-base font-semibold transition-colors ${
-                  isActive(link.href)
-                    ? "text-brand-red bg-brand-red/5"
-                    : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav className="flex flex-col space-y-3 py-6">
+            {navLinks.map((link) => {
+              if (link.label === "About Us") {
+                return (
+                  <div key={link.href} className="flex flex-col space-y-1">
+                    <span className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-400">
+                      About Us
+                    </span>
+                    <Link
+                      href="/about"
+                      onClick={() => setIsOpen(false)}
+                      className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
+                        pathname === "/about"
+                          ? "text-brand-red bg-brand-red/5"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                      }`}
+                    >
+                      Company Overview
+                    </Link>
+                    <Link
+                      href="/about/our-strength"
+                      onClick={() => setIsOpen(false)}
+                      className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
+                        pathname === "/about/our-strength"
+                          ? "text-brand-red bg-brand-red/5"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                      }`}
+                    >
+                      Our Strength
+                    </Link>
+                    <Link
+                      href="/about/careers"
+                      onClick={() => setIsOpen(false)}
+                      className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
+                        pathname === "/about/careers"
+                          ? "text-brand-red bg-brand-red/5"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                      }`}
+                    >
+                      Careers
+                    </Link>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`px-3 py-2 rounded-md text-base font-semibold transition-colors ${
+                    isActive(link.href)
+                      ? "text-brand-red bg-brand-red/5"
+                      : "text-slate-750 dark:text-slate-200 hover:text-brand-red"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
             <a
               href="tel:+919842422046"
-              className="flex items-center text-slate-700 dark:text-slate-300 text-sm font-medium"
+              className="flex items-center text-slate-700 dark:text-slate-350 text-sm font-medium"
             >
-              <PhoneCall className="h-4 w-4 mr-2 text-brand-gold" />
+              <PhoneCall className="h-4 w-4 mr-2 text-brand-gold animate-bounce" />
               <span>+91 98424 22046</span>
             </a>
             <Link
               href="/contacts"
+              onClick={() => setIsOpen(false)}
               className="block w-full text-center px-4 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-colors"
             >
               Get in Touch

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Award, ThumbsUp, Building, ArrowUpRight, HelpCircle } from "lucide-react";
+import { ShieldCheck, Award, ThumbsUp, Building, HelpCircle } from "lucide-react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import { sanityFetch, urlFor } from "@/sanity/client";
 import { HeroSlide, Product, CoreValue } from "@/data/mockData";
@@ -37,6 +37,8 @@ export default async function HomePage() {
     query: `*[_type == "product"] | order(name asc) { id, name, description, image }`,
   });
 
+
+  console.log('pageData?.slides', pageData?.slides)
   // Fallbacks if queries return empty
   const slides = pageData?.slides || [];
   const mission = pageData?.mission || "";
@@ -96,18 +98,6 @@ export default async function HomePage() {
                   <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
                     {product.description}
                   </p>
-                  <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    <Link
-                      href={`/contacts?inquiry=${encodeURIComponent(product.name)}`}
-                      className="inline-flex items-center text-xs font-bold text-brand-red hover:text-brand-red/80 transition-colors"
-                    >
-                      Inquire Now
-                      <ArrowUpRight className="ml-1 h-3.5 w-3.5" />
-                    </Link>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                      Supplied & Verified
-                    </span>
-                  </div>
                 </div>
               </div>
             ))}

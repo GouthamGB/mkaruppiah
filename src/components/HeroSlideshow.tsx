@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HeroSlide, mockData } from "@/data/mockData";
 import { urlFor } from "@/sanity/client";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,7 +28,10 @@ export default function HeroSlideshow({
   }, []);
 
   // Guarantee slides fallback to mockData if none provided or array is empty
+  console.log('propSlides', propSlides);
   const slides = propSlides && propSlides.length > 0 ? propSlides : mockData.hero.slides;
+
+  console.log('slides', slides);
 
   useEffect(() => {
     if (!slides || slides.length <= 1) return;
@@ -210,17 +213,6 @@ export default function HeroSlideshow({
                     {btnText2}
                   </Link>
                 )}
-                <a
-                  href="https://www.youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-4 py-3 text-sm font-semibold text-slate-350 hover:text-white transition-colors"
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 mr-2 transition-colors">
-                    <Play className="h-3 w-3 fill-white text-white ml-0.5" />
-                  </div>
-                  Watch Video
-                </a>
               </motion.div>
             </motion.div>
           </AnimatePresence>
@@ -234,9 +226,8 @@ export default function HeroSlideshow({
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                idx === currentIndex ? "w-8 bg-brand-red" : "bg-white/40 hover:bg-white/70 w-2"
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "w-8 bg-brand-red" : "bg-white/40 hover:bg-white/70 w-2"
+                }`}
               aria-label={`Go to slide ${idx + 1}`}
             ></button>
           ))}
