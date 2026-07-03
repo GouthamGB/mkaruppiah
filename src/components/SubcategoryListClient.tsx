@@ -173,7 +173,7 @@ export default function SubcategoryListClient({ subcategories, categorySlug }: S
                     className="flex items-center space-x-1 text-xs font-extrabold text-brand-red hover:text-brand-red/80 transition-colors p-1"
                   >
                     <Phone className="h-3.5 w-3.5" />
-                    <span>Call</span>
+                    <span>{sub.contactNumber}</span>
                   </a>
                 )}
               </div>
