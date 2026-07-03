@@ -17,6 +17,33 @@ export interface Product {
   image: string;
 }
 
+export interface ProductSubcategory {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  range: string;
+  modelCount: number;
+}
+
+export interface ProductModel {
+  slug: string;
+  name: string;
+  subcategory: string;
+  brand: string;
+  rating: number;
+  projectsCount: number;
+  image: string;
+  description: string;
+  overview: string;
+  capacity: string;
+  year: string;
+  power: string;
+  grade: string;
+  brochureUrl?: string;
+  images?: string[];
+}
+
 export interface CoreValue {
   title: string;
   description: string;
@@ -56,6 +83,8 @@ export interface MockData {
     slides: HeroSlide[];
   };
   products: Product[];
+  productSubcategories: ProductSubcategory[];
+  productModels: ProductModel[];
   mission: string;
   vision: string;
   coreValues: CoreValue[];
@@ -124,68 +153,9 @@ export const mockData: MockData = {
       }
     ]
   },
-  products: [
-    {
-      id: "aac-blocks",
-      name: "AAC Blocks",
-      description: "Lightweight, durable autoclaved aerated concrete blocks for modern and thermally efficient construction.",
-      image: "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "cement",
-      name: "Cement",
-      description: "High-quality cement from India's most trusted and certified brands to ensure structural integrity.",
-      image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "steel",
-      name: "Steel",
-      description: "High-strength TMT steel reinforcement bars for a stronger, safer, and seismic-resistant tomorrow.",
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "tiles-granites",
-      name: "Tiles & Granites",
-      description: "Premium floor tiles, wall tiles, and natural granite slabs for styling elegant and beautiful living spaces.",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "sanitaryware",
-      name: "Sanitaryware",
-      description: "Stylish, hygienic, and highly durable sanitaryware and bathroom fittings for modern luxury solutions.",
-      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "paints",
-      name: "Paints",
-      description: "Wide range of premium interior, exterior paints and wall coatings for rich color protection and finishes.",
-      image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "chainlink-fencing",
-      name: "Chainlink Fencing",
-      description: "Own manufacturing of premium quality, rust-resistant galvanized chainlink fencing wires and posts.",
-      image: "https://images.unsplash.com/photo-1558905664-0062a4d33989?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "fertilizers",
-      name: "Fertilizers",
-      description: "Nutrient-rich chemical and organic fertilizers for superior crop yield, farming, and healthy soil crops.",
-      image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "pipes-sheets",
-      name: "Pipes & Sheets",
-      description: "Reliable PVC/GI plumbing pipes and durable roofing/corrugated sheets for all infrastructure layouts.",
-      image: "https://images.unsplash.com/photo-1542060748-10c28b629f6f?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "fuels",
-      name: "Fuels & Energy",
-      description: "Authorized Bharat Petroleum dealer and retail outlet partner delivering quality petroleum fuels and lubricants.",
-      image: "https://images.unsplash.com/photo-1527018601619-a508a2be00cd?q=80&w=600&auto=format&fit=crop"
-    }
-  ],
+  products: [],
+  productSubcategories: [],
+  productModels: [],
   mission: "To get success in what we do.",
   vision: "To become the only retail mart that serves entire building stuff from the scratch and wanted to be monopoly on it.",
   coreValues: [

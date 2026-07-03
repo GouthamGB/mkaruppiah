@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ShieldCheck, Award, ThumbsUp, Building, HelpCircle } from "lucide-react";
 import HeroSlideshow from "@/components/HeroSlideshow";
-import { sanityFetch, urlFor } from "@/sanity/client";
+import CategoryListClient from "@/components/CategoryListClient";
+import { sanityFetch } from "@/sanity/client";
 import { HeroSlide, Product, CoreValue } from "@/data/mockData";
 
 // Define icons map for Core Values
@@ -70,38 +70,8 @@ export default async function HomePage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="group relative flex flex-col h-full bg-white dark:bg-slate-900 rounded-lg overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              >
-                {/* Image Wrapper */}
-                <div className="relative h-56 w-full overflow-hidden bg-slate-100 dark:bg-slate-855">
-                  {product.image && (
-                    <Image
-                      src={urlFor(product.image)}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-slate-950/10 group-hover:bg-slate-950/0 transition-colors duration-300"></div>
-                </div>
-
-                {/* Card Content */}
-                <div className="flex flex-col flex-grow p-6 space-y-3">
-                  <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-red transition-colors">
-                    {product.name}
-                  </h4>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Cards Grid with Controls */}
+          <CategoryListClient products={products} />
         </div>
       </section>
 
