@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { BookOpen, HeartPulse, Sprout, Leaf, HelpCircle, Heart } from "lucide-react";
-import { sanityFetch } from "@/sanity/client";
+import Link from "next/link";
+import { BookOpen, HeartPulse, Sprout, Leaf, HelpCircle, Heart, ArrowRight } from "lucide-react";
+import { sanityFetch, urlFor } from "@/sanity/client";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const csrIconsMap: Record<string, React.ComponentType<any>> = {
@@ -12,28 +13,26 @@ const csrIconsMap: Record<string, React.ComponentType<any>> = {
 };
 
 interface CsrPageData {
-  title: string;
-  description: string;
-  initiatives: { title: string; description: string }[];
+  initiatives: { title: string; slug?: { current: string }; description: string; image?: any }[];
 }
 
 export const dynamic = "force-dynamic";
 
 export default async function CsrPage() {
   const data = await sanityFetch<CsrPageData>({
-    query: `*[_type == "csr"][0] { title, description, initiatives }`,
+    query: `*[_type == "csr"][0] { initiatives }`,
   });
 
-  const title = data?.title || "Empowering Pudukkottai & Karaikkudi";
-  const description = data?.description || "";
   const initiatives = data?.initiatives || [];
 
   return (
     <div className="w-full">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
+        {/* Glow Effects */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-brand-gold/5 blur-[80px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Corporate Social Responsibility</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
             Giving Back to Pudukkottai & Karaikkudi Communities
@@ -41,80 +40,81 @@ export default async function CsrPage() {
         </div>
       </section>
 
-      {/* Intro Overview */}
-      <section className="py-20 bg-white dark:bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column Graphic */}
-            <div className="lg:col-span-5 relative h-[380px] w-full bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200/50 dark:border-slate-850">
-              <Image
-                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800&auto=format&fit=crop"
-                alt="Community Support CSR"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-slate-950/30"></div>
-              <div className="absolute bottom-6 left-6 right-6 bg-slate-900/90 backdrop-blur-md border border-slate-800 p-6 rounded-lg text-white">
-                <span className="text-brand-gold text-xs font-bold uppercase tracking-widest block mb-1">Our Commitment</span>
-                <p className="text-sm font-semibold">Supporting local communities and promoting sustainable infrastructure for rural growth.</p>
-              </div>
-            </div>
+      {/* Initiatives Section */}
+      <section className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200/50 dark:border-slate-800/80">
+        <div>
+          {initiatives.map((item, index) => {
+            const key = item.title.toLowerCase();
+            const Icon = csrIconsMap[key] || HelpCircle;
+            const imageUrl = item.image ? urlFor(item.image) : "";
+            const isEven = index % 2 === 0;
+            const itemSlug = item.slug?.current || item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+            const detailsUrl = `/csr/${itemSlug}`;
 
-            {/* Right Column Text */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex items-center space-x-2 text-brand-red">
-                <Heart className="h-5 w-5 fill-brand-red" />
-                <span className="text-xs uppercase font-bold tracking-wider">Social Impact</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-                {title}
-              </h2>
-              <p className="text-slate-700 dark:text-slate-350 text-md leading-relaxed text-balance">
-                {description}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+            return (
+              <div
+                key={index}
+                className={`py-24 md:py-32 ${
+                  index !== 0 ? "border-t border-slate-200/40 dark:border-slate-800/40" : ""
+                } ${
+                  isEven ? "bg-white dark:bg-slate-900/30" : "bg-slate-50 dark:bg-slate-950"
+                }`}
+              >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                    {/* Photo Column - Takes 7 out of 12 columns (approx. 58%) */}
+                    <div className={`w-full lg:col-span-7 ${isEven ? "" : "lg:order-2"}`}>
+                      <div className="relative group w-full">
+                        {/* Soft Glow Gradient Accent behind the image */}
+                        <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-brand-red/25 via-brand-gold/15 to-brand-blue/20 dark:from-brand-red/10 dark:via-brand-gold/5 dark:to-brand-blue/10 opacity-70 blur-xl group-hover:opacity-100 group-hover:blur-2xl transition-all duration-500"></div>
+                        
+                        <div className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-250/50 dark:border-slate-800/80">
+                          {imageUrl ? (
+                            <Image
+                              src={imageUrl}
+                              alt={item.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 58vw"
+                              className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-red/20 dark:from-brand-blue/10 dark:to-brand-red/10 flex items-center justify-center">
+                              <Icon className="h-16 w-16 text-slate-400 dark:text-slate-600" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-slate-950/10"></div>
+                        </div>
+                      </div>
+                    </div>
 
-      {/* Initiatives Grid */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-brand-red text-sm font-bold uppercase tracking-widest">
-              Community Initiatives
-            </h2>
-            <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-              Sustained Local Action Plans
-            </h3>
-            <p className="text-slate-650 dark:text-slate-400 text-md">
-              We focus on areas where we can make a direct, tangible difference in the lives of rural farmers, school children, and underprivileged families.
-            </p>
-          </div>
+                    {/* Content Column - Takes 5 out of 12 columns (approx. 42%) */}
+                    <div className={`w-full lg:col-span-5 space-y-6 ${isEven ? "" : "lg:order-1"}`}>
+                      <div className="space-y-3">
+                        <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                          {item.title}
+                        </h3>
+                        <div className="h-1 w-16 bg-gradient-to-r from-brand-gold to-brand-red rounded-full"></div>
+                      </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {initiatives.map((item, index) => {
-              const key = item.title.toLowerCase();
-              const Icon = csrIconsMap[key] || HelpCircle;
-              return (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 p-8 rounded-lg space-y-4 hover:shadow-md transition-shadow"
-                >
-                  <div className="h-12 w-12 rounded-lg bg-brand-red/10 dark:bg-brand-red/5 flex items-center justify-center text-brand-red">
-                    <Icon className="h-6 w-6" />
+                      <p className="text-slate-650 dark:text-slate-350 text-lg leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      <div className="pt-4">
+                        <Link
+                          href={detailsUrl}
+                          className="inline-flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-widest text-brand-red dark:text-brand-gold hover:text-brand-red/80 hover:translate-x-1 transition-all duration-300 group/link"
+                        >
+                          <span>view details</span>
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <h4 className="text-2xl font-bold text-slate-900 dark:text-white">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm text-slate-650 dark:text-slate-400 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

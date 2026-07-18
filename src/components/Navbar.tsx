@@ -43,7 +43,8 @@ export default function Navbar() {
     return pathname.startsWith(href);
   };
 
-  const showScrolledState = isScrolled;
+  const isHomepage = pathname === "/";
+  const showScrolledState = isScrolled || !isHomepage;
 
   return (
     <header

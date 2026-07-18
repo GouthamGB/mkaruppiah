@@ -151,7 +151,37 @@ export const csr = {
           type: "object",
           fields: [
             { name: "title", title: "Initiative Title", type: "string" },
+            { name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 } },
             { name: "description", title: "Initiative Description", type: "text" },
+            { name: "image", title: "Initiative Image", type: "image", options: { hotspot: true } },
+            {
+              name: "media",
+              title: "Media Gallery (Photos & Videos)",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  name: "mediaItem",
+                  fields: [
+                    {
+                      name: "type",
+                      title: "Media Type",
+                      type: "string",
+                      options: {
+                        list: [
+                          { title: "Image", value: "image" },
+                          { title: "Video", value: "video" },
+                        ],
+                        layout: "radio",
+                      },
+                      initialValue: "image",
+                    },
+                    { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+                    { name: "videoUrl", title: "Video URL (YouTube, Vimeo, or MP4)", type: "string" },
+                  ],
+                },
+              ],
+            },
           ],
         },
       ],

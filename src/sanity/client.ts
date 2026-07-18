@@ -173,6 +173,12 @@ export async function sanityFetch<T>({
     return mockData.projects as unknown as T;
   }
 
+  if (lowercaseQuery.includes("slug.current") && (lowercaseQuery.includes("csr") || lowercaseQuery.includes("initiatives"))) {
+    const slugVal = params.slug;
+    const match = mockData.csr.initiatives.find((item) => item.slug?.current === slugVal);
+    return match as unknown as T;
+  }
+
   if (lowercaseQuery.includes('_type == "csrpage"') || lowercaseQuery.includes('csr')) {
     return mockData.csr as unknown as T;
   }

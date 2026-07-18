@@ -97,7 +97,13 @@ export interface MockData {
   csr: {
     title: string;
     description: string;
-    initiatives: { title: string; description: string }[];
+    initiatives: {
+      title: string;
+      slug?: { current: string };
+      description: string;
+      image?: any;
+      media?: { type: string; image?: any; videoUrl?: string }[];
+    }[];
   };
   contact: {
     offices: Office[];
@@ -272,19 +278,51 @@ export const mockData: MockData = {
     initiatives: [
       {
         title: "Rural Educational Support",
-        description: "Sponsoring school fees, textbooks, and infrastructure upgrades for government schools across the district, ensuring every child has access to quality education."
+        slug: { current: "rural-educational-support" },
+        description: "Sponsoring school fees, textbooks, and infrastructure upgrades for government schools across the district, ensuring every child has access to quality education.",
+        image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800&auto=format&fit=crop",
+        media: [
+          { type: "image", image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=800&auto=format&fit=crop" },
+          { type: "image", image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop" },
+          { type: "video", videoUrl: "https://www.youtube.com/watch?v=coYg2eN26k0" },
+          { type: "image", image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=800&auto=format&fit=crop" }
+        ]
       },
       {
         title: "Free Healthcare & Eye Camps",
-        description: "Partnering with regional medical experts to conduct regular, free medical checkups, cardiac screenings, and eye surgery camps for village families."
+        slug: { current: "free-healthcare-eye-camps" },
+        description: "Partnering with regional medical experts to conduct regular, free medical checkups, cardiac screenings, and eye surgery camps for village families.",
+        image: "https://images.unsplash.com/photo-1504813184591-01552ff75805?q=80&w=800&auto=format&fit=crop",
+        media: [
+          { type: "image", image: "https://images.unsplash.com/photo-1504813184591-01552ff75805?q=80&w=800&auto=format&fit=crop" },
+          { type: "image", image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?q=80&w=800&auto=format&fit=crop" },
+          { type: "video", videoUrl: "https://www.youtube.com/watch?v=VzF0M6yWJ_0" },
+          { type: "image", image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop" }
+        ]
       },
       {
         title: "Agricultural Assistance & Training",
-        description: "Promoting organic fertilizers, rainwater harvesting, and modern farming methods to empower small-scale farmers in Tamil Nadu."
+        slug: { current: "agricultural-assistance-training" },
+        description: "Promoting organic fertilizers, rainwater harvesting, and modern farming methods to empower small-scale farmers in Tamil Nadu.",
+        image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=800&auto=format&fit=crop",
+        media: [
+          { type: "image", image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=800&auto=format&fit=crop" },
+          { type: "image", image: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=800&auto=format&fit=crop" },
+          { type: "video", videoUrl: "https://www.youtube.com/watch?v=Fj-E_wZkLWY" },
+          { type: "image", image: "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800&auto=format&fit=crop" }
+        ]
       },
       {
         title: "Green Energy & afforestation",
-        description: "Deploying solar installations in public buildings and sponsoring tree plantation drives to preserve the local environment and Chettinad biome."
+        slug: { current: "green-energy-afforestation" },
+        description: "Deploying solar installations in public buildings and sponsoring tree plantation drives to preserve the local environment and Chettinad biome.",
+        image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=800&auto=format&fit=crop",
+        media: [
+          { type: "image", image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=800&auto=format&fit=crop" },
+          { type: "image", image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=800&auto=format&fit=crop" },
+          { type: "video", videoUrl: "https://www.youtube.com/watch?v=1kUE0BZtTRc" },
+          { type: "image", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop" }
+        ]
       }
     ]
   },
