@@ -108,34 +108,39 @@ export async function sanityFetch<T>({
 
   if (lowercaseQuery.includes('_type == "productsubcategory"') || lowercaseQuery.includes('productsubcategory')) {
     if (lowercaseQuery.includes('[0]')) {
-      const subSlug = params.subcategorySlug || params.slug;
-      const match = mockData.productSubcategories.find((sub) => sub.id === subSlug);
+      const subSlug = params.subcategorySlug || params.slug || params.decodedSubcategory;
+      const decSubSlug = subSlug ? decodeURIComponent(subSlug) : "";
+      const match = mockData.productSubcategories.find((sub) => sub.id === subSlug || sub.id === decSubSlug || sub.title === subSlug || sub.title === decSubSlug);
       return match as unknown as T;
     }
-    const catSlug = params.categorySlug || params.category;
-    if (catSlug) {
-      return mockData.productSubcategories.filter((sub) => sub.category === catSlug) as unknown as T;
+    const catSlug = params.categorySlug || params.category || params.decodedCategory;
+    const decCatSlug = catSlug ? decodeURIComponent(catSlug) : "";
+    if (catSlug || decCatSlug) {
+      return mockData.productSubcategories.filter((sub) => sub.category === catSlug || sub.category === decCatSlug) as unknown as T;
     }
     return mockData.productSubcategories as unknown as T;
   }
 
   if (lowercaseQuery.includes('_type == "productmodel"') || lowercaseQuery.includes('productmodel')) {
     if (lowercaseQuery.includes('[0]')) {
-      const modelSlug = params.productSlug || params.slug;
-      const match = mockData.productModels.find((model) => model.slug === modelSlug);
+      const modelSlug = params.productSlug || params.slug || params.decodedProductSlug;
+      const decModelSlug = modelSlug ? decodeURIComponent(modelSlug) : "";
+      const match = mockData.productModels.find((model) => model.slug === modelSlug || model.slug === decModelSlug || model.name === modelSlug || model.name === decModelSlug);
       return match as unknown as T;
     }
-    const subSlug = params.subcategorySlug || params.subcategory;
-    if (subSlug) {
-      return mockData.productModels.filter((model) => model.subcategory === subSlug) as unknown as T;
+    const subSlug = params.subcategorySlug || params.subcategory || params.decodedSubcategory;
+    const decSubSlug = subSlug ? decodeURIComponent(subSlug) : "";
+    if (subSlug || decSubSlug) {
+      return mockData.productModels.filter((model) => model.subcategory === subSlug || model.subcategory === decSubSlug) as unknown as T;
     }
     return mockData.productModels as unknown as T;
   }
 
   if (lowercaseQuery.includes('_type == "product"') || lowercaseQuery.includes('product')) {
-    if (lowercaseQuery.includes('[0]') || lowercaseQuery.includes('id ==') || params.categorySlug || params.id) {
-      const catId = params.categorySlug || params.id;
-      const match = mockData.products.find((p) => p.id === catId);
+    if (lowercaseQuery.includes('[0]') || lowercaseQuery.includes('id ==') || params.categorySlug || params.id || params.decodedCategory) {
+      const catId = params.categorySlug || params.id || params.decodedCategory;
+      const decCatId = catId ? decodeURIComponent(catId) : "";
+      const match = mockData.products.find((p) => p.id === catId || p.id === decCatId || p.name === catId || p.name === decCatId);
       return match as unknown as T;
     }
     return mockData.products as unknown as T;

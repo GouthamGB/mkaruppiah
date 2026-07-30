@@ -72,6 +72,7 @@ export const product = {
   type: "document",
   fields: [
     { name: "name", title: "Product Name", type: "string" },
+    { name: "slug", title: "Slug (URL)", type: "slug", options: { source: "name", maxLength: 96 } },
     { name: "id", title: "Product ID (Unique, e.g., cement)", type: "string" },
     { name: "description", title: "Product Description", type: "text" },
     { name: "image", title: "Product Image", type: "image", options: { hotspot: true } },

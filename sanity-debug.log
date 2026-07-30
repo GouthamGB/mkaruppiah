@@ -1,0 +1,87 @@
+[2026-06-26T12:42:29.404Z] Query: *[_type == "projectCategory"] | order(title asc) {
+      _id,
+      title,
+      image
+    }...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1187:25)
+    at _dataRequest (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1160:10)
+    at _fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:952:113)
+    at SanityClient.fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:2807:7)
+    at sanityFetch (webpack-internal:///(rsc)/./src/sanity/client.ts:62:41)
+    at ProjectsPage (webpack-internal:///(rsc)/./src/app/(site)/projects/page.tsx:47:95)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264164)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274748)
+    at ej (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264992)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264034)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266015
+    at Array.toJSON (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266479)
+    at stringify (<anonymous>)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274847)
+    at eJ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:275365)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Timeout._onTimeout (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:283454)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+
+[2026-07-02T14:00:17.717Z] Query: *[_type == "homePage"][0] { title, subtitle, description, slides, mission, vision, coreValues }...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1187:25)
+    at _dataRequest (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1160:10)
+    at _fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:952:113)
+    at SanityClient.fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:2807:7)
+    at sanityFetch (webpack-internal:///(rsc)/./src/sanity/client.ts:62:41)
+    at HomePage (webpack-internal:///(rsc)/./src/app/(site)/page.tsx:37:87)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264164)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274748)
+    at ej (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264992)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264034)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266015
+    at Array.toJSON (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266479)
+    at stringify (<anonymous>)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274847)
+    at eJ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:275365)
+    at AsyncLocalStorage.run (node:async_hooks:346:14)
+    at Timeout._onTimeout (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:283454)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+
+[2026-07-18T10:09:39.067Z] Query: *[_type == "csr"][0].initiatives[slug.current == $slug][0] { title, description, image, media }...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1187:25)
+    at _dataRequest (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:1160:10)
+    at _fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:952:113)
+    at SanityClient.fetch (webpack-internal:///(rsc)/./node_modules/@sanity/client/dist/index.browser.js:2807:7)
+    at sanityFetch (webpack-internal:///(rsc)/./src/sanity/client.ts:62:41)
+    at InitiativeDetailsPage (webpack-internal:///(rsc)/./src/app/(site)/csr/[slug]/page.tsx:25:89)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264164)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274748)
+    at ej (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264992)
+    at e_ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:264034)
+    at e (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268296)
+    at eF (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:268784)
+    at D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266015
+    at Array.toJSON (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:266479)
+    at stringify (<anonymous>)
+    at eq (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:274847)
+    at eJ (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:275365)
+    at Timeout._onTimeout (D:\workstation\mkaruppiah\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:265152)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+

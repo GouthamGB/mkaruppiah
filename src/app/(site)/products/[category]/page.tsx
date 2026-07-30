@@ -4,11 +4,14 @@ import { ArrowLeft, ChevronRight, Layers } from "lucide-react";
 import { sanityFetch } from "@/sanity/client";
 import SubcategoryListClient from "@/components/SubcategoryListClient";
 import type { Subcategory } from "@/components/SubcategoryListClient";
+import { slugify } from "@/lib/slugify";
 
 interface Category {
+  _id?: string;
   id: string;
   name: string;
   description: string;
+  slug?: string;
 }
 
 interface PageProps {
@@ -21,27 +24,50 @@ export const dynamic = "force-dynamic";
 
 export default async function CategoryPage({ params }: PageProps) {
   const categorySlug = params.category;
+  let decodedCategory = categorySlug;
+  try {
+    decodedCategory = decodeURIComponent(categorySlug);
+  } catch (e) {
+    console.error(e);
+  }
 
-  // 1. Fetch parent category details
-  const category = await sanityFetch<Category>({
-    query: `*[_type == "product" && id == $categorySlug][0] { id, name, description }`,
-    params: { categorySlug },
+  // 1. Fetch all products to find matching product
+  const allProducts = await sanityFetch<Category[]>({
+    query: `*[_type == "product"] { _id, id, name, description, "slug": slug.current }`,
   });
+
+  const category = allProducts?.find((p) =>
+    p.slug === categorySlug ||
+    p.slug === decodedCategory ||
+    p.id === categorySlug ||
+    p.id === decodedCategory ||
+    p.name === categorySlug ||
+    p.name === decodedCategory ||
+    (p.name && slugify(p.name) === slugify(decodedCategory)) ||
+    (p.id && slugify(p.id) === slugify(decodedCategory))
+  );
 
   // 2. Fetch subcategories of this category
-  const subcategories = await sanityFetch<Subcategory[]>({
-    query: `*[_type == "productSubcategory" && (category->id == $categorySlug || category->_ref in *[_type=="product" && id == $categorySlug]._id)] {
-      "id": coalesce(slug.current, id),
-      title,
-      range,
-      modelCount,
-      image,
-      contactNumber
-    }`,
-    params: { categorySlug },
-  });
+  const subcategories = category
+    ? await sanityFetch<Subcategory[]>({
+        query: `*[_type == "productSubcategory" && (
+          category->_ref == $matchedId || 
+          category->id == $matchedId || 
+          category->id == $matchedName || 
+          category->name == $matchedName
+        )] {
+          "id": coalesce(slug.current, id),
+          title,
+          range,
+          modelCount,
+          image,
+          contactNumber
+        }`,
+        params: { matchedId: category._id || category.id, matchedName: category.name },
+      })
+    : [];
 
-  const categoryName = category?.name || categorySlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  const categoryName = category?.name || decodedCategory.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
   const isEquipment = categoryName.toLowerCase().includes("equipment") || categorySlug.toLowerCase().includes("equipment");
   const displayTitle = isEquipment ? "Select Equipment Type" : `Select ${categoryName} Type`;
   const displaySubtitle = isEquipment 

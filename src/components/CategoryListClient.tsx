@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/sanity/client";
 import { Product } from "@/data/mockData";
+import { slugify } from "@/lib/slugify";
 
 interface CategoryListClientProps {
   products: Product[];
@@ -86,12 +87,14 @@ export default function CategoryListClient({ products }: CategoryListClientProps
 
       {/* Cards Grid */}
       <div className={`grid ${gridColsClass} gap-6`}>
-        {products.map((product) => (
-          <Link
-            key={product.id}
-            href={`/products/${product.id}`}
-            className="group relative flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
+        {products.map((product) => {
+          const productSlug = product.slug || (product.id && !product.id.includes(" ") && !product.id.includes("%") && !product.id.includes("&") ? product.id : slugify(product.name || product.id));
+          return (
+            <Link
+              key={product.id || product.name}
+              href={`/products/${productSlug}`}
+              className="group relative flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
             {/* Image Wrapper - Compact aspect-[16/10] */}
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
               {product.image && (
@@ -135,7 +138,8 @@ export default function CategoryListClient({ products }: CategoryListClientProps
               </div>
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

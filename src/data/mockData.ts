@@ -12,6 +12,7 @@ export interface HeroSlide {
 
 export interface Product {
   id: string;
+  slug?: string;
   name: string;
   description: string;
   image: string;

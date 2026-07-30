@@ -2,15 +2,20 @@ import React from "react";
 import { sanityFetch } from "@/sanity/client";
 import ProductListClient from "@/components/ProductListClient";
 import { notFound } from "next/navigation";
+import { slugify } from "@/lib/slugify";
 
 interface Category {
+  _id?: string;
   id: string;
   name: string;
+  slug?: string;
 }
 
 interface Subcategory {
+  _id?: string;
   id: string;
   title: string;
+  slug?: string;
 }
 
 interface ProductModel {
@@ -35,43 +40,74 @@ export const dynamic = "force-dynamic";
 
 export default async function SubcategoryPage({ params }: PageProps) {
   const { category: categorySlug, subcategory: subcategorySlug } = params;
+  let decodedCategory = categorySlug;
+  let decodedSubcategory = subcategorySlug;
+  try { decodedCategory = decodeURIComponent(categorySlug); } catch (e) { console.error(e); }
+  try { decodedSubcategory = decodeURIComponent(subcategorySlug); } catch (e) { console.error(e); }
 
   // 1. Fetch parent category details
-  const category = await sanityFetch<Category>({
-    query: `*[_type == "product" && id == $categorySlug][0] { id, name }`,
-    params: { categorySlug },
+  const allProducts = await sanityFetch<Category[]>({
+    query: `*[_type == "product"] { _id, id, name, "slug": slug.current }`,
   });
+  const category = allProducts?.find((p) =>
+    p.slug === categorySlug ||
+    p.slug === decodedCategory ||
+    p.id === categorySlug ||
+    p.id === decodedCategory ||
+    p.name === categorySlug ||
+    p.name === decodedCategory ||
+    (p.name && slugify(p.name) === slugify(decodedCategory)) ||
+    (p.id && slugify(p.id) === slugify(decodedCategory))
+  );
 
   // 2. Fetch subcategory details
-  const subcategory = await sanityFetch<Subcategory>({
-    query: `*[_type == "productSubcategory" && (slug.current == $subcategorySlug || id == $subcategorySlug)][0] { 
+  const allSubcategories = await sanityFetch<Subcategory[]>({
+    query: `*[_type == "productSubcategory"] { 
+      _id,
       "id": coalesce(slug.current, id),
-      title 
+      title,
+      "slug": slug.current 
     }`,
-    params: { subcategorySlug },
   });
+  const subcategory = allSubcategories?.find((s) =>
+    s.slug === subcategorySlug ||
+    s.slug === decodedSubcategory ||
+    s.id === subcategorySlug ||
+    s.id === decodedSubcategory ||
+    s.title === subcategorySlug ||
+    s.title === decodedSubcategory ||
+    (s.title && slugify(s.title) === slugify(decodedSubcategory)) ||
+    (s.id && slugify(s.id) === slugify(decodedSubcategory))
+  );
 
   // 3. Fetch product models under this subcategory
-  const models = await sanityFetch<ProductModel[]>({
-    query: `*[_type == "productModel" && (subcategory->slug.current == $subcategorySlug || subcategory->_ref in *[_type=="productSubcategory" && (slug.current == $subcategorySlug || id == $subcategorySlug)]._id)] {
-      name,
-      "slug": slug.current,
-      brand,
-      rating,
-      projectsCount,
-      image,
-      capacity,
-      year
-    }`,
-    params: { subcategorySlug },
-  });
+  const models = subcategory
+    ? await sanityFetch<ProductModel[]>({
+        query: `*[_type == "productModel" && (
+          subcategory->_ref == $subId || 
+          subcategory->slug.current == $subId || 
+          subcategory->id == $subId || 
+          subcategory->title == $subTitle
+        )] {
+          name,
+          "slug": slug.current,
+          brand,
+          rating,
+          projectsCount,
+          image,
+          capacity,
+          year
+        }`,
+        params: { subId: subcategory._id || subcategory.id, subTitle: subcategory.title },
+      })
+    : [];
 
   if (!subcategory) {
     notFound();
   }
 
-  const categoryName = category?.name || categorySlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-  const subcategoryName = subcategory?.title || subcategorySlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  const categoryName = category?.name || decodedCategory.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  const subcategoryName = subcategory?.title || decodedSubcategory.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
   return (
     <ProductListClient
