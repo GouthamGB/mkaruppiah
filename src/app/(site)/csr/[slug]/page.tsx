@@ -36,7 +36,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Initiative Not Found</h1>
           <p className="text-slate-500 dark:text-slate-400 text-sm">
-            We couldn't retrieve the details for this initiative. It might have been updated or the link is incorrect.
+            We couldn&apos;t retrieve the details for this initiative. It might have been updated or the link is incorrect.
           </p>
           <Link
             href="/csr"

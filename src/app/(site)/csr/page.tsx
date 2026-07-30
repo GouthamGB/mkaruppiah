@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, HeartPulse, Sprout, Leaf, HelpCircle, Heart, ArrowRight } from "lucide-react";
+import { BookOpen, HeartPulse, Sprout, Leaf, HelpCircle, ArrowRight } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

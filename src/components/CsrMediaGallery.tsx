@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Play, Film, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Image as ImageIcon } from "lucide-react";
 import { urlFor } from "@/sanity/client";
 
 interface MediaItem {
