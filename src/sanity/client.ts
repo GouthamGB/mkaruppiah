@@ -18,7 +18,7 @@ export const client = !useMock
       projectId,
       dataset,
       apiVersion,
-      useCdn: true,
+      useCdn: false,
     })
   : null;
 
@@ -122,9 +122,16 @@ export async function sanityFetch<T>({
   }
 
   if (lowercaseQuery.includes('_type == "brand"') || lowercaseQuery.includes('brand')) {
-    if (params && (params.matchedId || params.matchedName || params.category)) {
-      const catId = params.matchedId || params.matchedName || params.category;
-      return mockData.brands.filter((b) => b.category === catId) as unknown as T;
+    if (params) {
+      const catId = (params.matchedName || params.matchedSlug || params.matchedCustomId || params.matchedDocId || params.matchedId || params.category || "").toString().toLowerCase();
+      if (catId) {
+        const matches = mockData.brands.filter((b) => {
+          if (!b.category) return false;
+          const bCat = b.category.toLowerCase();
+          return bCat === catId || catId.includes(bCat) || bCat.includes(catId);
+        });
+        if (matches.length > 0) return matches as unknown as T;
+      }
     }
     return mockData.brands as unknown as T;
   }
