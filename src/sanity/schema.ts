@@ -66,6 +66,24 @@ export const homePage = {
   ],
 };
 
+export const brand = {
+  name: "brand",
+  title: "Brands",
+  type: "document",
+  fields: [
+    { name: "name", title: "Brand Name (e.g., XCMG, UltraTech, Tata Tiscon)", type: "string" },
+    { name: "slug", title: "Slug", type: "slug", options: { source: "name", maxLength: 96 } },
+    { name: "logo", title: "Brand Logo Image", type: "image", options: { hotspot: true } },
+    { name: "description", title: "Brand Description", type: "text" },
+    {
+      name: "category",
+      title: "Product Category",
+      type: "reference",
+      to: [{ type: "product" }],
+    },
+  ],
+};
+
 export const product = {
   name: "product",
   title: "Products",
@@ -76,6 +94,12 @@ export const product = {
     { name: "id", title: "Product ID (Unique, e.g., cement)", type: "string" },
     { name: "description", title: "Product Description", type: "text" },
     { name: "image", title: "Product Image", type: "image", options: { hotspot: true } },
+    {
+      name: "brands",
+      title: "Associated Brands",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "brand" }] }],
+    },
   ],
 };
 
@@ -239,41 +263,18 @@ export const productSubcategory = {
     { name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 } },
     { name: "category", title: "Parent Category", type: "reference", to: [{ type: "product" }] },
     { name: "image", title: "Subcategory Image", type: "image", options: { hotspot: true } },
-    { name: "range", title: "Range (e.g. 110 tons - 60 Tons)", type: "string" },
-    { name: "modelCount", title: "Models Count (e.g. 13)", type: "number" },
+    { name: "specification", title: "Specification (e.g. 8 and 10 available, Grade 53)", type: "string" },
+    { name: "range", title: "Range / Spec (Legacy)", type: "string" },
+    {
+      name: "brands",
+      title: "Associated Brands",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "brand" }] }],
+    },
     { name: "contactNumber", title: "Contact Number (e.g. +91 94433 12345)", type: "string" },
   ],
 };
 
-export const productModel = {
-  name: "productModel",
-  title: "Product Models / Details",
-  type: "document",
-  fields: [
-    { name: "name", title: "Model Name (e.g. XCMG XCT25Y)", type: "string" },
-    { name: "slug", title: "Slug", type: "slug", options: { source: "name", maxLength: 96 } },
-    { name: "subcategory", title: "Subcategory / Type", type: "reference", to: [{ type: "productSubcategory" }] },
-    { name: "brand", title: "Brand (e.g. XCMG)", type: "string" },
-    { name: "rating", title: "Rating (e.g. 4.4)", type: "number" },
-    { name: "projectsCount", title: "Projects Count (e.g. 10)", type: "number" },
-    { name: "image", title: "Model Main Image (Fallback)", type: "image", options: { hotspot: true } },
-    {
-      name: "images",
-      title: "Model Gallery Images",
-      type: "array",
-      of: [{ type: "image", options: { hotspot: true } }],
-    },
-    { name: "description", title: "Short Description", type: "text" },
-    { name: "overview", title: "Overview (Long Description)", type: "text" },
-    { name: "capacity", title: "Capacity (e.g. 25 Tons)", type: "string" },
-    { name: "year", title: "Year (e.g. 2024)", type: "string" },
-    { name: "power", title: "Power (e.g. 260 HP (192 kW) @ 2,200 rpm)", type: "string" },
-    { name: "grade", title: "Grade (e.g. Premium)", type: "string" },
-    { name: "brochureUrl", title: "Brochure Link (Optional)", type: "string" },
-    { name: "brochureFile", title: "Brochure PDF File (Optional)", type: "file" },
-  ],
-};
-
-export const schemaTypes = [homePage, product, productSubcategory, productModel, director, projectCategory, projectItem, csr, contact, award];
+export const schemaTypes = [homePage, product, productSubcategory, brand, director, projectCategory, projectItem, csr, contact, award];
 
 

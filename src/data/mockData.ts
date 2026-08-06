@@ -18,31 +18,24 @@ export interface Product {
   image: string;
 }
 
+export interface Brand {
+  _id?: string;
+  id?: string;
+  name: string;
+  slug?: string;
+  logo?: string;
+  description?: string;
+  category?: string;
+}
+
 export interface ProductSubcategory {
   id: string;
   title: string;
   category: string;
   image: string;
-  range: string;
-  modelCount: number;
-}
-
-export interface ProductModel {
-  slug: string;
-  name: string;
-  subcategory: string;
-  brand: string;
-  rating: number;
-  projectsCount: number;
-  image: string;
-  description: string;
-  overview: string;
-  capacity: string;
-  year: string;
-  power: string;
-  grade: string;
-  brochureUrl?: string;
-  images?: string[];
+  specification?: string;
+  range?: string;
+  brands?: (string | Brand)[];
 }
 
 export interface CoreValue {
@@ -85,7 +78,7 @@ export interface MockData {
   };
   products: Product[];
   productSubcategories: ProductSubcategory[];
-  productModels: ProductModel[];
+  brands: Brand[];
   mission: string;
   vision: string;
   coreValues: CoreValue[];
@@ -162,7 +155,7 @@ export const mockData: MockData = {
   },
   products: [],
   productSubcategories: [],
-  productModels: [],
+  brands: [],
   mission: "To get success in what we do.",
   vision: "To become the only retail mart that serves entire building stuff from the scratch and wanted to be monopoly on it.",
   coreValues: [

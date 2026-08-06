@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, ChevronRight, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import { sanityFetch } from "@/sanity/client";
 import SubcategoryListClient from "@/components/SubcategoryListClient";
 import type { Subcategory } from "@/components/SubcategoryListClient";
@@ -51,19 +51,50 @@ export default async function CategoryPage({ params }: PageProps) {
   const subcategories = category
     ? await sanityFetch<Subcategory[]>({
         query: `*[_type == "productSubcategory" && (
-          category->_ref == $matchedId || 
-          category->id == $matchedId || 
-          category->id == $matchedName || 
-          category->name == $matchedName
+          category._ref == $matchedDocId || 
+          category._ref == $matchedCustomId ||
+          category->id == $matchedCustomId || 
+          category->name == $matchedName ||
+          category->slug.current == $matchedSlug
         )] {
           "id": coalesce(slug.current, id),
           title,
-          range,
-          modelCount,
+          "specification": coalesce(specification, range),
+          "range": coalesce(specification, range),
+          "brands": brands[]->{ _id, name, logo, "slug": slug.current },
           image,
           contactNumber
         }`,
-        params: { matchedId: category._id || category.id, matchedName: category.name },
+        params: { 
+          matchedDocId: category._id || "", 
+          matchedCustomId: category.id || "", 
+          matchedName: category.name || "",
+          matchedSlug: category.slug || categorySlug
+        },
+      })
+    : [];
+
+  // 3. Fetch standalone brand documents associated with this category
+  const categoryBrands = category
+    ? await sanityFetch<any[]>({
+        query: `*[_type == "brand" && (
+          category._ref == $matchedDocId || 
+          category._ref == $matchedCustomId ||
+          category->id == $matchedCustomId || 
+          category->name == $matchedName ||
+          category->slug.current == $matchedSlug
+        )] {
+          _id,
+          name,
+          logo,
+          "slug": slug.current
+        }`,
+        params: { 
+          matchedDocId: category._id || "", 
+          matchedCustomId: category.id || "", 
+          matchedName: category.name || "",
+          matchedSlug: category.slug || categorySlug
+        },
       })
     : [];
 
@@ -90,27 +121,11 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Breadcrumbs & Back Link */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-brand-red dark:text-slate-400 transition-colors duration-200 group"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2 transition-transform duration-200 group-hover:-translate-x-1" />
-          Back to Products
-        </Link>
-        <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-          <Link href="/" className="hover:text-slate-600 transition-colors">Home</Link>
-          <ChevronRight className="h-3 w-3" />
-          <span className="text-slate-600 dark:text-slate-200 font-bold">{categoryName}</span>
-        </div>
-      </div>
-
       {/* Subcategories Grid with Controls */}
       <section className="py-12 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {subcategories && subcategories.length > 0 ? (
-            <SubcategoryListClient subcategories={subcategories} categorySlug={categorySlug} />
+            <SubcategoryListClient subcategories={subcategories} categorySlug={categorySlug} categoryBrands={categoryBrands || []} />
           ) : (
             <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 max-w-2xl mx-auto shadow-sm">
               <Layers className="mx-auto h-12 w-12 text-slate-300 dark:text-slate-650 mb-4 animate-pulse" />

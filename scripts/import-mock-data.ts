@@ -87,8 +87,8 @@ async function run() {
         _type: "productSubcategory",
         title: sub.title,
         slug: { _type: "slug", current: sub.id },
-        range: sub.range,
-        modelCount: sub.modelCount,
+        specification: sub.specification || sub.range,
+        range: sub.specification || sub.range,
         ...(parentRef && {
           category: {
             _type: "reference",
@@ -104,56 +104,6 @@ async function run() {
       });
       subcategoryIdMap.set(sub.id, created._id);
       console.log(`✅ Subcategory "${sub.title}" imported.`);
-    }
-
-    // 3. Create Product Models
-    console.log("\n--- Importing Product Models ---");
-    for (const model of mockData.productModels) {
-      console.log(`Processing Model: ${model.name}...`);
-      const mainImageAsset = model.image ? await uploadImageFromUrl(model.image) : null;
-      
-      const galleryAssets = [];
-      if (model.images && model.images.length > 0) {
-        console.log(`  Uploading ${model.images.length} gallery images...`);
-        for (const imgUrl of model.images) {
-          const asset = await uploadImageFromUrl(imgUrl);
-          if (asset) {
-            galleryAssets.push(asset);
-          }
-        }
-      }
-
-      const subcategoryRef = subcategoryIdMap.get(model.subcategory);
-
-      const doc = {
-        _type: "productModel",
-        name: model.name,
-        slug: { _type: "slug", current: model.slug },
-        brand: model.brand,
-        rating: model.rating,
-        projectsCount: model.projectsCount,
-        description: model.description,
-        overview: model.overview,
-        capacity: model.capacity,
-        year: model.year,
-        power: model.power,
-        grade: model.grade,
-        brochureUrl: model.brochureUrl,
-        ...(mainImageAsset && { image: mainImageAsset }),
-        ...(galleryAssets.length > 0 && { images: galleryAssets }),
-        ...(subcategoryRef && {
-          subcategory: {
-            _type: "reference",
-            _ref: subcategoryRef,
-          },
-        }),
-      };
-
-      await client.createOrReplace({
-        _id: `model-${model.slug}`,
-        ...doc,
-      });
-      console.log(`✅ Model "${model.name}" imported.`);
     }
 
     console.log("\n🎉 Bulk import completed successfully!");
