@@ -85,3 +85,51 @@ Error: TypeError: fetch failed
     at listOnTimeout (node:internal/timers:573:17)
     at process.processTimers (node:internal/timers:514:7)
 
+[2026-08-07T12:59:20.204Z] Query: *[_type == "product"] { _id, id, name, "slug": slug.current }...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:965:25)
+    at _dataRequest (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:938:10)
+    at _fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:728:113)
+    at SanityClient.fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:2585:7)
+    at sanityFetch (d:\workstation\mkaruppiah\src\sanity\client.ts:70:35)
+    at main (C:\Users\gouth\.gemini\antigravity-ide\brain\2b01e399-07df-4154-b016-9691148656ca\scratch\inspect-cement-brands.ts:5:26)
+    at <anonymous> (C:\Users\gouth\.gemini\antigravity-ide\brain\2b01e399-07df-4154-b016-9691148656ca\scratch\inspect-cement-brands.ts:35:1)
+    at Object.<anonymous> (C:\Users\gouth\.gemini\antigravity-ide\brain\2b01e399-07df-4154-b016-9691148656ca\scratch\inspect-cement-brands.ts:35:27)
+    at Module._compile (node:internal/modules/cjs/loader:1369:14)
+    at Object.transformer (C:\Users\gouth\AppData\Roaming\npm\node_modules\tsx\dist\register-D46fvsV_.cjs:3:1104)
+
+[2026-08-07T12:59:23.680Z] Query: *[_type == "brand"] { 
+      _id, 
+      name, 
+      "slug": slug.current, 
+      category, 
+      ...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:965:25)
+    at _dataRequest (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:938:10)
+    at _fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:728:113)
+    at SanityClient.fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:2585:7)
+    at sanityFetch (d:\workstation\mkaruppiah\src\sanity\client.ts:70:35)
+    at main (C:\Users\gouth\.gemini\antigravity-ide\brain\2b01e399-07df-4154-b016-9691148656ca\scratch\inspect-cement-brands.ts:11:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+[2026-08-07T12:59:27.058Z] Query: *[_type == "productSubcategory"] { 
+      _id, 
+      title, 
+      "slug": slug.current, 
+      cat...
+Error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:12618:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at _requestObservable (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:965:25)
+    at _dataRequest (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:938:10)
+    at _fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:728:113)
+    at SanityClient.fetch (d:\workstation\mkaruppiah\node_modules\@sanity\client\dist\index.cjs:2585:7)
+    at sanityFetch (d:\workstation\mkaruppiah\src\sanity\client.ts:70:35)
+    at main (C:\Users\gouth\.gemini\antigravity-ide\brain\2b01e399-07df-4154-b016-9691148656ca\scratch\inspect-cement-brands.ts:23:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+

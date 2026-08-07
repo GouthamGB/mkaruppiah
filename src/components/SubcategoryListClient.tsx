@@ -27,6 +27,7 @@ interface SubcategoryListClientProps {
   subcategories: Subcategory[];
   categorySlug: string;
   categoryBrands?: BrandItem[];
+  categoryName?: string;
 }
 
 const DEFAULT_CATEGORY_BRANDS: Record<string, string[]> = {
@@ -138,6 +139,7 @@ export default function SubcategoryListClient({
   subcategories,
   categorySlug,
   categoryBrands = [],
+  categoryName = "",
 }: SubcategoryListClientProps) {
   const [cols, setCols] = useState<3 | 4 | 5>(3);
 
@@ -171,16 +173,16 @@ export default function SubcategoryListClient({
 
     // 3. Category defaults fallback
     if (brandMap.size === 0) {
-      const searchTarget = `${categorySlug} ${subcategories.map(s => s.title).join(" ")}`.toLowerCase();
+      const searchTarget = `${categorySlug} ${categoryName} ${subcategories.map(s => s.title).join(" ")}`.toLowerCase();
       const slugKey = Object.keys(DEFAULT_CATEGORY_BRANDS).find((k) =>
         searchTarget.includes(k)
       );
-      const defaults = slugKey ? DEFAULT_CATEGORY_BRANDS[slugKey] : ["UltraTech", "Tata Tiscon", "MYK Laticrete", "Kajaria", "Asian Paints"];
+      const defaults = slugKey ? DEFAULT_CATEGORY_BRANDS[slugKey] : ["UltraTech", "Ramco", "Dalmia", "Chettinad", "Coromandel", "ACC"];
       defaults.forEach((d) => brandMap.set(d, d));
     }
 
     return Array.from(brandMap.values());
-  }, [subcategories, categorySlug, categoryBrands]);
+  }, [subcategories, categorySlug, categoryBrands, categoryName]);
 
   const totalItems = subcategories.length;
   const canShow4 = totalItems >= 4;
@@ -229,144 +231,157 @@ export default function SubcategoryListClient({
         </div>
       )}
 
-      {/* Control Bar above Subcategories Cards (Columns Selector) */}
-      <div className={`flex items-center justify-between pb-2 ${activeCols === 3 ? "max-w-5xl mx-auto" : ""}`}>
-        <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          Available Product Types ({subcategories.length})
-        </div>
+      {/* When subcategories exist: Control Bar & Grid */}
+      {subcategories.length > 0 ? (
+        <>
+          {/* Control Bar above Subcategories Cards (Columns Selector) */}
+          <div className={`flex items-center justify-between pb-2 ${activeCols === 3 ? "max-w-5xl mx-auto" : ""}`}>
+            <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              Available Product Types ({subcategories.length})
+            </div>
 
-        {/* Grid Columns Controller - Only show if subcategories >= 4 */}
-        {canShow4 && (
-          <div className="flex items-center space-x-1 bg-slate-100/80 dark:bg-slate-800/60 p-1 rounded-md border border-slate-200/50 dark:border-slate-700/50">
-            <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500 px-1.5 tracking-wider">
-              Columns
-            </span>
-            <button
-              onClick={() => setCols(3)}
-              className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                activeCols === 3
-                  ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
-                  : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-              }`}
-              title="3 Columns"
-            >
-              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="3" y="4" width="4" height="16" rx="0.5" />
-                <rect x="10" y="4" width="4" height="16" rx="0.5" />
-                <rect x="17" y="4" width="4" height="16" rx="0.5" />
-              </svg>
-            </button>
-
+            {/* Grid Columns Controller - Only show if subcategories >= 4 */}
             {canShow4 && (
-              <button
-                onClick={() => setCols(4)}
-                className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                  activeCols === 4
-                    ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
-                    : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                }`}
-                title="4 Columns"
-              >
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="2" y="4" width="3" height="16" rx="0.5" />
-                  <rect x="7.5" y="4" width="3" height="16" rx="0.5" />
-                  <rect x="13" y="4" width="3" height="16" rx="0.5" />
-                  <rect x="18.5" y="4" width="3" height="16" rx="0.5" />
-                </svg>
-              </button>
-            )}
+              <div className="flex items-center space-x-1 bg-slate-100/80 dark:bg-slate-800/60 p-1 rounded-md border border-slate-200/50 dark:border-slate-700/50">
+                <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500 px-1.5 tracking-wider">
+                  Columns
+                </span>
+                <button
+                  onClick={() => setCols(3)}
+                  className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
+                    activeCols === 3
+                      ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                      : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                  }`}
+                  title="3 Columns"
+                >
+                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="3" y="4" width="4" height="16" rx="0.5" />
+                    <rect x="10" y="4" width="4" height="16" rx="0.5" />
+                    <rect x="17" y="4" width="4" height="16" rx="0.5" />
+                  </svg>
+                </button>
 
-            {canShow5 && (
-              <button
-                onClick={() => setCols(5)}
-                className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                  activeCols === 5
-                    ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
-                    : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                }`}
-                title="5 Columns"
-              >
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="2" y="4" width="2" height="16" rx="0.5" />
-                  <rect x="6.5" y="4" width="2" height="16" rx="0.5" />
-                  <rect x="11" y="4" width="2" height="16" rx="0.5" />
-                  <rect x="15.5" y="4" width="2" height="16" rx="0.5" />
-                  <rect x="20" y="4" width="2" height="16" rx="0.5" />
-                </svg>
-              </button>
+                {canShow4 && (
+                  <button
+                    onClick={() => setCols(4)}
+                    className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
+                      activeCols === 4
+                        ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                        : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                    }`}
+                    title="4 Columns"
+                  >
+                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="2" y="4" width="3" height="16" rx="0.5" />
+                      <rect x="7.5" y="4" width="3" height="16" rx="0.5" />
+                      <rect x="13" y="4" width="3" height="16" rx="0.5" />
+                      <rect x="18.5" y="4" width="3" height="16" rx="0.5" />
+                    </svg>
+                  </button>
+                )}
+
+                {canShow5 && (
+                  <button
+                    onClick={() => setCols(5)}
+                    className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
+                      activeCols === 5
+                        ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                        : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                    }`}
+                    title="5 Columns"
+                  >
+                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                      <rect x="2" y="4" width="2" height="16" rx="0.5" />
+                      <rect x="6.5" y="4" width="2" height="16" rx="0.5" />
+                      <rect x="11" y="4" width="2" height="16" rx="0.5" />
+                      <rect x="15.5" y="4" width="2" height="16" rx="0.5" />
+                      <rect x="20" y="4" width="2" height="16" rx="0.5" />
+                    </svg>
+                  </button>
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
 
-      {/* Subcategories Cards Grid */}
-      <div className={`grid ${gridColsClass} gap-8 sm:gap-10 w-full`}>
-        {subcategories.map((sub) => {
-          const specText = sub.specification || sub.range;
+          {/* Subcategories Cards Grid */}
+          <div className={`grid ${gridColsClass} gap-8 sm:gap-10 w-full`}>
+            {subcategories.map((sub) => {
+              const specText = sub.specification || sub.range;
 
-          return (
-            <div
-              key={sub.id}
-              className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full max-w-sm mx-auto w-full"
-            >
-              {/* Premium Image Frame */}
-              <div 
-                className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-800 block"
-              >
-                <SubcategoryCardImage image={sub.image} title={sub.title} />
-              </div>
-
-              {/* Aesthetic Card Body */}
-              <div className="p-5 flex-grow flex flex-col justify-between bg-white dark:bg-slate-900 space-y-4">
-                <div className="space-y-2">
-                  <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">
-                    {sub.title}
-                  </h4>
-
-                  {specText && (
-                    <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300">
-                      <span className="text-slate-400 dark:text-slate-500 font-medium">Specification:</span>
-                      <span className="font-semibold text-slate-800 dark:text-slate-200">{specText}</span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-slate-800">
-                  <Link 
-                    href={`/contacts?inquiry=${encodeURIComponent(sub.title)}`}
-                    className="flex items-center text-xs font-bold text-brand-red hover:text-brand-red/80 transition-colors uppercase tracking-wider group/link"
+              return (
+                <div
+                  key={sub.id}
+                  className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full max-w-sm mx-auto w-full"
+                >
+                  {/* Premium Image Frame */}
+                  <div 
+                    className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-800 block"
                   >
-                    <span>Inquire Now</span>
-                    <svg
-                      className="h-3.5 w-3.5 ml-1 transition-transform duration-200 group-hover/link:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
+                    <SubcategoryCardImage image={sub.image} title={sub.title} />
+                  </div>
 
-                  {sub.contactNumber && (
-                    <a 
-                      href={`tel:${sub.contactNumber}`}
-                      className="flex items-center space-x-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand-red transition-colors"
-                    >
-                      <Phone className="h-3.5 w-3.5 text-slate-400" />
-                      <span>{sub.contactNumber}</span>
-                    </a>
-                  )}
+                  {/* Aesthetic Card Body */}
+                  <div className="p-5 flex-grow flex flex-col justify-between bg-white dark:bg-slate-900 space-y-4">
+                    <div className="space-y-2">
+                      <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                        {sub.title}
+                      </h4>
+
+                      {specText && (
+                        <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300">
+                          <span className="text-slate-400 dark:text-slate-500 font-medium">Specification:</span>
+                          <span className="font-semibold text-slate-800 dark:text-slate-200">{specText}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-slate-800">
+                      <Link 
+                        href={`/contacts?inquiry=${encodeURIComponent(sub.title)}`}
+                        className="flex items-center text-xs font-bold text-brand-red hover:text-brand-red/80 transition-colors uppercase tracking-wider group/link"
+                      >
+                        <span>Inquire Now</span>
+                        <svg
+                          className="h-3.5 w-3.5 ml-1 transition-transform duration-200 group-hover/link:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+
+                      {sub.contactNumber && (
+                        <a 
+                          href={`tel:${sub.contactNumber}`}
+                          className="flex items-center space-x-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand-red transition-colors"
+                        >
+                          <Phone className="h-3.5 w-3.5 text-slate-400" />
+                          <span>{sub.contactNumber}</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="text-center py-16 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 max-w-2xl mx-auto shadow-sm mt-6">
+          <Layers className="mx-auto h-12 w-12 text-slate-300 dark:text-slate-650 mb-4 animate-pulse" />
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white">No Types Found</h4>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            We are currently updating our catalog for {categoryName || "this product"} types. Check back soon.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -121,20 +121,15 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Subcategories Grid with Controls */}
+      {/* Subcategories Grid with Controls & Brand Logos */}
       <section className="py-12 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {subcategories && subcategories.length > 0 ? (
-            <SubcategoryListClient subcategories={subcategories} categorySlug={categorySlug} categoryBrands={categoryBrands || []} />
-          ) : (
-            <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 max-w-2xl mx-auto shadow-sm">
-              <Layers className="mx-auto h-12 w-12 text-slate-300 dark:text-slate-650 mb-4 animate-pulse" />
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white">No Types Found</h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                We are currently updating our catalog for {categoryName} types. Check back soon.
-              </p>
-            </div>
-          )}
+          <SubcategoryListClient 
+            subcategories={subcategories || []} 
+            categorySlug={categorySlug} 
+            categoryBrands={categoryBrands || []} 
+            categoryName={categoryName}
+          />
         </div>
       </section>
     </div>
