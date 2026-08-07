@@ -32,7 +32,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
   // 1. Fetch all products to find matching product
   const allProducts = await sanityFetch<Category[]>({
-    query: `*[_type == "product"] { _id, id, name, description, "slug": slug.current }`,
+    query: `*[_type == "product"] | order(_createdAt asc) { _id, id, name, description, "slug": slug.current }`,
   });
 
   const category = allProducts?.find((p) =>
@@ -55,7 +55,7 @@ export default async function CategoryPage({ params }: PageProps) {
           category->id == $matchedCustomId || 
           category->name == $matchedName ||
           category->slug.current == $matchedSlug
-        )] {
+        )] | order(_createdAt asc) {
           "id": coalesce(slug.current, id),
           title,
           "specification": coalesce(specification, range),
@@ -82,7 +82,7 @@ export default async function CategoryPage({ params }: PageProps) {
           category->id == $matchedCustomId || 
           category->name == $matchedName ||
           category->slug.current == $matchedSlug
-        )] {
+        )] | order(_createdAt asc) {
           _id,
           name,
           logo,

@@ -34,7 +34,7 @@ export default async function HomePage() {
   });
 
   const products = await sanityFetch<Product[]>({
-    query: `*[_type == "product"] | order(name asc) { id, name, "slug": slug.current, description, image }`,
+    query: `*[_type == "product"] | order(_createdAt asc) { id, name, "slug": slug.current, description, image }`,
   });
 
 
