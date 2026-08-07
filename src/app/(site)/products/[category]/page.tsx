@@ -107,9 +107,6 @@ export default async function CategoryPage({ params }: PageProps) {
         {/* Background glow effects */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
-          <span className="inline-block text-brand-gold text-xs sm:text-sm font-bold uppercase tracking-widest bg-brand-gold/10 px-3.5 py-1 rounded-full border border-brand-gold/20">
-            Product Category
-          </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-sans uppercase text-white">
             {categoryName}
           </h1>
