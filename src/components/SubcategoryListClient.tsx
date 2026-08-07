@@ -200,8 +200,17 @@ export default function SubcategoryListClient({
     <div className="space-y-8">
       {/* Brand Logos Strip */}
       {brandsList.length > 0 && (
-        <div className="py-4 sm:py-6">
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
+        <div className="py-6 sm:py-8 space-y-6">
+          <div className="text-center space-y-1">
+            <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
+              Partnerships & Supply
+            </span>
+            <h3 className="text-lg sm:text-xl font-bold tracking-wider text-slate-800 dark:text-slate-200 uppercase">
+              Our Trusted Brand Partners
+            </h3>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-14 w-full">
             {brandsList.map((brandItem) => {
               const brandName = getBrandName(brandItem);
               if (!brandName) return null;
@@ -210,10 +219,10 @@ export default function SubcategoryListClient({
               return (
                 <div
                   key={brandName}
-                  className="hover:scale-105 transition-transform duration-200 flex items-center justify-center py-2 px-2"
+                  className="hover:scale-105 transition-transform duration-200 flex items-center justify-center py-2 px-3"
                 >
                   {logoUrl ? (
-                    <div className="relative h-10 sm:h-12 md:h-14 lg:h-16 w-28 sm:w-34 md:w-38 lg:w-40 flex items-center justify-center">
+                    <div className="relative h-12 sm:h-16 md:h-20 lg:h-24 w-32 sm:w-44 md:w-52 lg:w-60 flex items-center justify-center">
                       <Image
                         src={logoUrl}
                         alt={brandName}
