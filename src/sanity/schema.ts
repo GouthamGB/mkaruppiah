@@ -1,3 +1,5 @@
+import { orderRankField } from "@sanity/orderable-document-list";
+
 export const homePage = {
   name: "homePage",
   title: "Home Page Content",
@@ -71,6 +73,8 @@ export const brand = {
   title: "Brands",
   type: "document",
   fields: [
+    orderRankField({ type: "brand" }),
+    { name: "order", title: "Display Order (Ascending)", type: "number" },
     { name: "name", title: "Brand Name (e.g., XCMG, UltraTech, Tata Tiscon)", type: "string" },
     { name: "slug", title: "Slug", type: "slug", options: { source: "name", maxLength: 96 } },
     { name: "logo", title: "Brand Logo Image", type: "image", options: { hotspot: true } },
@@ -89,6 +93,8 @@ export const product = {
   title: "Products",
   type: "document",
   fields: [
+    orderRankField({ type: "product" }),
+    { name: "order", title: "Display Order (Ascending)", type: "number" },
     { name: "name", title: "Product Name", type: "string" },
     { name: "slug", title: "Slug (URL)", type: "slug", options: { source: "name", maxLength: 96 } },
     { name: "id", title: "Product ID (Unique, e.g., cement)", type: "string" },
@@ -259,6 +265,8 @@ export const productSubcategory = {
   title: "Product Subcategories / Types",
   type: "document",
   fields: [
+    orderRankField({ type: "productSubcategory" }),
+    { name: "order", title: "Display Order (Ascending)", type: "number" },
     { name: "title", title: "Subcategory Title (e.g. Tyre Mounted Crane)", type: "string" },
     { name: "slug", title: "Slug", type: "slug", options: { source: "title", maxLength: 96 } },
     { name: "category", title: "Parent Category", type: "reference", to: [{ type: "product" }] },
