@@ -98,24 +98,23 @@ export default async function CategoryPage({ params }: PageProps) {
     : [];
 
   const categoryName = category?.name || decodedCategory.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-  const isEquipment = categoryName.toLowerCase().includes("equipment") || categorySlug.toLowerCase().includes("equipment");
-  const displayTitle = isEquipment ? "Select Equipment Type" : `Select ${categoryName} Type`;
-  const displaySubtitle = isEquipment 
-    ? `Choose from ${subcategories?.length || 0} different types of equipment`
-    : `Choose from ${subcategories?.length || 0} different types of ${categoryName.toLowerCase()}`;
+  const descriptionText = category?.description || `High-performance ${categoryName.toLowerCase()} solutions sourced directly from trusted leading manufacturers.`;
 
   return (
     <div className="w-full bg-slate-50 dark:bg-slate-950 min-h-screen">
       {/* Dynamic Header section */}
-      <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
+      <section className="bg-slate-900 text-white pt-32 pb-16 relative overflow-hidden">
         {/* Background glow effects */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-sans">
-            {displayTitle}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
+          <span className="inline-block text-brand-gold text-xs sm:text-sm font-bold uppercase tracking-widest bg-brand-gold/10 px-3.5 py-1 rounded-full border border-brand-gold/20">
+            Product Category
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-sans uppercase text-white">
+            {categoryName}
           </h1>
-          <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
-            {displaySubtitle}
+          <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-normal leading-relaxed">
+            {descriptionText}
           </p>
         </div>
       </section>
