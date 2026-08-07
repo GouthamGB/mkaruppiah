@@ -201,7 +201,7 @@ export default function SubcategoryListClient({
       {/* Brand Logos Strip */}
       {brandsList.length > 0 && (
         <div className="py-4 sm:py-6">
-          <div className="flex flex-wrap items-center justify-start gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 w-full">
             {brandsList.map((brandItem) => {
               const brandName = getBrandName(brandItem);
               if (!brandName) return null;
@@ -213,7 +213,7 @@ export default function SubcategoryListClient({
                   className="hover:scale-105 transition-transform duration-200 flex items-center justify-center py-2 px-2"
                 >
                   {logoUrl ? (
-                    <div className="relative h-10 sm:h-12 md:h-14 lg:h-16 w-28 sm:w-36 md:w-40 lg:w-44 flex items-center justify-center">
+                    <div className="relative h-10 sm:h-12 md:h-14 lg:h-16 w-28 sm:w-34 md:w-38 lg:w-40 flex items-center justify-center">
                       <Image
                         src={logoUrl}
                         alt={brandName}
