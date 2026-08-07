@@ -335,8 +335,8 @@ export default function SubcategoryListClient({
                       </h4>
 
                       {specText && (
-                        <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300">
-                          <span className="text-slate-400 dark:text-slate-500 font-medium">Specification:</span>
+                        <div className="flex items-baseline space-x-1.5 px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 leading-normal">
+                          <span className="text-slate-400 dark:text-slate-500 font-medium shrink-0">Specification:</span>
                           <span className="font-semibold text-slate-800 dark:text-slate-200">{specText}</span>
                         </div>
                       )}
