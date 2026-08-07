@@ -196,12 +196,30 @@ export default function SubcategoryListClient({
       ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
       : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto";
 
+  const brandGridClass =
+    brandsList.length === 1
+      ? "grid-cols-1 max-w-xs mx-auto"
+      : brandsList.length === 2
+      ? "grid-cols-2 max-w-md mx-auto"
+      : brandsList.length === 3
+      ? "grid-cols-2 sm:grid-cols-3 max-w-3xl mx-auto"
+      : brandsList.length === 4
+      ? "grid-cols-2 sm:grid-cols-4 max-w-5xl mx-auto"
+      : brandsList.length === 5
+      ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-5 max-w-6xl mx-auto"
+      : "grid-cols-2 sm:grid-cols-3 md:grid-cols-6 max-w-6xl mx-auto";
+
   return (
     <div className="space-y-8">
-      {/* Centered Modern Brand Logos Strip */}
+      {/* Centered Modern Brand Logos Card Strip */}
       {brandsList.length > 0 && (
-        <div className="py-4 sm:py-6">
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 w-full">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 sm:p-8 shadow-xs max-w-6xl mx-auto">
+          <div className="text-center mb-5">
+            <span className="text-[11px] font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+              Authorized Brand Partners & Manufacturers
+            </span>
+          </div>
+          <div className={`grid ${brandGridClass} gap-6 sm:gap-8 items-center justify-center w-full`}>
             {brandsList.map((brandItem) => {
               const brandName = getBrandName(brandItem);
               if (!brandName) return null;
@@ -210,15 +228,15 @@ export default function SubcategoryListClient({
               return (
                 <div
                   key={brandName}
-                  className="opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-200 flex items-center justify-center py-2 px-3"
+                  className="group flex items-center justify-center p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all duration-200"
                 >
                   {logoUrl ? (
-                    <div className="relative h-12 sm:h-16 md:h-20 w-36 sm:w-44 md:w-56 flex items-center justify-center">
+                    <div className="relative h-12 sm:h-14 md:h-16 w-full max-w-[170px] flex items-center justify-center">
                       <Image
                         src={logoUrl}
                         alt={brandName}
                         fill
-                        className="object-contain filter grayscale hover:grayscale-0 transition-all duration-200"
+                        className="object-contain filter grayscale group-hover:grayscale-0 opacity-85 group-hover:opacity-100 transition-all duration-200"
                       />
                     </div>
                   ) : (
