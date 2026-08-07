@@ -200,11 +200,8 @@ export default function SubcategoryListClient({
     <div className="space-y-8">
       {/* Brand Logos Strip */}
       {brandsList.length > 0 && (
-        <div className="py-6 sm:py-8 space-y-6">
-          <div className="text-center space-y-1">
-            <span className="text-[11px] font-bold tracking-widest text-brand-gold uppercase">
-              Partnerships & Supply
-            </span>
+        <div className="pb-6 sm:pb-8 space-y-6">
+          <div className="text-center">
             <h3 className="text-lg sm:text-xl font-bold tracking-wider text-slate-800 dark:text-slate-200 uppercase">
               Our Trusted Brand Partners
             </h3>
