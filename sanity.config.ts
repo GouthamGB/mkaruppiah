@@ -16,12 +16,81 @@ export default defineConfig({
     structureTool({
       structure: (S, context) =>
         S.list()
-          .title("Content")
+          .title("Content Manager")
           .items([
-            orderableDocumentListDeskItem({ type: "product", title: "Products (Drag & Drop Reorder)", S, context }),
-            orderableDocumentListDeskItem({ type: "productSubcategory", title: "Product Subcategories (Drag & Drop Reorder)", S, context }),
-            orderableDocumentListDeskItem({ type: "brand", title: "Brands (Drag & Drop Reorder)", S, context }),
+            // 1. Reorder All Main Products
+            orderableDocumentListDeskItem({
+              type: "product",
+              title: "1. Main Products (Drag & Drop Reorder)",
+              S,
+              context,
+            }),
+
             S.divider(),
+
+            // 2. Nested view: Select Product -> Manage/Reorder Subcategories
+            S.listItem()
+              .title("2. Product -> Subcategories (Reorder per Product)")
+              .child(
+                S.documentTypeList("product")
+                  .title("Select Product to manage its Subcategories")
+                  .child((productId) =>
+                    S.list()
+                      .title("Subcategories")
+                      .items([
+                        orderableDocumentListDeskItem({
+                          type: "productSubcategory",
+                          title: "Drag & Drop Subcategories for this Product",
+                          filter: "category._ref == $productId || category->_ref == $productId || category->id == $productId",
+                          params: { productId },
+                          S,
+                          context,
+                        }),
+                      ])
+                  )
+              ),
+
+            // 3. Nested view: Select Product -> Manage/Reorder Brands
+            S.listItem()
+              .title("3. Product -> Brands (Reorder per Product)")
+              .child(
+                S.documentTypeList("product")
+                  .title("Select Product to manage its Brands")
+                  .child((productId) =>
+                    S.list()
+                      .title("Brands")
+                      .items([
+                        orderableDocumentListDeskItem({
+                          type: "brand",
+                          title: "Drag & Drop Brands for this Product",
+                          filter: "category._ref == $productId || category->_ref == $productId || category->id == $productId",
+                          params: { productId },
+                          S,
+                          context,
+                        }),
+                      ])
+                  )
+              ),
+
+            S.divider(),
+
+            // 4. Global Subcategories & Brands lists
+            orderableDocumentListDeskItem({
+              type: "productSubcategory",
+              title: "All Subcategories (Global List)",
+              S,
+              context,
+            }),
+            orderableDocumentListDeskItem({
+              type: "brand",
+              title: "All Brands (Global List)",
+              S,
+              context,
+            }),
+
+            S.divider(),
+
+            // 5. All other site content (Home Page, Directors, Projects, CSR, Contact, etc.)
             ...S.documentTypeListItems().filter(
               (item) => !["product", "productSubcategory", "brand"].includes(item.getId() || "")
             ),
