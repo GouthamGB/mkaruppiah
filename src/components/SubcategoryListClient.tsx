@@ -232,7 +232,7 @@ export default function SubcategoryListClient({
       )}
 
       {/* When subcategories exist: Control Bar & Grid */}
-      {subcategories.length > 0 ? (
+      {subcategories.length > 0 && (
         <>
           {/* Control Bar above Subcategories Cards (Columns Selector) */}
           <div className={`flex items-center justify-between pb-2 ${activeCols === 3 ? "max-w-5xl mx-auto" : ""}`}>
@@ -373,14 +373,6 @@ export default function SubcategoryListClient({
             })}
           </div>
         </>
-      ) : (
-        <div className="text-center py-16 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 max-w-2xl mx-auto shadow-sm mt-6">
-          <Layers className="mx-auto h-12 w-12 text-slate-300 dark:text-slate-650 mb-4 animate-pulse" />
-          <h4 className="text-lg font-bold text-slate-900 dark:text-white">No Types Found</h4>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            We are currently updating our catalog for {categoryName || "this product"} types. Check back soon.
-          </p>
-        </div>
       )}
     </div>
   );
