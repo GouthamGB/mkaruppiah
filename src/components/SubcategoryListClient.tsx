@@ -207,7 +207,7 @@ export default function SubcategoryListClient({
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-14 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 w-full">
             {brandsList.map((brandItem) => {
               const brandName = getBrandName(brandItem);
               if (!brandName) return null;
@@ -216,10 +216,10 @@ export default function SubcategoryListClient({
               return (
                 <div
                   key={brandName}
-                  className="hover:scale-105 transition-transform duration-200 flex items-center justify-center py-2 px-3"
+                  className="flex items-center justify-center p-3 sm:p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 shadow-2xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-0.5 transition-all duration-200 min-h-[64px] sm:min-h-[76px] md:min-h-[88px] w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.85rem)] md:w-[calc(25%-1.15rem)] lg:w-[calc(25%-1.15rem)] xl:w-[calc(20%-1.2rem)] 2xl:w-[calc(16.666%-1.25rem)] max-w-[260px] min-w-[130px]"
                 >
                   {logoUrl ? (
-                    <div className="relative h-12 sm:h-16 md:h-20 lg:h-24 w-32 sm:w-44 md:w-52 lg:w-60 flex items-center justify-center">
+                    <div className="relative h-10 sm:h-12 md:h-14 w-full max-w-[160px] sm:max-w-[180px] flex items-center justify-center">
                       <Image
                         src={logoUrl}
                         alt={brandName}
