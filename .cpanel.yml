@@ -1,7 +1,8 @@
 ---
 deployment:
   tasks:
-    - export PATH=/opt/cpanel/ea-nodejs20/bin:$PATH
+    - for version in 22 20 18 16; do if [ -x /opt/cpanel/ea-nodejs$version/bin/npm ]; then export PATH=/opt/cpanel/ea-nodejs$version/bin:$PATH; break; fi; done
+    - command -v npm || { echo "No cPanel Node.js/npm installation found"; exit 1; }
     - cd /home/mkaruppiah/mkaruppiah-next
     - npm install
     - npm run build
