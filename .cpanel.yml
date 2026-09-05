@@ -1,10 +1,16 @@
 ---
 deployment:
   tasks:
-    - for version in 22 20 18 16; do if [ -x /opt/cpanel/ea-nodejs$version/bin/npm ]; then export PATH=/opt/cpanel/ea-nodejs$version/bin:$PATH; break; fi; done
-    - command -v npm || { echo "No cPanel Node.js/npm installation found"; exit 1; }
-    - cd /home/mkaruppiah/mkaruppiah-next
-    - npm install
-    - npm run build
-    - mkdir -p tmp
-    - touch tmp/restart.txt
+    - echo "=== NODE DIAGNOSTIC ==="
+    - echo "PATH=$PATH"
+    - echo "node:"
+    - command -v node || true
+    - echo "npm:"
+    - command -v npm || true
+    - echo "node versions:"
+    - ls -d /opt/cpanel/ea-nodejs*/bin 2>/dev/null || true
+    - echo "Passenger Node:"
+    - ls -l /etc/cpanel/ea4/passenger.nodejs* 2>/dev/null || true
+    - echo "usr/bin:"
+    - ls -l /usr/bin/node /usr/bin/npm 2>/dev/null || true
+    - echo "=== END DIAGNOSTIC ==="
