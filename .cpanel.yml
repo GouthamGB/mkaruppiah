@@ -1,16 +1,11 @@
 ---
 deployment:
   tasks:
-    - echo "=== NODE DIAGNOSTIC ==="
-    - echo "PATH=$PATH"
-    - echo "node:"
-    - command -v node || true
-    - echo "npm:"
-    - command -v npm || true
-    - echo "node versions:"
-    - ls -d /opt/cpanel/ea-nodejs*/bin 2>/dev/null || true
-    - echo "Passenger Node:"
-    - ls -l /etc/cpanel/ea4/passenger.nodejs* 2>/dev/null || true
-    - echo "usr/bin:"
-    - ls -l /usr/bin/node /usr/bin/npm 2>/dev/null || true
+    - echo "=== ALTERNATIVE NODE DIAGNOSTIC ==="
+    - echo "alt-nodejs directories:"
+    - ls -d /opt/alt/alt-nodejs*/root/usr/bin 2>/dev/null || true
+    - echo "node binaries:"
+    - find /opt/alt/alt-nodejs* -type f -name node 2>/dev/null || true
+    - echo "npm binaries:"
+    - find /opt/alt/alt-nodejs* -type f -name npm 2>/dev/null || true
     - echo "=== END DIAGNOSTIC ==="
