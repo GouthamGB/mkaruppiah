@@ -1,11 +1,8 @@
 ---
 deployment:
   tasks:
-    - echo "=== ALTERNATIVE NODE DIAGNOSTIC ==="
-    - echo "alt-nodejs directories:"
-    - ls -d /opt/alt/alt-nodejs*/root/usr/bin 2>/dev/null || true
-    - echo "node binaries:"
-    - find /opt/alt/alt-nodejs* -type f -name node 2>/dev/null || true
-    - echo "npm binaries:"
-    - find /opt/alt/alt-nodejs* -type f -name npm 2>/dev/null || true
-    - echo "=== END DIAGNOSTIC ==="
+    - echo "=== NODE SELECTOR CONFIG ==="
+    - echo "USER=$USER"
+    - command -v cloudlinux-selector || true
+    - cloudlinux-selector get --json --interpreter=nodejs --user=$USER 2>&1 || true
+    - echo "=== END CONFIG ==="
