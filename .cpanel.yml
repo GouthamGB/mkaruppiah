@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - echo "=== NODE SELECTOR CONFIG ==="
+    - echo "USER=$USER"
+    - command -v cloudlinux-selector || true
+    - cloudlinux-selector get --json --interpreter=nodejs --user=$USER 2>&1 || true
+    - echo "=== END CONFIG ==="
