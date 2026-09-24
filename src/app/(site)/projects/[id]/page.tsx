@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, MapPin, Calendar, Building2, User, Maximize2, Layers } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
+import { mockData } from "@/data/mockData";
 
 interface Project {
   _id: string;

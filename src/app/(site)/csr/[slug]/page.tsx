@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Heart } from "lucide-react";
 import { sanityFetch } from "@/sanity/client";
+import { mockData } from "@/data/mockData";
 import CsrMediaGallery from "@/components/CsrMediaGallery";
 
 interface Initiative {
