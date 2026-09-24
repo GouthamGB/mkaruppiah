@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -20,15 +23,7 @@ const nextConfig = {
       },
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/equipment/:path*",
-        destination: "/products/:path*",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
+

@@ -31,10 +31,20 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when pathname changes
+  // Close mobile menu when pathname changes or viewport expands to desktop
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/") {
@@ -151,10 +161,20 @@ export default function Navbar() {
               })}
             </nav>
 
-            {/* Hamburger Menu Button (at the end) */}
+            {/* Desktop CTA Button */}
+            <div className="hidden md:flex items-center">
+              <Link
+                href="/contacts"
+                className="inline-flex items-center justify-center px-4 py-2 text-xs font-bold uppercase tracking-wider text-white bg-brand-red hover:bg-brand-red/90 rounded-md shadow-sm transition-all duration-200 hover:shadow-md"
+              >
+                Get in Touch
+              </Link>
+            </div>
+
+            {/* Hamburger Menu Button (mobile only) */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`inline-flex items-center justify-center p-2 rounded-md transition-colors ${
+              className={`md:hidden inline-flex items-center justify-center p-2 rounded-md transition-colors ${
                 showScrolledState
                   ? "text-slate-500 hover:text-brand-red hover:bg-slate-100"
                   : "text-white hover:text-brand-gold hover:bg-white/10"
@@ -167,9 +187,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Sidebar Drawer (accessible on all viewport sizes) */}
+      {/* Sidebar Drawer (mobile only) */}
       <div
-        className={`fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`md:hidden fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsOpen(false)}

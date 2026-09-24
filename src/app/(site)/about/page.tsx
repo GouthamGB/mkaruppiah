@@ -18,7 +18,7 @@ interface AboutPageData {
   awards: AwardItem[];
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function AboutPage() {
   const data = await sanityFetch<AboutPageData>({

@@ -23,7 +23,21 @@ interface ProjectDetailsPageProps {
   };
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const projects = await sanityFetch<Project[]>({
+    query: `*[_type == "projectItem"] { _id, id }`,
+  });
+  if (!projects || projects.length === 0) return [];
+  const set = new Set<string>();
+  projects.forEach((p) => {
+    if (p._id) set.add(p._id);
+    if (p.id) set.add(p.id);
+  });
+  return Array.from(set).map((id) => ({ id }));
+}
 
 export default async function ProjectDetailsPage({ params }: ProjectDetailsPageProps) {
   const { id } = params;

@@ -2,7 +2,7 @@ export interface HeroSlide {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any; // Can be string or Sanity image asset object
   title: string;
-  subtitle: string;
+  subtitle?: string;
   description: string;
   btnText1?: string;
   btnLink1?: string;
@@ -72,7 +72,7 @@ export interface MockData {
   completedProjectsCount: number;
   hero: {
     title: string;
-    subtitle: string;
+    subtitle?: string;
     description: string;
     slides: HeroSlide[];
   };
@@ -118,13 +118,11 @@ export const mockData: MockData = {
   completedProjectsCount: 100,
   hero: {
     title: "Building Dreams,",
-    subtitle: "Delivering Reliability,",
     description: "Your trusted partner for quality building materials, strong relationships, and complete construction solutions.",
     slides: [
       {
         image: "/images/hero_1.png",
         title: "Building Dreams,",
-        subtitle: "Delivering Reliability",
         description: "60+ years of trusted excellence in supplying construction materials and infrastructure solutions.",
         btnText1: "Inquire Now",
         btnLink1: "/contacts",
@@ -134,7 +132,6 @@ export const mockData: MockData = {
       {
         image: "/images/hero_2.png",
         title: "Quality Materials,",
-        subtitle: "Stronger Structures",
         description: "Your one-stop destination for cement, steel, tiles, granites, sanitaryware, and custom fencing.",
         btnText1: "Inquire Now",
         btnLink1: "/contacts",
@@ -144,7 +141,6 @@ export const mockData: MockData = {
       {
         image: "/images/hero_3.png",
         title: "Complete Solutions,",
-        subtitle: "End-to-End Execution",
         description: "Serving construction, infrastructure, agriculture, and energy sectors across Pudukkottai & Karaikkudi.",
         btnText1: "Inquire Now",
         btnLink1: "/contacts",

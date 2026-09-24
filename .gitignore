@@ -24,6 +24,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+sanity-debug.log*
+
+# temp & build packages
+*.zip
+/scratch/
 
 # local env files
 .env*.local

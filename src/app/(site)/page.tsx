@@ -17,7 +17,6 @@ const valueIconsMap: Record<string, React.ComponentType<any>> = {
 
 interface HomePageData {
   title: string;
-  subtitle: string;
   description: string;
   slides: HeroSlide[];
   mission: string;
@@ -25,12 +24,12 @@ interface HomePageData {
   coreValues: CoreValue[];
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function HomePage() {
   // Fetch home page data and products list
   const pageData = await sanityFetch<HomePageData>({
-    query: `*[_type == "homePage"][0] { title, subtitle, description, slides, mission, vision, coreValues }`,
+    query: `*[_type == "homePage"][0] { title, description, slides, mission, vision, coreValues }`,
   });
 
   const products = await sanityFetch<Product[]>({
@@ -51,7 +50,6 @@ export default async function HomePage() {
       <HeroSlideshow
         slides={slides}
         fallbackTitle={pageData?.title}
-        fallbackSubtitle={pageData?.subtitle}
         fallbackDescription={pageData?.description}
       />
 

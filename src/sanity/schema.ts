@@ -11,11 +11,6 @@ export const homePage = {
       type: "string",
     },
     {
-      name: "subtitle",
-      title: "Hero Subtitle",
-      type: "string",
-    },
-    {
       name: "description",
       title: "Hero Description",
       type: "text",
@@ -31,7 +26,6 @@ export const homePage = {
             fields: [
               { name: "image", title: "Slide Image", type: "image", options: { hotspot: true } },
               { name: "title", title: "Slide Title", type: "string" },
-              { name: "subtitle", title: "Slide Subtitle", type: "string" },
               { name: "description", title: "Slide Description", type: "text" },
               { name: "btnText1", title: "Primary Button Text (Optional)", type: "string" },
               { name: "btnLink1", title: "Primary Button Link (Optional)", type: "string" },

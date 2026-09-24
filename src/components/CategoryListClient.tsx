@@ -123,7 +123,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
       {/* Cards Grid */}
       <div className={`grid ${gridColsClass} gap-8 sm:gap-10 w-full`}>
         {products.map((product) => {
-          const productSlug = product.slug || (product.id && !product.id.includes(" ") && !product.id.includes("%") && !product.id.includes("&") ? product.id : slugify(product.name || product.id));
+          const productSlug = product.slug || (product.name ? slugify(product.name) : (product.id && !product.id.includes(" ") ? product.id : slugify(product.id)));
           return (
             <Link
               key={product.id || product.name}

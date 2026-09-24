@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { Layers, Phone, Sparkles } from "lucide-react";
 import { urlFor } from "@/sanity/client";
@@ -130,7 +129,7 @@ function SubcategoryCardImage({ image, title }: { image: any; title: string }) {
       alt={title}
       fill
       onError={() => setImageError(true)}
-      className="object-cover transition-transform duration-500 group-hover:scale-105"
+      className="object-contain p-3.5 sm:p-4 transition-all duration-500 ease-out group-hover:scale-105 drop-shadow-md group-hover:drop-shadow-xl"
     />
   );
 }
@@ -314,63 +313,38 @@ export default function SubcategoryListClient({
           <div className={`grid ${gridColsClass} gap-8 sm:gap-10 w-full`}>
             {subcategories.map((sub) => {
               const specText = sub.specification || sub.range;
+              const phoneNum = (sub.contactNumber || "+919842420046").replace(/\s+/g, "");
 
               return (
                 <div
                   key={sub.id}
-                  className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full max-w-sm mx-auto w-full"
+                  className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-slate-950/60 hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col h-[390px] sm:h-[420px] max-w-sm mx-auto w-full"
                 >
-                  {/* Premium Image Frame */}
-                  <div 
-                    className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 dark:bg-slate-800 block"
-                  >
+                  {/* Image Frame with Soft Gradient Background */}
+                  <div className="relative flex-1 w-full overflow-hidden bg-gradient-to-b from-slate-50/90 via-slate-50/50 to-slate-100/70 dark:from-slate-800/40 dark:via-slate-800/20 dark:to-slate-800/60 group-hover:from-slate-100/90 dark:group-hover:from-slate-800/80 flex items-center justify-center p-3 transition-colors duration-500">
                     <SubcategoryCardImage image={sub.image} title={sub.title} />
+
+                    {/* Floating Glassmorphic Call Button */}
+                    <a 
+                      href={`tel:${phoneNum}`}
+                      title={`Call ${sub.contactNumber || "+91 98424 20046"}`}
+                      className="absolute bottom-3 right-3 z-10 inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-brand-red hover:bg-brand-red/90 text-white font-bold text-xs shadow-lg shadow-brand-red/30 hover:shadow-brand-red/50 hover:scale-105 active:scale-95 transition-all duration-200 border border-white/20 backdrop-blur-sm group/call"
+                    >
+                      <Phone className="h-3.5 w-3.5 text-white group-hover/call:animate-pulse" />
+                      <span>Call</span>
+                    </a>
                   </div>
 
-                  {/* Aesthetic Card Body */}
-                  <div className="p-5 flex-grow flex flex-col justify-between bg-white dark:bg-slate-900 space-y-4">
-                    <div className="space-y-2">
-                      <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                  {/* Compact Card Body & Footer */}
+                  <div className="px-4 py-3 flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/80">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate group-hover:text-brand-red transition-colors duration-200">
                         {sub.title}
                       </h4>
-
                       {specText && (
-                        <div className="flex items-baseline space-x-1.5 px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 leading-normal">
-                          <span className="text-slate-400 dark:text-slate-500 font-medium shrink-0">Specification:</span>
-                          <span className="font-semibold text-slate-800 dark:text-slate-200">{specText}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-3.5 border-t border-slate-100 dark:border-slate-800">
-                      <Link 
-                        href={`/contacts?inquiry=${encodeURIComponent(sub.title)}`}
-                        className="flex items-center text-xs font-bold text-brand-red hover:text-brand-red/80 transition-colors uppercase tracking-wider group/link"
-                      >
-                        <span>Inquire Now</span>
-                        <svg
-                          className="h-3.5 w-3.5 ml-1 transition-transform duration-200 group-hover/link:translate-x-1"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </Link>
-
-                      {sub.contactNumber && (
-                        <a 
-                          href={`tel:${sub.contactNumber}`}
-                          className="flex items-center space-x-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-brand-red transition-colors"
-                        >
-                          <Phone className="h-3.5 w-3.5 text-slate-400" />
-                          <span>{sub.contactNumber}</span>
-                        </a>
+                        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                          {specText}
+                        </p>
                       )}
                     </div>
                   </div>

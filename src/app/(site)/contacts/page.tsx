@@ -13,7 +13,7 @@ interface ContactPageData {
   offices: Office[];
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function ContactsPage() {
   const data = await sanityFetch<ContactPageData>({

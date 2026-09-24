@@ -9,6 +9,7 @@ function FormContent() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -16,6 +17,7 @@ function FormContent() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Pre-populate subject from URL inquiry query parameter
   useEffect(() => {
@@ -62,6 +64,9 @@ function FormContent() {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+    if (submitError) {
+      setSubmitError(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -69,11 +74,35 @@ function FormContent() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    // Simulate API network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(
+          data.error || "Failed to send your message. Please try again later."
+        );
+      }
+
+      setIsSuccess(true);
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err: any) {
+      setSubmitError(
+        err.message ||
+          "An unexpected error occurred while sending your enquiry. Please try again or reach out directly by phone."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -82,7 +111,7 @@ function FormContent() {
         <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600 dark:text-emerald-500" />
         <h3 className="text-2xl font-bold text-emerald-900 dark:text-emerald-400">Message Sent Successfully</h3>
         <p className="text-slate-650 dark:text-slate-400 text-sm max-w-md mx-auto leading-relaxed">
-          Thank you for reaching out to M. Karuppiah Group. Our representative will review your inquiry and get in touch with you shortly.
+          Thank you for reaching out to M. Karuppiah Group. Your enquiry has been delivered to <strong>info@mkaruppiah.com</strong> and our representative will review and contact you shortly.
         </p>
         <div className="pt-4">
           <button
@@ -98,11 +127,20 @@ function FormContent() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 p-8 rounded-lg shadow-sm">
+      {submitError && (
+        <div className="p-4 rounded-md bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+          <div className="text-xs text-red-800 dark:text-red-300 leading-relaxed flex-1">
+            <strong>Unable to send enquiry:</strong> {submitError}
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {/* Name Input */}
         <div className="space-y-2">
           <label htmlFor="name" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-            Full Name
+            Full Name <span className="text-brand-red">*</span>
           </label>
           <input
             type="text"
@@ -128,7 +166,7 @@ function FormContent() {
         {/* Email Input */}
         <div className="space-y-2">
           <label htmlFor="email" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-            Email Address
+            Email Address <span className="text-brand-red">*</span>
           </label>
           <input
             type="email"
@@ -152,36 +190,54 @@ function FormContent() {
         </div>
       </div>
 
-      {/* Subject Input */}
-      <div className="space-y-2">
-        <label htmlFor="subject" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-          Subject
-        </label>
-        <input
-          type="text"
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          placeholder="e.g. Inquire about steel supply"
-          className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
-            errors.subject
-              ? "border-red-500 focus:border-red-500"
-              : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
-          }`}
-        />
-        {errors.subject && (
-          <p className="text-xs text-red-500 flex items-center">
-            <AlertCircle className="h-3 w-3 mr-1" />
-            {errors.subject}
-          </p>
-        )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* Phone Input */}
+        <div className="space-y-2">
+          <label htmlFor="phone" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+            Phone Number <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal lowercase tracking-normal">(optional)</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="e.g. +91 94433 12345"
+            className="w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all"
+          />
+        </div>
+
+        {/* Subject Input */}
+        <div className="space-y-2">
+          <label htmlFor="subject" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+            Subject <span className="text-brand-red">*</span>
+          </label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            placeholder="e.g. Inquire about steel & cement supply"
+            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
+              errors.subject
+                ? "border-red-500 focus:border-red-500"
+                : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
+            }`}
+          />
+          {errors.subject && (
+            <p className="text-xs text-red-500 flex items-center">
+              <AlertCircle className="h-3 w-3 mr-1" />
+              {errors.subject}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Message Input */}
       <div className="space-y-2">
         <label htmlFor="message" className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-          Your Message
+          Your Message <span className="text-brand-red">*</span>
           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold lowercase tracking-wider ml-1">(min 10 chars)</span>
         </label>
         <textarea
@@ -209,7 +265,7 @@ function FormContent() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-colors focus:outline-none disabled:bg-slate-300 disabled:cursor-not-allowed"
+        className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-colors focus:outline-none disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <>

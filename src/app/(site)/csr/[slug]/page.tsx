@@ -17,7 +17,16 @@ interface InitiativeDetailsProps {
   };
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const csr = await sanityFetch<{ initiatives: { slug: { current: string } }[] }>({
+    query: `*[_type == "csr"][0] { initiatives[] { slug } }`,
+  });
+  const slugs = (csr?.initiatives || []).map((i) => i.slug?.current).filter(Boolean);
+  return slugs.map((slug) => ({ slug }));
+}
 
 export default async function InitiativeDetailsPage({ params }: InitiativeDetailsProps) {
   const { slug } = params;

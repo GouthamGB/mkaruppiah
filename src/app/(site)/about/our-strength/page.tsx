@@ -13,7 +13,7 @@ interface OurStrengthPageData {
   directors: Director[];
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default async function OurStrengthPage() {
   const data = await sanityFetch<OurStrengthPageData>({

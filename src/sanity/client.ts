@@ -67,9 +67,11 @@ export async function sanityFetch<T>({
 }): Promise<T> {
   if (!useMock && client) {
     try {
-      const result = await client.fetch<T>(query, params, {
-        next: { revalidate: 0 },
-      });
+      const result = await client.fetch<T>(
+        query,
+        params,
+        process.env.NODE_ENV === "development" ? { next: { revalidate: 0 } } : undefined
+      );
       if (result !== null && result !== undefined && (!Array.isArray(result) || result.length > 0)) {
         console.log(`[Sanity] successfully fetched query: ${query.substring(0, 60)}...`);
         return result;
@@ -97,7 +99,6 @@ export async function sanityFetch<T>({
   if (lowercaseQuery.includes('_type == "homepage"') || lowercaseQuery.includes('homepage')) {
     return {
       title: mockData.hero.title,
-      subtitle: mockData.hero.subtitle,
       description: mockData.hero.description,
       slides: mockData.hero.slides,
       mission: mockData.mission,

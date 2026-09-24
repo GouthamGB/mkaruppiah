@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, MapPin, Clock, Calendar, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Clock, Calendar } from "lucide-react";
 import { mockData } from "@/data/mockData";
 
 export default function Footer() {
@@ -129,10 +129,6 @@ export default function Footer() {
                   <p className="text-xs text-slate-400">{mockData.contact.officeHours.sunday}</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2 pt-2 border-t border-slate-800 text-[11px] text-slate-500">
-                <ShieldCheck className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span>Open Early for Contractors</span>
-              </div>
             </div>
           </div>
         </div>
@@ -141,11 +137,6 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} M. Karuppiah Group. All Rights Reserved.</p>
           <div className="flex space-x-4 mt-4 sm:mt-0">
-            <Link href="/studio" className="hover:text-brand-red transition-colors flex items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
-              Admin Studio
-            </Link>
-            <span>•</span>
             <span className="text-slate-600">Pudukkottai & Karaikkudi, India</span>
           </div>
         </div>

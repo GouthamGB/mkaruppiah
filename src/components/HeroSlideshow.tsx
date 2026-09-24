@@ -10,14 +10,12 @@ import { motion, AnimatePresence } from "framer-motion";
 interface HeroSlideshowProps {
   slides?: HeroSlide[];
   fallbackTitle?: string;
-  fallbackSubtitle?: string;
   fallbackDescription?: string;
 }
 
 export default function HeroSlideshow({
   slides: propSlides,
   fallbackTitle,
-  fallbackSubtitle,
   fallbackDescription,
 }: HeroSlideshowProps) {
   const [mounted, setMounted] = useState(false);
@@ -28,16 +26,13 @@ export default function HeroSlideshow({
   }, []);
 
   // Guarantee slides fallback to mockData if none provided or array is empty
-  console.log('propSlides', propSlides);
   const slides = propSlides && propSlides.length > 0 ? propSlides : mockData.hero.slides;
-
-  console.log('slides', slides);
 
   useEffect(() => {
     if (!slides || slides.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 6000); // 6 seconds slide loop duration
+    }, 9000); // 9 seconds per slide for a relaxed, readable pace
     return () => clearInterval(interval);
   }, [slides]);
 
@@ -48,7 +43,6 @@ export default function HeroSlideshow({
 
   // Resolve texts (use slide value, page-level fallback value, or mock value)
   const slideTitle = currentSlide?.title || fallbackTitle || mockData.hero.title;
-  const slideSubtitle = currentSlide?.subtitle || fallbackSubtitle || mockData.hero.subtitle;
   const slideDescription = currentSlide?.description || fallbackDescription || mockData.hero.description;
 
   // Resolve buttons with defaults
@@ -75,9 +69,6 @@ export default function HeroSlideshow({
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl space-y-6 text-white">
-              <h4 className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
-                {slideSubtitle}
-              </h4>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                 {slideTitle}
               </h1>
@@ -116,10 +107,13 @@ export default function HeroSlideshow({
       <AnimatePresence>
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
+          transition={{
+            opacity: { duration: 2.0, ease: "easeInOut" },
+            scale: { duration: 9.0, ease: "easeOut" },
+          }}
           className="absolute inset-0 z-10"
         >
           {imageUrl && (
@@ -147,27 +141,14 @@ export default function HeroSlideshow({
               exit="exit"
               className="max-w-3xl space-y-6 text-white"
             >
-              {/* Subtitle - Fades down from Top */}
-              <motion.h4
-                variants={{
-                  hidden: { y: -30, opacity: 0 },
-                  visible: { y: 0, opacity: 1 },
-                  exit: { y: -20, opacity: 0 }
-                }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest"
-              >
-                {slideSubtitle}
-              </motion.h4>
-
               {/* Title - Fades up from Bottom */}
               <motion.h1
                 variants={{
-                  hidden: { y: 50, opacity: 0 },
+                  hidden: { y: 40, opacity: 0 },
                   visible: { y: 0, opacity: 1 },
-                  exit: { y: -30, opacity: 0 }
+                  exit: { y: -20, opacity: 0, transition: { duration: 0.5, ease: "easeIn" } }
                 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight"
               >
                 {slideTitle}
@@ -176,11 +157,11 @@ export default function HeroSlideshow({
               {/* Description - Fades up from Bottom */}
               <motion.p
                 variants={{
-                  hidden: { y: 40, opacity: 0 },
+                  hidden: { y: 30, opacity: 0 },
                   visible: { y: 0, opacity: 1 },
-                  exit: { y: -20, opacity: 0 }
+                  exit: { y: -15, opacity: 0, transition: { duration: 0.5, ease: "easeIn" } }
                 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="text-md sm:text-lg lg:text-xl text-slate-200 font-medium leading-relaxed max-w-2xl text-balance"
               >
                 {slideDescription}
@@ -189,11 +170,11 @@ export default function HeroSlideshow({
               {/* Action Buttons - Fades up from Bottom */}
               <motion.div
                 variants={{
-                  hidden: { y: 30, opacity: 0 },
+                  hidden: { y: 20, opacity: 0 },
                   visible: { y: 0, opacity: 1 },
-                  exit: { y: -10, opacity: 0 }
+                  exit: { y: -10, opacity: 0, transition: { duration: 0.5, ease: "easeIn" } }
                 }}
-                transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-wrap gap-4 pt-4"
               >
                 {btnText1 && (

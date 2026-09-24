@@ -18,7 +18,17 @@ interface CategoryPageProps {
   };
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const projects = await sanityFetch<{ category: string }[]>({
+    query: `*[_type == "projectItem"] { "category": coalesce(category->title, category) }`,
+  });
+  if (!projects || projects.length === 0) return [];
+  const categories = Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
+  return categories.map((name) => ({ name }));
+}
 
 export default async function CategoryProjectsPage({ params }: CategoryPageProps) {
   const categoryName = decodeURIComponent(params.name);
