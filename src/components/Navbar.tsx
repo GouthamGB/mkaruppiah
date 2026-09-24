@@ -78,15 +78,15 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className={`text-lg font-bold tracking-tight transition-colors duration-200 ${
-                showScrolledState ? "text-slate-800" : "text-white"
-              } group-hover:text-brand-red`}>
-                M. KARUPPIAH
-              </span>
-              <span className={`text-[10px] font-semibold -mt-1 uppercase tracking-wider transition-colors duration-200 ${
-                showScrolledState ? "text-slate-500" : "text-slate-200/80"
+              <span className={`text-xl sm:text-2xl font-black tracking-tight leading-tight transition-colors duration-200 ${
+                showScrolledState ? "text-slate-900" : "text-white"
               }`}>
-                Pudukkottai & Karaikkudi
+                M. KAR<span className="text-brand-red">UP</span>PIAH
+              </span>
+              <span className={`text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase transition-colors duration-200 ${
+                showScrolledState ? "text-slate-500" : "text-slate-200/90"
+              }`}>
+                Pudukkottai &amp; Karaikkudi
               </span>
             </div>
           </Link>
@@ -209,7 +209,9 @@ export default function Navbar() {
                 height={28}
                 className="object-contain"
               />
-              <span className="font-bold text-slate-800 dark:text-white">M. KARUPPIAH</span>
+              <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white">
+                M. KAR<span className="text-brand-red">UP</span>PIAH
+              </span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
