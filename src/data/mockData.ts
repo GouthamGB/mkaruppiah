@@ -65,6 +65,36 @@ export interface Office {
   mapLink?: string;
 }
 
+export interface GoogleReview {
+  id: string;
+  authorName: string;
+  authorImage?: string;
+  avatarBg?: string;
+  relativeTime: string;
+  rating: number;
+  text: string;
+  verified?: boolean;
+}
+
+export interface GoogleReviewsSummary {
+  status: string;
+  rating: number;
+  totalReviews: number;
+  profileUrl?: string;
+}
+
+export interface Testimonial {
+  _id?: string;
+  id?: string;
+  name: string;
+  quote: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  avatar?: any;
+  role?: string;
+  location?: string;
+  order?: number;
+}
+
 export interface MockData {
   companyName: string;
   slogan: string;
@@ -109,6 +139,9 @@ export interface MockData {
       sunday: string;
     };
   };
+  googleReviewsSummary: GoogleReviewsSummary;
+  googleReviews: GoogleReview[];
+  testimonials: Testimonial[];
 }
 
 export const mockData: MockData = {
@@ -336,5 +369,117 @@ export const mockData: MockData = {
       weekdays: "Mon - Sat: 6:00 AM - 8:00 PM",
       sunday: "Sun: 6:00 AM - 12:00 PM"
     }
-  }
+  },
+  googleReviewsSummary: {
+    status: "EXCELLENT",
+    rating: 4.9,
+    totalReviews: 201,
+    profileUrl: "https://maps.google.com/?q=M.+Karuppiah+Pudukkottai",
+  },
+  googleReviews: [
+    {
+      id: "gr-1",
+      authorName: "shankar mangal",
+      authorImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
+      avatarBg: "#8b5cf6",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "I have had a good experience working with M. Karuppiah for our building projects. Excellent quality cement, steel, timely delivery, and very helpful staff. Highly recommend them for any construction work.",
+      verified: true,
+    },
+    {
+      id: "gr-2",
+      authorName: "khizer behelvi",
+      authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
+      avatarBg: "#f59e0b",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "Reached out to M. Karuppiah regarding bulk materials and steel supply. Honest guidance on material grades, prompt dispatch, and genuine wholesale pricing. Sincere and dependable team.",
+      verified: true,
+    },
+    {
+      id: "gr-3",
+      authorName: "Anilal Ravi",
+      authorImage: "",
+      avatarBg: "#22c55e",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "Justin and the team from M. Karuppiah have done a great job arranging site deliveries, coordinating crane support, and sharing transparent pricing for cement and steel throughout.",
+      verified: true,
+    },
+    {
+      id: "gr-4",
+      authorName: "Thomas Punnackal",
+      authorImage: "",
+      avatarBg: "#78716c",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "With M. Karuppiah by side it was very helpful to identify the right materials at a good price. Appreciate the sincere service, decades of experience, and honest business values.",
+      verified: true,
+    },
+    {
+      id: "gr-5",
+      authorName: "Abhishek Nebarsu",
+      authorImage: "",
+      avatarBg: "#16a34a",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "Had a good experience with M. Karuppiah. They are good with follow ups and make sure all our material dispatches and crane requirements are handled smoothly.",
+      verified: true,
+    },
+    {
+      id: "gr-6",
+      authorName: "Hirna Vadher",
+      authorImage: "",
+      avatarBg: "#4f46e5",
+      relativeTime: "1 year ago",
+      rating: 5,
+      text: "Top-notch customer service and premium quality construction supplies. The delivery was right on schedule at our construction site. Truly a reliable one-stop supplier!",
+      verified: true,
+    },
+  ],
+  testimonials: [
+    {
+      id: "test-1",
+      name: "Krishnan Govindraj",
+      quote: "– M. Karuppiah is a well experienced group, has very good technical foresight and gives right guidance to choose location and building materials. It's almost 4 years we are interacting, absolutely prompt, humble and we get across the table solutions in deciding construction materials and supplies. We can trust them and confidently go along.",
+      role: "Commercial Contractor",
+      location: "Pudukkottai"
+    },
+    {
+      id: "test-2",
+      name: "Abhishek Mishra",
+      quote: "Seamless support by M. Karuppiah company in customer onboarding services, including all the queries addressed with patience and in timely manner. They liaised between us and leading manufacturers to get the desired building materials on time.",
+      role: "Project Engineer",
+      location: "Karaikkudi"
+    },
+    {
+      id: "test-3",
+      name: "Anshuman Mohapatra",
+      quote: "Very professional service. Thanks to M. Karuppiah team who supported and guided me with merits and demerits of multiple steel and cement grades. Helped me to get the best quality materials for my dream house. Keep up the good work by helping clients 👍",
+      role: "Homeowner",
+      location: "Tiruchirappalli"
+    },
+    {
+      id: "test-4",
+      name: "S. Balasubramanian",
+      quote: "M. Karuppiah is one of the top best building supply companies in the region. Their crane hiring service and logistics support ensured our heavy column erections were finished ahead of schedule.",
+      role: "Infrastructure Developer",
+      location: "Pudukkottai"
+    },
+    {
+      id: "test-5",
+      name: "Raniith Kumar",
+      quote: "I was impressed with their transparent pricing and extensive stock. From foundation grade cement to finishing tiles and structural steel, everything arrived exactly as ordered with verified test certificates.",
+      role: "Architect & Builder",
+      location: "Madurai"
+    },
+    {
+      id: "test-6",
+      name: "M. Meenakshi Sundaram",
+      quote: "60 years of reputation is evident in their customer-first conduct. When we faced an urgent material shortfall on a weekend, their Karaikkudi yard team expedited the delivery without hesitation.",
+      role: "Civil Contractor",
+      location: "Karaikkudi"
+    }
+  ]
 };

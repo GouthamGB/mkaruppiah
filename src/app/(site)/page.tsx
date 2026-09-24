@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldCheck, Award, ThumbsUp, Building, HelpCircle } from "lucide-react";
 import HeroSlideshow from "@/components/HeroSlideshow";
 import CategoryListClient from "@/components/CategoryListClient";
+import GoogleReviewsSection from "@/components/GoogleReviewsSection";
 import { sanityFetch } from "@/sanity/client";
 import { HeroSlide, Product, CoreValue } from "@/data/mockData";
 
@@ -176,6 +177,9 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 5. Google Reviews Section */}
+      <GoogleReviewsSection />
     </div>
   );
 }

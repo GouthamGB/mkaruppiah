@@ -189,6 +189,10 @@ export async function sanityFetch<T>({
     return mockData.csr as unknown as T;
   }
 
+  if (lowercaseQuery.includes('_type == "testimonial"') || lowercaseQuery.includes('testimonial')) {
+    return mockData.testimonials as unknown as T;
+  }
+
   if (lowercaseQuery.includes('_type == "contactpage"') || lowercaseQuery.includes('contact')) {
     return mockData.contact as unknown as T;
   }

@@ -277,6 +277,21 @@ export const productSubcategory = {
   ],
 };
 
-export const schemaTypes = [homePage, product, productSubcategory, brand, director, projectCategory, projectItem, csr, contact, award];
+export const testimonial = {
+  name: "testimonial",
+  title: "Client Testimonials",
+  type: "document",
+  fields: [
+    orderRankField({ type: "testimonial" }),
+    { name: "order", title: "Display Order (Ascending)", type: "number" },
+    { name: "name", title: "Client Name", type: "string" },
+    { name: "quote", title: "Testimonial Content", type: "text" },
+    { name: "avatar", title: "Client Photo (Optional)", type: "image", options: { hotspot: true } },
+    { name: "role", title: "Designation / Role (Optional)", type: "string" },
+    { name: "location", title: "Location / City (Optional)", type: "string" },
+  ],
+};
+
+export const schemaTypes = [homePage, product, productSubcategory, brand, director, projectCategory, projectItem, csr, contact, award, testimonial];
 
 
