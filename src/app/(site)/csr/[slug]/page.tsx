@@ -18,14 +18,25 @@ interface InitiativeDetailsProps {
 }
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const csr = await sanityFetch<{ initiatives: { slug: { current: string } }[] }>({
-    query: `*[_type == "csr"][0] { initiatives[] { slug } }`,
+  const set = new Set<string>();
+  mockData.csr.initiatives.forEach((i) => {
+    if (i.slug?.current) set.add(i.slug.current);
   });
-  const slugs = (csr?.initiatives || []).map((i) => i.slug?.current).filter(Boolean);
-  return slugs.map((slug) => ({ slug }));
+
+  try {
+    const csr = await sanityFetch<{ initiatives: { slug: { current: string } }[] }>({
+      query: `*[_type == "csr"][0] { initiatives[] { slug } }`,
+    });
+    (csr?.initiatives || []).forEach((i) => {
+      if (i.slug?.current) set.add(i.slug.current);
+    });
+  } catch (err) {
+    console.warn("Could not fetch CSR initiatives for generateStaticParams:", err);
+  }
+
+  return Array.from(set).map((slug) => ({ slug }));
 }
 
 export default async function InitiativeDetailsPage({ params }: InitiativeDetailsProps) {

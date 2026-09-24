@@ -20,25 +20,32 @@ interface PageProps {
 }
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const allProducts = await sanityFetch<Category[]>({
-    query: `*[_type == "product"] { _id, id, name, "slug": slug.current }`,
-  });
-  if (!allProducts || allProducts.length === 0) return [];
-  const set = new Set<string>();
-  allProducts.forEach((p) => {
-    if (p.slug) set.add(p.slug);
-    if (p.id) {
-      set.add(p.id);
-      set.add(slugify(p.id));
+  const defaultSlugs = ["cement", "steel", "tiles", "fencing", "crane", "sanitaryware"];
+  const set = new Set<string>(defaultSlugs);
+
+  try {
+    const allProducts = await sanityFetch<Category[]>({
+      query: `*[_type == "product"] { _id, id, name, "slug": slug.current }`,
+    });
+    if (Array.isArray(allProducts)) {
+      allProducts.forEach((p) => {
+        if (p.slug) set.add(p.slug);
+        if (p.id) {
+          set.add(p.id);
+          set.add(slugify(p.id));
+        }
+        if (p.name) {
+          set.add(p.name);
+          set.add(slugify(p.name));
+        }
+      });
     }
-    if (p.name) {
-      set.add(p.name);
-      set.add(slugify(p.name));
-    }
-  });
+  } catch (err) {
+    console.warn("Could not fetch products for generateStaticParams:", err);
+  }
+
   return Array.from(set).filter(Boolean).map((category) => ({ category }));
 }
 

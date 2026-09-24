@@ -18,16 +18,56 @@ interface CategoryPageProps {
   };
 }
 
+const defaultCategoryNames = [
+  "Educational Institutions",
+  "Hospitals",
+  "Hotels & Resorts",
+  "Government Buildings",
+  "Individual Houses",
+  "Commercial Spaces",
+  "Public & Infrastructure",
+];
+
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const projects = await sanityFetch<{ category: string }[]>({
-    query: `*[_type == "projectItem"] { "category": coalesce(category->title, category) }`,
+  const set = new Set<string>(defaultCategoryNames);
+
+  try {
+    const [sanityCategories, projects] = await Promise.all([
+      sanityFetch<{ title: string }[]>({
+        query: `*[_type == "projectCategory"] { title }`,
+      }),
+      sanityFetch<{ category: string }[]>({
+        query: `*[_type == "projectItem"] { "category": coalesce(category->title, category) }`,
+      }),
+    ]);
+
+    if (Array.isArray(sanityCategories)) {
+      sanityCategories.forEach((c) => {
+        if (c?.title) set.add(c.title);
+      });
+    }
+
+    if (Array.isArray(projects)) {
+      projects.forEach((p) => {
+        if (p?.category) set.add(p.category);
+      });
+    }
+  } catch (err) {
+    console.warn("Could not fetch categories for generateStaticParams:", err);
+  }
+
+  const result: { name: string }[] = [];
+  set.forEach((name) => {
+    result.push({ name });
+    const encoded = encodeURIComponent(name);
+    if (encoded !== name) {
+      result.push({ name: encoded });
+    }
   });
-  if (!projects || projects.length === 0) return [];
-  const categories = Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
-  return categories.map((name) => ({ name }));
+
+  return result;
 }
 
 export default async function CategoryProjectsPage({ params }: CategoryPageProps) {

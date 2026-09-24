@@ -24,18 +24,27 @@ interface ProjectDetailsPageProps {
 }
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const projects = await sanityFetch<Project[]>({
-    query: `*[_type == "projectItem"] { _id, id }`,
-  });
-  if (!projects || projects.length === 0) return [];
   const set = new Set<string>();
-  projects.forEach((p) => {
-    if (p._id) set.add(p._id);
+  mockData.projects.forEach((p) => {
     if (p.id) set.add(p.id);
   });
+
+  try {
+    const projects = await sanityFetch<Project[]>({
+      query: `*[_type == "projectItem"] { _id, id }`,
+    });
+    if (Array.isArray(projects)) {
+      projects.forEach((p) => {
+        if (p._id) set.add(p._id);
+        if (p.id) set.add(p.id);
+      });
+    }
+  } catch (err) {
+    console.warn("Could not fetch projects for generateStaticParams:", err);
+  }
+
   return Array.from(set).map((id) => ({ id }));
 }
 
