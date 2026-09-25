@@ -140,8 +140,6 @@ export default function SubcategoryListClient({
   categoryBrands = [],
   categoryName = "",
 }: SubcategoryListClientProps) {
-  const [cols, setCols] = useState<3 | 4 | 5>(3);
-
   const getBrandName = (b: string | BrandItem): string => {
     if (!b) return "";
     return typeof b === "string" ? b : b.name || "";
@@ -182,18 +180,6 @@ export default function SubcategoryListClient({
 
     return Array.from(brandMap.values());
   }, [subcategories, categorySlug, categoryBrands, categoryName]);
-
-  const totalItems = subcategories.length;
-  const canShow4 = totalItems >= 4;
-  const canShow5 = totalItems >= 5;
-  const activeCols = cols === 5 && !canShow5 ? (canShow4 ? 4 : 3) : cols === 4 && !canShow4 ? 3 : cols;
-
-  const gridColsClass = 
-    activeCols === 4
-      ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      : activeCols === 5
-      ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
-      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto";
 
   return (
     <div className="space-y-8">
@@ -239,78 +225,15 @@ export default function SubcategoryListClient({
       {/* When subcategories exist: Control Bar & Grid */}
       {subcategories.length > 0 && (
         <>
-          {/* Control Bar above Subcategories Cards (Columns Selector) */}
-          <div className={`flex items-center justify-between pb-2 ${activeCols === 3 ? "max-w-5xl mx-auto" : ""}`}>
+          {/* Header above Subcategories Cards */}
+          <div className="pb-2">
             <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Available Product Types ({subcategories.length})
             </div>
-
-            {/* Grid Columns Controller - Only show if subcategories >= 4 */}
-            {canShow4 && (
-              <div className="flex items-center space-x-1 bg-slate-100/80 dark:bg-slate-800/60 p-1 rounded-md border border-slate-200/50 dark:border-slate-700/50">
-                <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500 px-1.5 tracking-wider">
-                  Columns
-                </span>
-                <button
-                  onClick={() => setCols(3)}
-                  className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                    activeCols === 3
-                      ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
-                      : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                  }`}
-                  title="3 Columns"
-                >
-                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="3" y="4" width="4" height="16" rx="0.5" />
-                    <rect x="10" y="4" width="4" height="16" rx="0.5" />
-                    <rect x="17" y="4" width="4" height="16" rx="0.5" />
-                  </svg>
-                </button>
-
-                {canShow4 && (
-                  <button
-                    onClick={() => setCols(4)}
-                    className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                      activeCols === 4
-                        ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
-                        : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                    }`}
-                    title="4 Columns"
-                  >
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="2" y="4" width="3" height="16" rx="0.5" />
-                      <rect x="7.5" y="4" width="3" height="16" rx="0.5" />
-                      <rect x="13" y="4" width="3" height="16" rx="0.5" />
-                      <rect x="18.5" y="4" width="3" height="16" rx="0.5" />
-                    </svg>
-                  </button>
-                )}
-
-                {canShow5 && (
-                  <button
-                    onClick={() => setCols(5)}
-                    className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                      activeCols === 5
-                        ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
-                        : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                    }`}
-                    title="5 Columns"
-                  >
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                      <rect x="2" y="4" width="2" height="16" rx="0.5" />
-                      <rect x="6.5" y="4" width="2" height="16" rx="0.5" />
-                      <rect x="11" y="4" width="2" height="16" rx="0.5" />
-                      <rect x="15.5" y="4" width="2" height="16" rx="0.5" />
-                      <rect x="20" y="4" width="2" height="16" rx="0.5" />
-                    </svg>
-                  </button>
-                )}
-              </div>
-            )}
           </div>
 
-          {/* Subcategories Cards Grid */}
-          <div className={`grid ${gridColsClass} gap-8 sm:gap-10 w-full`}>
+          {/* Subcategories Cards Grid: default 4 items per row on big screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 w-full">
             {subcategories.map((sub) => {
               const specText = sub.specification || sub.range;
               const phoneNum = (sub.contactNumber || "+919842420046").replace(/\s+/g, "");
@@ -318,7 +241,7 @@ export default function SubcategoryListClient({
               return (
                 <div
                   key={sub.id}
-                  className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-slate-950/60 hover:-translate-y-1.5 hover:border-brand-gold/50 transition-all duration-300 flex flex-col h-[390px] sm:h-[420px] max-w-sm mx-auto w-full"
+                  className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-slate-950/60 hover:-translate-y-1.5 hover:border-brand-gold/50 transition-all duration-300 flex flex-col h-[390px] sm:h-[420px] w-full"
                 >
                   {/* Image Frame with Soft Gradient Background */}
                   <div className="relative flex-1 w-full overflow-hidden bg-gradient-to-b from-slate-50/90 via-slate-50/50 to-slate-100/70 dark:from-slate-800/40 dark:via-slate-800/20 dark:to-slate-800/60 group-hover:from-slate-100/90 dark:group-hover:from-slate-800/80 flex items-center justify-center p-3 transition-colors duration-500">
