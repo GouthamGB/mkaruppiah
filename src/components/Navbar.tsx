@@ -58,10 +58,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 border-b ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
         showScrolledState
-          ? "bg-white/95 shadow-md backdrop-blur-md py-3 border-slate-200/60 dark:border-slate-800"
-          : "bg-transparent py-5 border-transparent"
+          ? "bg-white/95 shadow-md backdrop-blur-md py-3 border-b-2 border-brand-gold"
+          : "bg-transparent py-5 border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,8 +83,8 @@ export default function Navbar() {
               }`}>
                 M. KAR<span className="text-brand-red">UP</span>PIAH
               </span>
-              <span className={`text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase transition-colors duration-200 ${
-                showScrolledState ? "text-slate-500" : "text-slate-200/90"
+              <span className={`text-[10px] sm:text-[11px] font-bold tracking-wider uppercase transition-colors duration-200 ${
+                showScrolledState ? "text-brand-blue" : "text-slate-200/90"
               }`}>
                 Pudukkottai &amp; Karaikkudi
               </span>
@@ -100,14 +100,12 @@ export default function Navbar() {
                   return (
                     <div key={link.href} className="relative group py-2">
                       <div
-                        className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium cursor-pointer select-none transition-all duration-200 ${
+                        className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-semibold cursor-pointer select-none transition-all duration-200 ${
                           isActive(link.href)
-                            ? showScrolledState
-                              ? "text-brand-blue bg-brand-gold/15 font-bold shadow-2xs"
-                              : "text-brand-gold bg-white/10 font-bold"
+                            ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/30"
                             : showScrolledState
-                              ? "text-slate-700 hover:text-brand-blue hover:bg-brand-gold/10"
-                              : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
+                              ? "text-slate-700 hover:text-slate-950 hover:bg-brand-gold/25"
+                              : "text-slate-100 hover:text-slate-950 hover:bg-brand-gold/80"
                         }`}
                       >
                         <span>{link.label}</span>
@@ -119,19 +117,19 @@ export default function Navbar() {
                         <div className="py-1">
                           <Link
                             href="/about"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Company Overview
                           </Link>
                           <Link
                             href="/about/our-strength"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Our Strength
                           </Link>
                           <Link
                             href="/about/careers"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Careers
                           </Link>
@@ -145,14 +143,12 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    className={`px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
                       isActive(link.href)
-                        ? showScrolledState
-                          ? "text-brand-blue bg-brand-gold/15 font-bold shadow-2xs"
-                          : "text-brand-gold bg-white/10 font-bold"
+                        ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/30"
                         : showScrolledState
-                          ? "text-slate-700 hover:text-brand-blue hover:bg-brand-gold/10"
-                          : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
+                          ? "text-slate-700 hover:text-slate-950 hover:bg-brand-gold/25"
+                          : "text-slate-100 hover:text-slate-950 hover:bg-brand-gold/80"
                     }`}
                   >
                     {link.label}
@@ -176,8 +172,8 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className={`md:hidden inline-flex items-center justify-center p-2 rounded-md transition-colors ${
                 showScrolledState
-                  ? "text-slate-700 hover:text-brand-blue hover:bg-slate-100"
-                  : "text-white hover:text-brand-gold hover:bg-white/10"
+                  ? "text-slate-700 hover:text-slate-950 hover:bg-brand-gold/25"
+                  : "text-white hover:text-slate-950 hover:bg-brand-gold/80"
               } focus:outline-none`}
               aria-label="Toggle menu"
             >
@@ -195,12 +191,12 @@ export default function Navbar() {
         onClick={() => setIsOpen(false)}
       >
         <div
-          className={`fixed top-0 right-0 w-72 h-full bg-white dark:bg-slate-900 shadow-xl p-6 transition-transform duration-300 transform ${
+          className={`fixed top-0 right-0 w-72 h-full bg-white dark:bg-slate-900 shadow-xl p-6 border-t-4 border-brand-gold transition-transform duration-300 transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-between pb-6 border-b border-brand-gold/30">
             <div className="flex items-center space-x-2">
               <Image
                 src="/logo.png"
@@ -221,7 +217,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="flex flex-col space-y-3 py-6">
+          <nav className="flex flex-col space-y-2 py-6">
             {navLinks.map((link) => {
               if (link.label === "About Us") {
                 return (
@@ -234,8 +230,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about"
-                          ? "text-brand-blue bg-brand-gold/15 font-bold"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
+                          ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-brand-gold/20 hover:text-slate-950"
                       }`}
                     >
                       Company Overview
@@ -245,8 +241,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/our-strength"
-                          ? "text-brand-blue bg-brand-gold/15 font-bold"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
+                          ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-brand-gold/20 hover:text-slate-950"
                       }`}
                     >
                       Our Strength
@@ -256,8 +252,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/careers"
-                          ? "text-brand-blue bg-brand-gold/15 font-bold"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
+                          ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-brand-gold/20 hover:text-slate-950"
                       }`}
                     >
                       Careers
@@ -273,8 +269,8 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className={`px-3 py-2 rounded-md text-base font-semibold transition-colors ${
                     isActive(link.href)
-                      ? "text-brand-blue bg-brand-gold/15 font-bold"
-                      : "text-slate-750 dark:text-slate-200 hover:text-brand-blue"
+                      ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
+                      : "text-slate-750 dark:text-slate-200 hover:bg-brand-gold/20 hover:text-slate-950"
                   }`}
                 >
                   {link.label}
