@@ -61,7 +61,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-36 pb-20 flex flex-col items-center justify-center">
         <div className="max-w-md text-center space-y-6 px-4">
-          <div className="inline-flex h-16 w-16 rounded-full bg-red-100 dark:bg-red-950/30 flex items-center justify-center text-brand-red">
+          <div className="inline-flex h-16 w-16 rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-blue dark:text-brand-gold">
             <Layers className="h-8 w-8" />
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Project Not Found</h1>
@@ -70,7 +70,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
           </p>
           <Link
             href="/projects"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold text-white bg-brand-red hover:bg-brand-red/90 shadow-md transition-all duration-200"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 shadow-md shadow-brand-gold/25 transition-all duration-200"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Projects
@@ -87,7 +87,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
         <div className="flex items-center">
           <Link
             href={`/projects/category/${encodeURIComponent(project.category)}`}
-            className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-brand-red dark:text-slate-400 transition-colors duration-200 group"
+            className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-brand-blue dark:text-slate-400 transition-colors duration-200 group"
           >
             <ArrowLeft className="h-4 w-4 mr-2 transition-transform duration-200 group-hover:-translate-x-1" />
             Back to {project.category}
@@ -96,7 +96,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
 
         {/* Project Title & Category Header */}
         <div className="space-y-4">
-          <span className="inline-flex bg-brand-red/10 border border-brand-red/20 text-brand-red px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+          <span className="inline-flex bg-brand-gold/15 border border-brand-gold/30 text-brand-blue dark:text-brand-gold px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
             {project.category}
           </span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-950 dark:text-white tracking-tight leading-tight max-w-4xl">
@@ -145,7 +145,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
               <div className="space-y-6">
                 {/* Category Spec */}
                 <div className="flex items-start">
-                  <div className="h-10 w-10 rounded-lg bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0 mr-4">
+                  <div className="h-10 w-10 rounded-lg bg-brand-gold/15 flex items-center justify-center text-brand-blue dark:text-brand-gold shrink-0 mr-4">
                     <Layers className="h-5 w-5" />
                   </div>
                   <div>
@@ -156,7 +156,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
 
                 {/* Location Spec */}
                 <div className="flex items-start">
-                  <div className="h-10 w-10 rounded-lg bg-brand-gold/10 flex items-center justify-center text-brand-gold shrink-0 mr-4">
+                  <div className="h-10 w-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mr-4">
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
@@ -167,7 +167,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
 
                 {/* Year Completed Spec */}
                 <div className="flex items-start">
-                  <div className="h-10 w-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mr-4">
+                  <div className="h-10 w-10 rounded-lg bg-brand-gold/15 flex items-center justify-center text-brand-gold shrink-0 mr-4">
                     <Calendar className="h-5 w-5" />
                   </div>
                   <div>
@@ -179,7 +179,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
                 {/* Client Spec */}
                 {project.client && (
                   <div className="flex items-start">
-                    <div className="h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-950/30 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 mr-4">
+                    <div className="h-10 w-10 rounded-lg bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0 mr-4">
                       <User className="h-5 w-5" />
                     </div>
                     <div>
@@ -192,7 +192,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
                 {/* Area Spec */}
                 {project.area && (
                   <div className="flex items-start">
-                    <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 mr-4">
+                    <div className="h-10 w-10 rounded-lg bg-brand-gold/15 flex items-center justify-center text-brand-gold shrink-0 mr-4">
                       <Maximize2 className="h-5 w-5" />
                     </div>
                     <div>
@@ -207,7 +207,7 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
               <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
                 <Link
                   href="/contacts"
-                  className="block w-full text-center py-3 bg-brand-red hover:bg-brand-red/90 text-white rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+                  className="block w-full text-center py-3 bg-brand-gold hover:bg-brand-gold/90 text-slate-950 rounded-xl text-sm font-bold shadow-md shadow-brand-gold/25 hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Inquire About This Project
                 </Link>

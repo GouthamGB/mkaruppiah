@@ -29,8 +29,9 @@ export default async function ContactsPage() {
     <div className="w-full">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Contact Us</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
             Reach Out to M. Karuppiah Pudukkottai & Karaikkudi Offices
@@ -45,7 +46,7 @@ export default async function ContactsPage() {
             {/* Contact Details Column */}
             <div className="lg:col-span-5 space-y-8">
               <div className="space-y-4">
-                <div className="flex items-center space-x-2 text-brand-red">
+                <div className="flex items-center space-x-2 text-brand-blue dark:text-brand-gold">
                   <Contact className="h-5 w-5" />
                   <span className="text-xs uppercase font-bold tracking-wider">Get in Touch</span>
                 </div>
@@ -62,10 +63,10 @@ export default async function ContactsPage() {
                 {offices.map((office, idx) => (
                   <div
                     key={idx}
-                    className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 p-6 rounded-lg space-y-3"
+                    className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800 p-6 rounded-lg space-y-3 hover:border-brand-gold/40 transition-colors"
                   >
                     <h4 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
-                      <Landmark className="h-4 w-4 mr-2 text-brand-red" />
+                      <Landmark className="h-4 w-4 mr-2 text-brand-blue dark:text-brand-gold" />
                       {office.name}
                     </h4>
                     <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed flex items-start">
@@ -74,7 +75,7 @@ export default async function ContactsPage() {
                     </p>
                     <p className="text-xs text-slate-700 dark:text-slate-300 font-semibold flex items-center">
                       <Phone className="h-4 w-4 mr-2 text-brand-gold shrink-0" />
-                      <a href={`tel:${office.phone.replace(/\s+/g, "")}`} className="hover:text-brand-red">
+                      <a href={`tel:${office.phone.replace(/\s+/g, "")}`} className="hover:text-brand-blue">
                         {office.phone}
                       </a>
                     </p>
@@ -83,17 +84,17 @@ export default async function ContactsPage() {
               </div>
 
               {/* Office Hours Card */}
-              <div className="bg-slate-900 text-white p-6 rounded-lg space-y-4">
+              <div className="bg-slate-900 text-white p-6 rounded-lg space-y-4 border border-slate-800">
                 <h4 className="text-md font-bold uppercase tracking-wider text-brand-gold">
                   Business Office Hours
                 </h4>
                 <div className="space-y-2 text-sm text-slate-300">
                   <p className="flex items-center">
-                    <Clock className="h-4 w-4 mr-2 text-brand-red shrink-0" />
+                    <Clock className="h-4 w-4 mr-2 text-brand-gold shrink-0" />
                     <span>{weekdaysHours}</span>
                   </p>
                   <p className="flex items-center">
-                    <Clock className="h-4 w-4 mr-2 text-brand-red shrink-0" />
+                    <Clock className="h-4 w-4 mr-2 text-brand-gold shrink-0" />
                     <span>{sundayHours}</span>
                   </p>
                 </div>

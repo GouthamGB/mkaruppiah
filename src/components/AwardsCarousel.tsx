@@ -92,7 +92,7 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
         {showLeftArrow && (
           <button
             onClick={() => scroll("left")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-brand-red hover:text-white transition-colors duration-250 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors duration-250 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
             aria-label="Previous slide"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -103,7 +103,7 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
         {showRightArrow && (
           <button
             onClick={() => scroll("right")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-brand-red hover:text-white transition-colors duration-250 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 h-10 w-10 rounded-full bg-white/90 dark:bg-slate-900/90 shadow-md border border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-colors duration-250 opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
             aria-label="Next slide"
           >
             <ChevronRight className="h-5 w-5" />
@@ -160,7 +160,7 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
             key={idx}
             onClick={() => scrollToIdx(idx)}
             className={`h-2 rounded-full transition-all duration-300 ${
-              idx === activeIndex ? "w-8 bg-brand-red" : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
+              idx === activeIndex ? "w-8 bg-brand-gold" : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

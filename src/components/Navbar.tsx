@@ -103,10 +103,10 @@ export default function Navbar() {
                         className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium cursor-pointer select-none transition-all duration-200 ${
                           isActive(link.href)
                             ? showScrolledState
-                              ? "text-brand-red bg-brand-red/5 font-semibold"
-                              : "text-brand-gold bg-white/10 font-semibold"
+                              ? "text-brand-blue bg-brand-gold/15 font-bold shadow-2xs"
+                              : "text-brand-gold bg-white/10 font-bold"
                             : showScrolledState
-                              ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
+                              ? "text-slate-700 hover:text-brand-blue hover:bg-brand-gold/10"
                               : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
                         }`}
                       >
@@ -119,19 +119,19 @@ export default function Navbar() {
                         <div className="py-1">
                           <Link
                             href="/about"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
                           >
                             Company Overview
                           </Link>
                           <Link
                             href="/about/our-strength"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
                           >
                             Our Strength
                           </Link>
                           <Link
                             href="/about/careers"
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-brand-red dark:hover:text-brand-red transition-colors"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/10 hover:text-brand-blue dark:hover:text-brand-gold transition-colors"
                           >
                             Careers
                           </Link>
@@ -148,10 +148,10 @@ export default function Navbar() {
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       isActive(link.href)
                         ? showScrolledState
-                          ? "text-brand-red bg-brand-red/5 font-semibold"
-                          : "text-brand-gold bg-white/10 font-semibold"
+                          ? "text-brand-blue bg-brand-gold/15 font-bold shadow-2xs"
+                          : "text-brand-gold bg-white/10 font-bold"
                         : showScrolledState
-                          ? "text-slate-600 hover:text-brand-red hover:bg-slate-50"
+                          ? "text-slate-700 hover:text-brand-blue hover:bg-brand-gold/10"
                           : "text-slate-100 hover:text-brand-gold hover:bg-white/10"
                     }`}
                   >
@@ -165,7 +165,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center">
               <Link
                 href="/contacts"
-                className="inline-flex items-center justify-center px-4 py-2 text-xs font-bold uppercase tracking-wider text-white bg-brand-red hover:bg-brand-red/90 rounded-md shadow-sm transition-all duration-200 hover:shadow-md"
+                className="inline-flex items-center justify-center px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-sm shadow-brand-gold/25 transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95"
               >
                 Get in Touch
               </Link>
@@ -176,7 +176,7 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className={`md:hidden inline-flex items-center justify-center p-2 rounded-md transition-colors ${
                 showScrolledState
-                  ? "text-slate-500 hover:text-brand-red hover:bg-slate-100"
+                  ? "text-slate-700 hover:text-brand-blue hover:bg-slate-100"
                   : "text-white hover:text-brand-gold hover:bg-white/10"
               } focus:outline-none`}
               aria-label="Toggle menu"
@@ -234,8 +234,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about"
-                          ? "text-brand-red bg-brand-red/5"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                          ? "text-brand-blue bg-brand-gold/15 font-bold"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
                       }`}
                     >
                       Company Overview
@@ -245,8 +245,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/our-strength"
-                          ? "text-brand-red bg-brand-red/5"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                          ? "text-brand-blue bg-brand-gold/15 font-bold"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
                       }`}
                     >
                       Our Strength
@@ -256,8 +256,8 @@ export default function Navbar() {
                       onClick={() => setIsOpen(false)}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/careers"
-                          ? "text-brand-red bg-brand-red/5"
-                          : "text-slate-700 dark:text-slate-300 hover:text-brand-red"
+                          ? "text-brand-blue bg-brand-gold/15 font-bold"
+                          : "text-slate-700 dark:text-slate-300 hover:text-brand-blue"
                       }`}
                     >
                       Careers
@@ -273,8 +273,8 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className={`px-3 py-2 rounded-md text-base font-semibold transition-colors ${
                     isActive(link.href)
-                      ? "text-brand-red bg-brand-red/5"
-                      : "text-slate-750 dark:text-slate-200 hover:text-brand-red"
+                      ? "text-brand-blue bg-brand-gold/15 font-bold"
+                      : "text-slate-750 dark:text-slate-200 hover:text-brand-blue"
                   }`}
                 >
                   {link.label}
@@ -294,7 +294,7 @@ export default function Navbar() {
             <Link
               href="/contacts"
               onClick={() => setIsOpen(false)}
-              className="block w-full text-center px-4 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-colors"
+              className="block w-full text-center px-4 py-3 text-sm font-bold text-slate-950 bg-brand-gold rounded-md shadow-md shadow-brand-gold/25 hover:bg-brand-gold/90 transition-colors"
             >
               Get in Touch
             </Link>

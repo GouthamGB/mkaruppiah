@@ -26,7 +26,7 @@ export default function CareersPage() {
     <div className="w-full">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-96 w-96 rounded-full bg-brand-red/5 blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-96 w-96 rounded-full bg-brand-blue/20 blur-[120px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-brand-gold/10 blur-[120px] pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
@@ -41,7 +41,7 @@ export default function CareersPage() {
       <section className="py-20 bg-white dark:bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 className="text-brand-red text-sm font-bold uppercase tracking-widest">Life at M. Karuppiah</h2>
+            <h2 className="text-brand-gold text-sm font-bold uppercase tracking-widest">Life at M. Karuppiah</h2>
             <h3 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
               {"Why You'll Love Working Here"}
             </h3>
@@ -56,9 +56,9 @@ export default function CareersPage() {
               return (
                 <div
                   key={index}
-                  className="bg-slate-50 dark:bg-slate-905 border border-slate-200/40 dark:border-slate-800 p-8 rounded-lg space-y-4 hover:shadow-md transition-shadow"
+                  className="bg-slate-50 dark:bg-slate-905 border border-slate-200/40 dark:border-slate-800 p-8 rounded-lg space-y-4 hover:border-brand-gold/40 hover:shadow-md transition-all group"
                 >
-                  <div className="h-12 w-12 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red shrink-0">
+                  <div className="h-12 w-12 rounded-full bg-brand-gold/15 dark:bg-brand-gold/10 border border-brand-gold/25 flex items-center justify-center text-brand-blue dark:text-brand-gold shrink-0 group-hover:scale-105 transition-transform">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h4 className="text-xl font-bold text-slate-905 dark:text-white">{perk.title}</h4>

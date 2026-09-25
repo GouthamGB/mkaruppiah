@@ -95,7 +95,7 @@ export default function GoogleReviewsSection({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - Site Theme Accurate */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <h3 className="text-brand-red text-sm font-bold uppercase tracking-widest">
+          <h3 className="text-brand-gold text-sm font-bold uppercase tracking-widest">
             Client Feedback
           </h3>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
@@ -122,7 +122,7 @@ export default function GoogleReviewsSection({
             <button
               onClick={prevSlide}
               aria-label="Previous reviews"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-200 hover:scale-105 active:scale-95"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -133,7 +133,7 @@ export default function GoogleReviewsSection({
             <button
               onClick={nextSlide}
               aria-label="Next reviews"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-brand-red hover:text-white hover:border-brand-red transition-all duration-200 hover:scale-105 active:scale-95"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-brand-blue hover:text-white hover:border-brand-blue transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -156,7 +156,7 @@ export default function GoogleReviewsSection({
                   className="p-3 shrink-0"
                   style={{ width: `${100 / itemsPerPage}%` }}
                 >
-                  <div className="h-full flex flex-col justify-between p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-brand-red/30 transition-all duration-300">
+                  <div className="h-full flex flex-col justify-between p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-brand-gold/40 transition-all duration-300">
                     <div>
                       {/* Card Top: Author, Relative Time & Google G icon */}
                       <div className="flex items-center justify-between gap-3 mb-4">
@@ -171,7 +171,7 @@ export default function GoogleReviewsSection({
                           ) : (
                             <div
                               className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0 uppercase shadow-xs"
-                              style={{ backgroundColor: rev.avatarBg || "#ed1c24" }}
+                              style={{ backgroundColor: rev.avatarBg || "#023f88" }}
                             >
                               {rev.authorName.charAt(0)}
                             </div>
@@ -211,7 +211,7 @@ export default function GoogleReviewsSection({
                       <div className="mt-3 pt-2">
                         <button
                           onClick={() => toggleExpand(rev.id)}
-                          className="text-xs font-semibold text-brand-red hover:underline transition-colors"
+                          className="text-xs font-semibold text-brand-blue hover:text-brand-blue/80 hover:underline transition-colors"
                         >
                           {isExpanded ? "Show less" : "Read more"}
                         </button>
@@ -232,11 +232,11 @@ export default function GoogleReviewsSection({
           </div>
         </div>
 
-        {/* View More Reviews CTA button - Site Theme Red Button */}
+        {/* View More Reviews CTA button */}
         <div className="mt-10 flex justify-center">
           <Link
             href="/testimonials"
-            className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-white bg-brand-red hover:bg-brand-red/90 rounded-md shadow-lg shadow-brand-red/25 hover:shadow-brand-red/40 hover:scale-105 active:scale-95 transition-all duration-200 group"
+            className="inline-flex items-center justify-center px-8 py-3.5 text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-lg shadow-brand-gold/25 hover:shadow-brand-gold/40 hover:scale-105 active:scale-95 transition-all duration-200 group"
           >
             <span>View More Reviews</span>
             <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1.5 transition-transform" />

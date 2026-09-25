@@ -79,7 +79,7 @@ export default function HeroSlideshow({
                 {btnText1 && (
                   <Link
                     href={btnLink1 || "/contacts"}
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200"
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-lg shadow-brand-gold/25 transition-all duration-200"
                   >
                     {btnText1}
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -88,7 +88,7 @@ export default function HeroSlideshow({
                 {btnText2 && (
                   <Link
                     href={btnLink2 || "/about"}
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200"
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-brand-blue/80 backdrop-blur-sm bg-brand-blue/70 rounded-md hover:bg-brand-blue hover:border-brand-blue transition-all duration-200"
                   >
                     {btnText2}
                   </Link>
@@ -180,7 +180,7 @@ export default function HeroSlideshow({
                 {btnText1 && (
                   <Link
                     href={btnLink1 || "/contacts"}
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-lg hover:bg-brand-red/90 transition-all duration-200 hover:scale-105"
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-lg shadow-brand-gold/25 transition-all duration-200 hover:scale-105"
                   >
                     {btnText1}
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -189,7 +189,7 @@ export default function HeroSlideshow({
                 {btnText2 && (
                   <Link
                     href={btnLink2 || "/about"}
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-white/30 backdrop-blur-sm bg-white/5 rounded-md hover:bg-white hover:text-slate-950 hover:border-white transition-all duration-200 hover:scale-105"
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white border-2 border-brand-blue/80 backdrop-blur-sm bg-brand-blue/70 rounded-md hover:bg-brand-blue hover:border-brand-blue transition-all duration-200 hover:scale-105"
                   >
                     {btnText2}
                   </Link>
@@ -207,7 +207,7 @@ export default function HeroSlideshow({
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "w-8 bg-brand-red" : "bg-white/40 hover:bg-white/70 w-2"
+              className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? "w-8 bg-brand-gold" : "bg-white/40 hover:bg-white/70 w-2"
                 }`}
               aria-label={`Go to slide ${idx + 1}`}
             ></button>

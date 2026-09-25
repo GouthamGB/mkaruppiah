@@ -7,11 +7,11 @@ export default function NotFound() {
     <div className="w-full min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-8 rounded-2xl shadow-xl text-center space-y-6 relative overflow-hidden">
         {/* Decorative background glow */}
-        <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-brand-red/10 blur-2xl pointer-events-none"></div>
-        <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-brand-gold/10 blur-2xl pointer-events-none"></div>
+        <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-brand-blue/20 blur-2xl pointer-events-none"></div>
+        <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-brand-gold/15 blur-2xl pointer-events-none"></div>
 
         {/* Icon */}
-        <div className="mx-auto h-16 w-16 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red animate-pulse">
+        <div className="mx-auto h-16 w-16 rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-blue dark:text-brand-gold animate-pulse">
           <HelpCircle className="h-10 w-10" />
         </div>
 
@@ -29,7 +29,7 @@ export default function NotFound() {
         <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-5 py-3 text-sm font-bold text-white bg-brand-red rounded-lg shadow-md hover:bg-brand-red/90 transition-colors w-full"
+            className="inline-flex items-center justify-center px-5 py-3 text-sm font-bold text-slate-950 bg-brand-gold rounded-lg shadow-md shadow-brand-gold/25 hover:bg-brand-gold/90 transition-colors w-full"
           >
             <Home className="h-4 w-4 mr-2" />
             Return Home

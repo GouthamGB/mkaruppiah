@@ -183,7 +183,7 @@ export default function CsrMediaGallery({ media }: CsrMediaGalleryProps) {
         {/* Center Main Active Media */}
         <div className="flex-1 w-full sm:max-w-[70%] md:max-w-[64%] relative group">
           {/* Soft Glow Gradient Accent behind the image */}
-          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-brand-red/20 via-brand-gold/10 to-brand-blue/15 dark:from-brand-red/10 dark:via-brand-gold/5 dark:to-brand-blue/10 opacity-70 blur-xl group-hover:opacity-95 transition duration-500"></div>
+          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-brand-blue/25 via-brand-gold/20 to-brand-blue/15 dark:from-brand-blue/20 dark:via-brand-gold/15 dark:to-brand-blue/10 opacity-70 blur-xl group-hover:opacity-95 transition duration-500"></div>
 
           {/* Key triggers remount of the inner card causing CSS keyframe to re-run */}
           <div 

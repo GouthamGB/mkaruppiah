@@ -35,8 +35,9 @@ export default async function AboutPage() {
     <div className="w-full">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">About Us & Legacy</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
             Over 60 Years of Building Trust, Quality & Relationships
@@ -50,7 +51,7 @@ export default async function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Story Content */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="flex items-center space-x-2 text-brand-red">
+              <div className="flex items-center space-x-2 text-brand-blue dark:text-brand-gold">
                 <History className="h-5 w-5" />
                 <span className="text-xs uppercase font-bold tracking-wider">Our Heritage</span>
               </div>

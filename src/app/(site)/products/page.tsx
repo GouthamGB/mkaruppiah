@@ -14,7 +14,8 @@ export default async function ProductsIndexPage() {
     <div className="w-full bg-slate-50 dark:bg-slate-950 min-h-screen">
       {/* Header section */}
       <section className="bg-slate-900 text-white pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 relative z-10">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight font-sans uppercase text-white">
             All Products & Supplies

@@ -30,8 +30,8 @@ export default async function CsrPage() {
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
         {/* Glow Effects */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-brand-gold/5 blur-[80px] pointer-events-none"></div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">Corporate Social Responsibility</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
@@ -66,7 +66,7 @@ export default async function CsrPage() {
                     <div className={`w-full lg:col-span-7 ${isEven ? "" : "lg:order-2"}`}>
                       <div className="relative group w-full">
                         {/* Soft Glow Gradient Accent behind the image */}
-                        <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-brand-red/25 via-brand-gold/15 to-brand-blue/20 dark:from-brand-red/10 dark:via-brand-gold/5 dark:to-brand-blue/10 opacity-70 blur-xl group-hover:opacity-100 group-hover:blur-2xl transition-all duration-500"></div>
+                        <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-brand-blue/25 via-brand-gold/15 to-brand-blue/20 dark:from-brand-blue/15 dark:via-brand-gold/10 dark:to-brand-blue/10 opacity-70 blur-xl group-hover:opacity-100 group-hover:blur-2xl transition-all duration-500"></div>
                         
                         <div className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-250/50 dark:border-slate-800/80">
                           {imageUrl ? (
@@ -78,7 +78,7 @@ export default async function CsrPage() {
                               className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                             />
                           ) : (
-                            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-red/20 dark:from-brand-blue/10 dark:to-brand-red/10 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-gold/20 dark:from-brand-blue/10 dark:to-brand-gold/10 flex items-center justify-center">
                               <Icon className="h-16 w-16 text-slate-400 dark:text-slate-600" />
                             </div>
                           )}
@@ -93,7 +93,7 @@ export default async function CsrPage() {
                         <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                           {item.title}
                         </h3>
-                        <div className="h-1 w-16 bg-gradient-to-r from-brand-gold to-brand-red rounded-full"></div>
+                        <div className="h-1 w-16 bg-gradient-to-r from-brand-gold to-brand-blue rounded-full"></div>
                       </div>
 
                       <p className="text-slate-650 dark:text-slate-350 text-lg leading-relaxed">
@@ -103,7 +103,7 @@ export default async function CsrPage() {
                       <div className="pt-4">
                         <Link
                           href={detailsUrl}
-                          className="inline-flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-widest text-brand-red dark:text-brand-gold hover:text-brand-red/80 hover:translate-x-1 transition-all duration-300 group/link"
+                          className="inline-flex items-center gap-1.5 text-sm font-extrabold uppercase tracking-widest text-brand-blue dark:text-brand-gold hover:text-brand-gold hover:translate-x-1 transition-all duration-300 group/link"
                         >
                           <span>view details</span>
                           <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" />

@@ -255,7 +255,7 @@ export default function SubcategoryListClient({
                   onClick={() => setCols(3)}
                   className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                     activeCols === 3
-                      ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                      ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                       : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                   }`}
                   title="3 Columns"
@@ -272,7 +272,7 @@ export default function SubcategoryListClient({
                     onClick={() => setCols(4)}
                     className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                       activeCols === 4
-                        ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                        ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                         : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                     }`}
                     title="4 Columns"
@@ -291,7 +291,7 @@ export default function SubcategoryListClient({
                     onClick={() => setCols(5)}
                     className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                       activeCols === 5
-                        ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                        ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                         : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                     }`}
                     title="5 Columns"
@@ -318,7 +318,7 @@ export default function SubcategoryListClient({
               return (
                 <div
                   key={sub.id}
-                  className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-slate-950/60 hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col h-[390px] sm:h-[420px] max-w-sm mx-auto w-full"
+                  className="group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-slate-300/40 dark:hover:shadow-slate-950/60 hover:-translate-y-1.5 hover:border-brand-gold/50 transition-all duration-300 flex flex-col h-[390px] sm:h-[420px] max-w-sm mx-auto w-full"
                 >
                   {/* Image Frame with Soft Gradient Background */}
                   <div className="relative flex-1 w-full overflow-hidden bg-gradient-to-b from-slate-50/90 via-slate-50/50 to-slate-100/70 dark:from-slate-800/40 dark:via-slate-800/20 dark:to-slate-800/60 group-hover:from-slate-100/90 dark:group-hover:from-slate-800/80 flex items-center justify-center p-3 transition-colors duration-500">
@@ -338,7 +338,7 @@ export default function SubcategoryListClient({
                   {/* Compact Card Body & Footer */}
                   <div className="px-4 py-3 flex items-center justify-between bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/80">
                     <div className="min-w-0 flex-1">
-                      <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate group-hover:text-brand-red transition-colors duration-200">
+                      <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate group-hover:text-brand-blue dark:group-hover:text-brand-gold transition-colors duration-200">
                         {sub.title}
                       </h4>
                       {specText && (

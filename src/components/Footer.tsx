@@ -44,32 +44,32 @@ export default function Footer() {
 
           {/* Quick Links Column */}
           <div>
-            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-red">
+            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-gold">
               Quick Links
             </h3>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/" className="hover:text-brand-red transition-colors duration-200">
+                <Link href="/" className="hover:text-brand-gold transition-colors duration-200">
                   Home Page
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-brand-red transition-colors duration-200">
+                <Link href="/about" className="hover:text-brand-gold transition-colors duration-200">
                   About Us & History
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="hover:text-brand-red transition-colors duration-200">
+                <Link href="/projects" className="hover:text-brand-gold transition-colors duration-200">
                   Our Completed Projects
                 </Link>
               </li>
               <li>
-                <Link href="/csr" className="hover:text-brand-red transition-colors duration-200">
+                <Link href="/csr" className="hover:text-brand-gold transition-colors duration-200">
                   CSR Initiatives
                 </Link>
               </li>
               <li>
-                <Link href="/contacts" className="hover:text-brand-red transition-colors duration-200">
+                <Link href="/contacts" className="hover:text-brand-gold transition-colors duration-200">
                   Contact Us
                 </Link>
               </li>
@@ -78,12 +78,12 @@ export default function Footer() {
 
           {/* Offices & Contacts Column */}
           <div>
-            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-red">
+            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-gold">
               Contact Info
             </h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-brand-red shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-brand-gold shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs font-bold text-white block mb-0.5">Pudukkottai Office:</span>
                   <span className="text-slate-400 text-xs leading-relaxed">
@@ -92,7 +92,7 @@ export default function Footer() {
                 </div>
               </li>
               <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-brand-gold shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-brand-blue shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs font-bold text-white block mb-0.5">Karaikkudi Office:</span>
                   <span className="text-slate-400 text-xs leading-relaxed">
@@ -102,7 +102,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3 border-t border-slate-900 pt-3">
                 <Mail className="h-4 w-4 text-slate-500" />
-                <a href={`mailto:${mockData.contact.email}`} className="hover:text-brand-red text-xs">
+                <a href={`mailto:${mockData.contact.email}`} className="hover:text-brand-gold text-xs">
                   {mockData.contact.email}
                 </a>
               </li>
@@ -111,7 +111,7 @@ export default function Footer() {
 
           {/* Office Hours Column */}
           <div>
-            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-red">
+            <h3 className="text-white text-md font-bold tracking-wide uppercase mb-6 relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-0.5 after:bg-brand-gold">
               Office Hours
             </h3>
             <div className="space-y-4 text-sm bg-slate-900/40 border border-slate-900 p-4 rounded-md">

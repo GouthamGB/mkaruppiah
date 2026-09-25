@@ -15,6 +15,7 @@ const config: Config = {
         brand: {
           red: "#ed1c24",     // Pantone 032 C red
           gold: "#fdb913",    // Pantone 7408 C gold
+          yellow: "#fdb913",  // Alias for Pantone 7408 C yellow/gold
           blue: "#023f88",    // Pantone 294 C blue
           dark: "#0f172a",    // Slate-900 for dark layouts
           light: "#f8fafc",   // Slate-50 for light card backdrops

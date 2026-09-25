@@ -14,7 +14,7 @@ export const metadata = {
 // Site Theme-Accurate Minimalist Avatar Icon
 function AvatarIcon() {
   return (
-    <div className="w-16 h-16 rounded-full bg-brand-red/10 dark:bg-brand-red/20 border-2 border-brand-red/25 flex items-center justify-center text-brand-red shadow-xs">
+    <div className="w-16 h-16 rounded-full bg-brand-gold/15 dark:bg-brand-gold/20 border-2 border-brand-gold/30 flex items-center justify-center text-brand-blue dark:text-brand-gold shadow-xs">
       <svg
         className="w-8 h-8"
         viewBox="0 0 24 24"
@@ -51,8 +51,8 @@ export default async function TestimonialsPage() {
       {/* 1. Signature Hero Banner matching site theme */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
         {/* Glow Effects */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-brand-gold/5 blur-[80px] pointer-events-none"></div>
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-brand-gold/10 blur-[80px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <div className="flex justify-center mb-2">
@@ -86,10 +86,10 @@ export default async function TestimonialsPage() {
               return (
                 <div
                   key={item._id || item.id || idx}
-                  className="bg-white dark:bg-slate-900 rounded-xl p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-red/40 transition-all duration-300 flex flex-col justify-between group relative"
+                  className="bg-white dark:bg-slate-900 rounded-xl p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-gold/50 transition-all duration-300 flex flex-col justify-between group relative"
                 >
                   {/* Decorative Quote Mark */}
-                  <Quote className="absolute top-6 right-6 w-8 h-8 text-brand-red/10 dark:text-brand-red/20 group-hover:text-brand-red/30 transition-colors" />
+                  <Quote className="absolute top-6 right-6 w-8 h-8 text-brand-gold/15 dark:text-brand-gold/25 group-hover:text-brand-gold/40 transition-colors" />
 
                   {/* Top Avatar & Stars */}
                   <div>
@@ -99,7 +99,7 @@ export default async function TestimonialsPage() {
                         <img
                           src={avatarUrl}
                           alt={item.name}
-                          className="w-16 h-16 rounded-full object-cover border-2 border-brand-red/30 shadow-sm"
+                          className="w-16 h-16 rounded-full object-cover border-2 border-brand-gold/40 shadow-sm"
                         />
                       ) : (
                         <AvatarIcon />
@@ -123,11 +123,11 @@ export default async function TestimonialsPage() {
 
                   {/* Author / Client Info */}
                   <div className="text-center pt-5 border-t border-slate-100 dark:border-slate-800/80">
-                    <h3 className="font-bold text-slate-900 dark:text-white text-base tracking-tight group-hover:text-brand-red transition-colors">
+                    <h3 className="font-bold text-slate-900 dark:text-white text-base tracking-tight group-hover:text-brand-blue dark:group-hover:text-brand-gold transition-colors">
                       {item.name}
                     </h3>
                     {(item.role || item.location) && (
-                      <p className="text-xs font-semibold text-brand-red dark:text-brand-gold mt-1 uppercase tracking-wider">
+                      <p className="text-xs font-semibold text-brand-blue dark:text-brand-gold mt-1 uppercase tracking-wider">
                         {item.role}
                         {item.role && item.location && " • "}
                         {item.location}
@@ -143,7 +143,7 @@ export default async function TestimonialsPage() {
 
       {/* 3. Bottom Call-To-Action Banner matching site theme */}
       <section className="bg-slate-900 text-white py-16 border-t border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-red/10 via-transparent to-brand-gold/10 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/20 via-transparent to-brand-gold/15 pointer-events-none"></div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
             Ready to Build Your Next Project with Us?
@@ -154,14 +154,14 @@ export default async function TestimonialsPage() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link
               href="/contacts"
-              className="inline-flex items-center justify-center px-7 py-3 text-sm font-bold text-white bg-brand-red hover:bg-brand-red/90 rounded-md shadow-lg shadow-brand-red/30 transition-all duration-200 hover:scale-105 active:scale-95"
+              className="inline-flex items-center justify-center px-7 py-3 text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-lg shadow-brand-gold/25 transition-all duration-200 hover:scale-105 active:scale-95"
             >
               <span>Get in Touch</span>
               <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
             <a
               href="tel:+919443312345"
-              className="inline-flex items-center justify-center px-7 py-3 text-sm font-bold text-white border-2 border-white/20 hover:border-brand-gold hover:text-brand-gold rounded-md backdrop-blur-sm bg-white/5 transition-all duration-200"
+              className="inline-flex items-center justify-center px-7 py-3 text-sm font-bold text-white border-2 border-brand-blue/70 bg-brand-blue/40 hover:bg-brand-blue hover:border-brand-blue rounded-md backdrop-blur-sm transition-all duration-200"
             >
               <PhoneCall className="mr-2 w-4 h-4 text-brand-gold" />
               <span>Call Pudukkottai Office</span>

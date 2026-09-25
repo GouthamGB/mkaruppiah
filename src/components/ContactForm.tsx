@@ -149,7 +149,7 @@ function FormContent() {
             value={formData.name}
             onChange={handleChange}
             placeholder="e.g. Ramesh Kumar"
-            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
+            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-gold/30 transition-all ${
               errors.name
                 ? "border-red-500 focus:border-red-500"
                 : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
@@ -175,7 +175,7 @@ function FormContent() {
             value={formData.email}
             onChange={handleChange}
             placeholder="e.g. ramesh@gmail.com"
-            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
+            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-gold/30 transition-all ${
               errors.email
                 ? "border-red-500 focus:border-red-500"
                 : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
@@ -203,7 +203,7 @@ function FormContent() {
             value={formData.phone}
             onChange={handleChange}
             placeholder="e.g. +91 94433 12345"
-            className="w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all"
+            className="w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-gold/30 transition-all"
           />
         </div>
 
@@ -219,7 +219,7 @@ function FormContent() {
             value={formData.subject}
             onChange={handleChange}
             placeholder="e.g. Inquire about steel & cement supply"
-            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
+            className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-gold/30 transition-all ${
               errors.subject
                 ? "border-red-500 focus:border-red-500"
                 : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
@@ -247,7 +247,7 @@ function FormContent() {
           value={formData.message}
           onChange={handleChange}
           placeholder="Type your inquiry or details of building material requirements..."
-          className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-red/20 transition-all ${
+          className={`w-full px-4 py-2.5 text-sm bg-slate-50 dark:bg-slate-950 border rounded-md focus:outline-none focus:ring-2 focus:ring-brand-gold/30 transition-all ${
             errors.message
               ? "border-red-500 focus:border-red-500"
               : "border-slate-200 dark:border-slate-800 focus:border-slate-400 dark:focus:border-slate-700"
@@ -265,7 +265,7 @@ function FormContent() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-brand-red rounded-md shadow-md hover:bg-brand-red/90 transition-colors focus:outline-none disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed"
+        className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-slate-950 bg-brand-gold rounded-md shadow-md shadow-brand-gold/25 hover:bg-brand-gold/90 transition-all focus:outline-none disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed hover:scale-[1.01] active:scale-[0.99]"
       >
         {isSubmitting ? (
           <>
@@ -287,7 +287,7 @@ export default function ContactForm() {
   return (
     <Suspense fallback={
       <div className="flex justify-center items-center py-20">
-        <Loader2 className="animate-spin h-8 w-8 text-brand-red" />
+        <Loader2 className="animate-spin h-8 w-8 text-brand-gold" />
       </div>
     }>
       <FormContent />

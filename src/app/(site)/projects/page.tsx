@@ -41,8 +41,9 @@ export default async function ProjectsPage() {
     <div className="w-full bg-slate-50 dark:bg-slate-950 min-h-screen">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-serif">Our Completed Projects</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
             A Legacy of Premium Material Supplies & Construction Works
@@ -58,7 +59,7 @@ export default async function ProjectsPage() {
               <Link
                 key={cat.label}
                 href={`/projects/category/${encodeURIComponent(cat.label)}`}
-                className="group relative flex flex-col aspect-[4/3] w-full bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-red transition-all duration-500 select-none"
+                className="group relative flex flex-col aspect-[4/3] w-full bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-gold transition-all duration-500 select-none"
               >
                 {/* Image Frame */}
                 <div className="absolute inset-0 w-full h-full overflow-hidden">

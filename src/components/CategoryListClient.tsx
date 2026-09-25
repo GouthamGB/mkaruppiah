@@ -64,7 +64,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
               onClick={() => setCols(3)}
               className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                 activeCols === 3
-                  ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                  ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
               title="3 Columns"
@@ -82,7 +82,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
                 onClick={() => setCols(4)}
                 className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                   activeCols === 4
-                    ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                    ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                     : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                 }`}
                 title="4 Columns"
@@ -102,7 +102,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
                 onClick={() => setCols(5)}
                 className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
                   activeCols === 5
-                    ? "bg-white dark:bg-slate-900 text-brand-red border border-slate-200 dark:border-slate-700 shadow-2xs"
+                    ? "bg-white dark:bg-slate-900 text-brand-blue border border-brand-gold/60 shadow-2xs font-bold"
                     : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                 }`}
                 title="5 Columns"
@@ -128,7 +128,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
             <Link
               key={product.id || product.name}
               href={`/products/${productSlug}`}
-              className="group relative block aspect-[4/3] w-full rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 max-w-sm mx-auto bg-slate-100 dark:bg-slate-900"
+              className="group relative block aspect-[4/3] w-full rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-gold/50 hover:-translate-y-1 transition-all duration-300 max-w-sm mx-auto bg-slate-100 dark:bg-slate-900"
             >
               {/* Product Image */}
               <CategoryCardImage image={product.image} title={product.name} />

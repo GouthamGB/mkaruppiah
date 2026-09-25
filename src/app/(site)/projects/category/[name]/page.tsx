@@ -89,8 +89,9 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
     <div className="w-full bg-slate-50 dark:bg-slate-950 min-h-screen">
       {/* Banner / Title Header */}
       <section className="bg-slate-900 text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-red/10 blur-[100px] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 h-80 w-80 rounded-full bg-brand-blue/20 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 h-64 w-64 rounded-full bg-brand-gold/15 blur-[80px] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-serif">{categoryName}</h1>
           <p className="text-brand-gold text-sm sm:text-base font-bold uppercase tracking-widest">
             Portfolio Showcase
@@ -102,7 +103,7 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <Link
           href="/projects"
-          className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-brand-red dark:text-slate-400 transition-colors duration-200 group"
+          className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-brand-blue dark:text-slate-400 transition-colors duration-200 group"
         >
           <ArrowLeft className="h-4 w-4 mr-2 transition-transform duration-200 group-hover:-translate-x-1" />
           Back to Categories
@@ -118,7 +119,7 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
                 <Link
                   key={project._id || project.id}
                   href={`/projects/${project._id || project.id}`}
-                  className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                  className="group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-gold/50 hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
                   {/* Image Frame */}
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -143,10 +144,10 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
 
                   {/* Card Details */}
                   <div className="p-6 flex-grow flex flex-col justify-between bg-white dark:bg-slate-900">
-                    <h4 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-red transition-colors duration-200 leading-snug">
+                    <h4 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-brand-blue dark:group-hover:text-brand-gold transition-colors duration-200 leading-snug">
                       {project.title}
                     </h4>
-                    <div className="flex items-center text-xs font-bold text-brand-red uppercase tracking-wider mt-4">
+                    <div className="flex items-center text-xs font-bold text-brand-blue dark:text-brand-gold uppercase tracking-wider mt-4">
                       <span>View Details</span>
                       <svg
                         className="h-3.5 w-3.5 ml-1.5 transition-transform duration-200 group-hover:translate-x-1"

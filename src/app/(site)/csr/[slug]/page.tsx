@@ -52,7 +52,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-36 pb-20 flex flex-col items-center justify-center">
         <div className="max-w-md text-center space-y-6 px-4">
-          <div className="inline-flex h-16 w-16 rounded-full bg-red-100 dark:bg-red-950/30 flex items-center justify-center text-brand-red">
+          <div className="inline-flex h-16 w-16 rounded-full bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-blue dark:text-brand-gold">
             <Heart className="h-8 w-8" />
           </div>
           <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white">Initiative Not Found</h1>
@@ -61,7 +61,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
           </p>
           <Link
             href="/csr"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold text-white bg-brand-red hover:bg-brand-red/90 shadow-md transition-all duration-200"
+            className="inline-flex items-center justify-center px-6 py-3 rounded-full text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 shadow-md shadow-brand-gold/25 transition-all duration-200"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to CSR Initiatives
@@ -86,13 +86,13 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <Link
               href="/csr"
-              className="inline-flex items-center text-sm font-bold text-slate-655 dark:text-slate-350 hover:text-brand-red dark:hover:text-brand-gold transition-colors duration-200 group"
+              className="inline-flex items-center text-sm font-bold text-slate-655 dark:text-slate-350 hover:text-brand-blue dark:hover:text-brand-gold transition-colors duration-200 group"
             >
               <ArrowLeft className="h-4 w-4 mr-2 transition-transform group-hover:-translate-x-1" />
               Back to Initiatives List
             </Link>
             <div className="flex items-center space-x-2 text-xs font-semibold text-slate-400 uppercase tracking-widest">
-              <Link href="/csr" className="hover:text-brand-red">CSR</Link>
+              <Link href="/csr" className="hover:text-brand-blue">CSR</Link>
               <span>/</span>
               <span className="text-slate-600 dark:text-slate-350">{initiative.title}</span>
             </div>
@@ -106,7 +106,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
             
             {/* Elegant Inline Metadata Row */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-450 pt-1">
-              <span className="text-brand-red dark:text-brand-gold">Active Ongoing Initiative</span>
+              <span className="text-brand-gold">Active Ongoing Initiative</span>
               <span className="text-slate-300 dark:text-slate-700">•</span>
               <span>Pudukkottai & Karaikkudi, TN</span>
               <span className="text-slate-300 dark:text-slate-700">•</span>
@@ -128,7 +128,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Our Vision & Impact
             </h2>
-            <div className="h-1 w-16 bg-gradient-to-r from-brand-gold to-brand-red rounded-full"></div>
+            <div className="h-1 w-16 bg-gradient-to-r from-brand-gold to-brand-blue rounded-full"></div>
             
             {/* Lead Narrative Description */}
             <p className="text-slate-750 dark:text-slate-200 text-lg sm:text-xl leading-relaxed whitespace-pre-line">
@@ -147,7 +147,7 @@ export default async function InitiativeDetailsPage({ params }: InitiativeDetail
             <div className="pt-2">
               <Link
                 href="/contacts"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-bold text-white bg-slate-950 dark:bg-slate-900 hover:bg-brand-red dark:hover:bg-brand-red border border-slate-800 dark:border-slate-700 hover:border-brand-red dark:hover:border-brand-red shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-bold text-slate-950 bg-brand-gold hover:bg-brand-gold/90 shadow-lg shadow-brand-gold/25 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 <span>Get in Touch & Collaborate</span>
                 <ArrowRight className="h-4 w-4" />
