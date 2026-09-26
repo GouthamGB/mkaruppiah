@@ -49,6 +49,7 @@ export default function CategoryListClient({ products }: CategoryListClientProps
             <Link
               key={product.id || product.name}
               href={`/products/${productSlug}`}
+              prefetch={true}
               className="group relative block aspect-[4/3] w-full rounded-2xl overflow-hidden border border-slate-200/60 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-brand-gold/50 hover:-translate-y-1 transition-all duration-300 bg-slate-100 dark:bg-slate-900"
             >
               {/* Product Image */}

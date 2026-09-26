@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import NavigationProgress from "@/components/NavigationProgress";
 
 export default function SiteLayout({
   children,
@@ -9,6 +10,7 @@ export default function SiteLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen bg-white text-slate-900">
+      <NavigationProgress />
       <Navbar />
       <main className="flex-grow">
         {children}

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, PhoneCall, ChevronDown } from "lucide-react";
 
 const navLinks = [
@@ -14,35 +14,64 @@ const navLinks = [
   { label: "Contact Us", href: "/contacts" },
 ];
 
+const allNavRoutes = [
+  "/",
+  "/about",
+  "/about/our-strength",
+  "/about/careers",
+  "/projects",
+  "/csr",
+  "/contacts",
+];
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
+  // Eagerly prefetch all core navigation pages into Next.js client router cache on mount
   useEffect(() => {
+    allNavRoutes.forEach((route) => {
+      try {
+        router.prefetch(route);
+      } catch {
+        // Safe catch for environments where prefetch is deferred
+      }
+    });
+  }, [router]);
+
+  // Throttled & passive scroll listener to keep the main thread 100% reactive
+  useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.scrollY > 20;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when pathname changes or viewport expands to desktop
+  // Close mobile menu when pathname changes
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
+  // Close mobile drawer on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsOpen(false);
       }
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -58,7 +87,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-[padding,background-color,border-color,box-shadow] duration-200 ${
         showScrolledState
           ? "bg-white/95 shadow-md backdrop-blur-md py-3 border-b-2 border-brand-gold"
           : "bg-transparent py-5 border-b border-transparent"
@@ -67,8 +96,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative h-12 w-16 overflow-hidden rounded-sm transition-transform duration-300 group-hover:scale-105">
+          <Link
+            href="/"
+            prefetch={true}
+            onMouseEnter={() => router.prefetch("/")}
+            onTouchStart={() => router.prefetch("/")}
+            className="flex items-center space-x-3 group"
+          >
+            <div className="relative h-12 w-16 overflow-hidden rounded-sm transition-transform duration-200 group-hover:scale-105">
               <Image
                 src="/logo.png"
                 alt="M. Karuppiah Logo"
@@ -93,14 +128,22 @@ export default function Navbar() {
 
           {/* Desktop & Mobile Navigation / Menu Section */}
           <div className="flex items-center space-x-6">
-            {/* Desktop Navigation Links (moved to the right) */}
+            {/* Desktop Navigation Links */}
             <nav className="hidden md:flex space-x-1 lg:space-x-2 items-center">
               {navLinks.map((link) => {
                 if (link.label === "About Us") {
                   return (
-                    <div key={link.href} className="relative group py-2">
+                    <div
+                      key={link.href}
+                      className="relative group py-2"
+                      onMouseEnter={() => {
+                        router.prefetch("/about");
+                        router.prefetch("/about/our-strength");
+                        router.prefetch("/about/careers");
+                      }}
+                    >
                       <div
-                        className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-semibold cursor-pointer select-none transition-all duration-200 ${
+                        className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-semibold cursor-pointer select-none transition-colors duration-200 ${
                           isActive(link.href)
                             ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/30"
                             : showScrolledState
@@ -112,23 +155,32 @@ export default function Navbar() {
                         <ChevronDown className="h-3.5 w-3.5 ml-1 transition-transform duration-200 group-hover:rotate-180" />
                       </div>
                       
-                      {/* Hover Dropdown Menu styled with a golden top border */}
-                      <div className="absolute top-full right-0 mt-1 w-48 bg-white dark:bg-slate-900 border-t-4 border-brand-gold rounded-b-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-250 z-50 transform translate-y-2 group-hover:translate-y-0">
+                      {/* Hover Dropdown Menu */}
+                      <div className="absolute top-full right-0 mt-1 w-48 bg-white dark:bg-slate-900 border-t-4 border-brand-gold rounded-b-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform translate-y-2 group-hover:translate-y-0">
                         <div className="py-1">
                           <Link
                             href="/about"
+                            prefetch={true}
+                            onMouseEnter={() => router.prefetch("/about")}
+                            onTouchStart={() => router.prefetch("/about")}
                             className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Company Overview
                           </Link>
                           <Link
                             href="/about/our-strength"
+                            prefetch={true}
+                            onMouseEnter={() => router.prefetch("/about/our-strength")}
+                            onTouchStart={() => router.prefetch("/about/our-strength")}
                             className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Our Strength
                           </Link>
                           <Link
                             href="/about/careers"
+                            prefetch={true}
+                            onMouseEnter={() => router.prefetch("/about/careers")}
+                            onTouchStart={() => router.prefetch("/about/careers")}
                             className="block px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-brand-gold/25 hover:text-slate-950 transition-colors"
                           >
                             Careers
@@ -143,7 +195,10 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`px-3 py-2 rounded-md text-sm font-semibold transition-all duration-200 ${
+                    prefetch={true}
+                    onMouseEnter={() => router.prefetch(link.href)}
+                    onTouchStart={() => router.prefetch(link.href)}
+                    className={`px-3 py-2 rounded-md text-sm font-semibold transition-colors duration-200 ${
                       isActive(link.href)
                         ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/30"
                         : showScrolledState
@@ -161,6 +216,9 @@ export default function Navbar() {
             <div className="hidden md:flex items-center">
               <Link
                 href="/contacts"
+                prefetch={true}
+                onMouseEnter={() => router.prefetch("/contacts")}
+                onTouchStart={() => router.prefetch("/contacts")}
                 className="inline-flex items-center justify-center px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-950 bg-brand-gold hover:bg-brand-gold/90 rounded-md shadow-sm shadow-brand-gold/25 transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95"
               >
                 Get in Touch
@@ -185,13 +243,13 @@ export default function Navbar() {
 
       {/* Sidebar Drawer (mobile only) */}
       <div
-        className={`md:hidden fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`md:hidden fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-200 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsOpen(false)}
       >
         <div
-          className={`fixed top-0 right-0 w-72 h-full bg-white dark:bg-slate-900 shadow-xl p-6 border-t-4 border-brand-gold transition-transform duration-300 transform ${
+          className={`fixed top-0 right-0 w-72 h-full bg-white dark:bg-slate-900 shadow-xl p-6 border-t-4 border-brand-gold transition-transform duration-200 transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
           onClick={(e) => e.stopPropagation()}
@@ -227,7 +285,9 @@ export default function Navbar() {
                     </span>
                     <Link
                       href="/about"
+                      prefetch={true}
                       onClick={() => setIsOpen(false)}
+                      onTouchStart={() => router.prefetch("/about")}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about"
                           ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
@@ -238,7 +298,9 @@ export default function Navbar() {
                     </Link>
                     <Link
                       href="/about/our-strength"
+                      prefetch={true}
                       onClick={() => setIsOpen(false)}
+                      onTouchStart={() => router.prefetch("/about/our-strength")}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/our-strength"
                           ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
@@ -249,7 +311,9 @@ export default function Navbar() {
                     </Link>
                     <Link
                       href="/about/careers"
+                      prefetch={true}
                       onClick={() => setIsOpen(false)}
+                      onTouchStart={() => router.prefetch("/about/careers")}
                       className={`pl-6 pr-3 py-2 rounded-md text-sm font-semibold transition-colors ${
                         pathname === "/about/careers"
                           ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
@@ -266,7 +330,9 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  prefetch={true}
                   onClick={() => setIsOpen(false)}
+                  onTouchStart={() => router.prefetch(link.href)}
                   className={`px-3 py-2 rounded-md text-base font-semibold transition-colors ${
                     isActive(link.href)
                       ? "text-slate-950 bg-brand-gold font-bold shadow-sm shadow-brand-gold/25"
@@ -289,7 +355,9 @@ export default function Navbar() {
             </a>
             <Link
               href="/contacts"
+              prefetch={true}
               onClick={() => setIsOpen(false)}
+              onTouchStart={() => router.prefetch("/contacts")}
               className="block w-full text-center px-4 py-3 text-sm font-bold text-slate-950 bg-brand-gold rounded-md shadow-md shadow-brand-gold/25 hover:bg-brand-gold/90 transition-colors"
             >
               Get in Touch
