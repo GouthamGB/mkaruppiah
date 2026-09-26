@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Award } from "lucide-react";
 import { urlFor } from "@/sanity/client";
 
@@ -124,12 +125,14 @@ export default function AwardsCarousel({ initialAwards }: AwardsCarouselProps) {
               {/* Award Card Wrapper */}
               <div className="group relative aspect-[3/4] w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                 {/* Certificate/Trophy Image */}
-                <div className="relative h-full w-full p-4 flex items-center justify-center bg-white">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={urlFor(item.image)}
+                <div className="relative h-full w-full p-4 bg-white">
+                  <Image
+                    src={urlFor(item.image, { width: 400, quality: 80 })}
                     alt={item.title}
-                    className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-102"
+                    fill
+                    sizes="(max-width: 640px) 280px, 320px"
+                    loading="lazy"
+                    className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 

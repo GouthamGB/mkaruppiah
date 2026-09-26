@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { sanityFetch } from "@/sanity/client";
 import SubcategoryListClient from "@/components/SubcategoryListClient";
 import type { Subcategory } from "@/components/SubcategoryListClient";

@@ -111,10 +111,11 @@ export default async function ProjectDetailsPage({ params }: ProjectDetailsPageP
             <div className="relative aspect-[3/2] w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-lg bg-white dark:bg-slate-900">
               {project.image ? (
                 <Image
-                  src={urlFor(project.image)}
+                  src={urlFor(project.image, { width: 1200, quality: 85 })}
                   alt={project.title}
                   fill
                   priority
+                  sizes="(max-width: 1024px) 100vw, 66vw"
                   className="object-cover"
                 />
               ) : (

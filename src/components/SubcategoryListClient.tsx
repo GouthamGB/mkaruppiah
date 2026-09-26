@@ -112,7 +112,7 @@ function MinimalistBrandLogo({ name }: { name: string }) {
 
 function SubcategoryCardImage({ image, title }: { image: any; title: string }) {
   const [imageError, setImageError] = useState(false);
-  const imageUrl = image && !imageError ? urlFor(image) : null;
+  const imageUrl = image && !imageError ? urlFor(image, { width: 500, quality: 80 }) : null;
 
   if (!imageUrl) {
     return (
@@ -128,6 +128,8 @@ function SubcategoryCardImage({ image, title }: { image: any; title: string }) {
       src={imageUrl}
       alt={title}
       fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+      loading="lazy"
       onError={() => setImageError(true)}
       className="object-contain p-3.5 sm:p-4 transition-all duration-500 ease-out group-hover:scale-105 drop-shadow-md group-hover:drop-shadow-xl"
     />

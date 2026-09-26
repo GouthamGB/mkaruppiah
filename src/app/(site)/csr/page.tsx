@@ -46,7 +46,7 @@ export default async function CsrPage() {
           {initiatives.map((item, index) => {
             const key = item.title.toLowerCase();
             const Icon = csrIconsMap[key] || HelpCircle;
-            const imageUrl = item.image ? urlFor(item.image) : "";
+            const imageUrl = item.image ? urlFor(item.image, { width: 900, quality: 80 }) : "";
             const isEven = index % 2 === 0;
             const itemSlug = item.slug?.current || item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
             const detailsUrl = `/csr/${itemSlug}`;

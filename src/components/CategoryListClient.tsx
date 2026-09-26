@@ -14,7 +14,7 @@ interface CategoryListClientProps {
 
 function CategoryCardImage({ image, title }: { image: any; title: string }) {
   const [imageError, setImageError] = useState(false);
-  const imageUrl = image && !imageError ? urlFor(image) : null;
+  const imageUrl = image && !imageError ? urlFor(image, { width: 600, quality: 80 }) : null;
 
   if (!imageUrl) {
     return (
@@ -30,6 +30,8 @@ function CategoryCardImage({ image, title }: { image: any; title: string }) {
       src={imageUrl}
       alt={title}
       fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+      loading="lazy"
       onError={() => setImageError(true)}
       className="object-cover transition-transform duration-500 group-hover:scale-103"
     />

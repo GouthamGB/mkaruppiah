@@ -53,9 +53,11 @@ export default async function OurStrengthPage() {
                   <div className="relative h-72 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                     {member.image && (
                       <Image
-                        src={urlFor(member.image)}
+                        src={urlFor(member.image, { width: 500, quality: 80 })}
                         alt={member.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-102"
                       />
                     )}

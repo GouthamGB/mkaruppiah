@@ -7,6 +7,8 @@ import { HeroSlide, mockData } from "@/data/mockData";
 import { urlFor } from "@/sanity/client";
 import { motion, AnimatePresence } from "framer-motion";
 
+import Image from "next/image";
+
 interface HeroSlideshowProps {
   slides?: HeroSlide[];
   fallbackTitle?: string;
@@ -39,7 +41,7 @@ export default function HeroSlideshow({
   if (!slides || slides.length === 0) return null;
 
   const currentSlide = slides[currentIndex];
-  const imageUrl = currentSlide?.image ? urlFor(currentSlide.image) : "";
+  const imageUrl = currentSlide?.image ? urlFor(currentSlide.image, { quality: 85 }) : "";
 
   // Resolve texts (use slide value, page-level fallback value, or mock value)
   const slideTitle = currentSlide?.title || fallbackTitle || mockData.hero.title;
@@ -51,17 +53,20 @@ export default function HeroSlideshow({
   const btnText2 = currentSlide?.btnText2 || mockData.hero.slides[0].btnText2;
   const btnLink2 = currentSlide?.btnLink2 || mockData.hero.slides[0].btnLink2;
 
-  // Static fallback render during SSR to prevent hydration mismatch errors
+  // Static fallback render during SSR with priority preloaded next/image for immediate LCP
   if (!mounted) {
     return (
       <section className="relative h-screen min-h-[550px] w-full overflow-hidden bg-slate-950">
         <div className="absolute inset-0 z-10">
           {imageUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={imageUrl}
               alt={slideTitle || "M. Karuppiah Hero Slide"}
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              fill
+              priority
+              sizes="100vw"
+              quality={85}
+              className="object-cover object-center"
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/50 to-transparent"></div>
@@ -107,21 +112,24 @@ export default function HeroSlideshow({
       <AnimatePresence>
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 1.04 }}
+          initial={currentIndex === 0 ? false : { opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: 2.0, ease: "easeInOut" },
+            opacity: { duration: 1.6, ease: "easeInOut" },
             scale: { duration: 9.0, ease: "easeOut" },
           }}
           className="absolute inset-0 z-10"
         >
           {imageUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={imageUrl}
               alt={slideTitle || "M. Karuppiah Hero Slide"}
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              fill
+              priority={currentIndex === 0}
+              sizes="100vw"
+              quality={85}
+              className="object-cover object-center"
             />
           )}
           {/* Dark Overlay for Text Readability */}

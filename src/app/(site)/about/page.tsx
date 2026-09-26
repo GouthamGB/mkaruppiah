@@ -83,6 +83,8 @@ export default async function AboutPage() {
                 src="https://images.unsplash.com/photo-1541829011-831c3a743345?q=80&w=800&auto=format&fit=crop"
                 alt="M. Karuppiah Construction Heritage"
                 fill
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                loading="lazy"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-slate-950/20"></div>

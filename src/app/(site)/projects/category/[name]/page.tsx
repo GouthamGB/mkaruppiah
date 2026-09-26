@@ -125,9 +125,11 @@ export default async function CategoryProjectsPage({ params }: CategoryPageProps
                   <div className="relative aspect-[3/2] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                     {project.image ? (
                       <Image
-                        src={urlFor(project.image)}
+                        src={urlFor(project.image, { width: 600, quality: 80 })}
                         alt={project.title}
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
                         className="object-cover transition-transform duration-500 group-hover:scale-103"
                       />
                     ) : (

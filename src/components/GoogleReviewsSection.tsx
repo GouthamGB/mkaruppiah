@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, CheckCircle2, ArrowRight } from "lucide-react";
 import { GoogleReview, mockData } from "@/data/mockData";
 
@@ -31,9 +32,10 @@ function GoogleGIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 // 5 Star Rating Display using brand-gold
 function StarRating({ count = 5, size = "w-4 h-4" }: { count?: number; size?: string }) {
+  const stars = Math.min(5, Math.max(0, Math.round(count)));
   return (
     <div className="flex items-center space-x-0.5 text-brand-gold">
-      {[...Array(5)].map((_, i) => (
+      {[...Array(stars)].map((_, i) => (
         <svg
           key={i}
           className={`${size} fill-current`}
@@ -162,12 +164,16 @@ export default function GoogleReviewsSection({
                       <div className="flex items-center justify-between gap-3 mb-4">
                         <div className="flex items-center gap-3 min-w-0">
                           {rev.authorImage ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={rev.authorImage}
-                              alt={rev.authorName}
-                              className="w-10 h-10 rounded-full object-cover shrink-0 ring-2 ring-slate-100 dark:ring-slate-800"
-                            />
+                            <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 ring-2 ring-slate-100 dark:ring-slate-800">
+                              <Image
+                                src={rev.authorImage}
+                                alt={rev.authorName}
+                                fill
+                                sizes="40px"
+                                loading="lazy"
+                                className="object-cover"
+                              />
+                            </div>
                           ) : (
                             <div
                               className="w-10 h-10 rounded-full text-white font-bold flex items-center justify-center text-sm shrink-0 uppercase shadow-xs"

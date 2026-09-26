@@ -155,10 +155,13 @@ export default function CsrMediaGallery({ media }: CsrMediaGalleryProps) {
           className="w-[15%] md:w-[18%] hidden sm:block cursor-pointer transition-all duration-500 ease-out transform scale-90 hover:scale-95 opacity-50 hover:opacity-85 relative h-[180px] md:h-[260px] lg:h-[320px] rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/80 shadow-md bg-slate-900 flex-shrink-0 group/left"
         >
           {getThumbnailUrl(prevItem) ? (
-            <img
+            <Image
               src={getThumbnailUrl(prevItem)}
               alt="Previous media preview"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover/left:scale-105"
+              fill
+              sizes="20vw"
+              loading="lazy"
+              className="object-cover transition-transform duration-500 group-hover/left:scale-105"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-slate-800 text-slate-500">
@@ -207,10 +210,13 @@ export default function CsrMediaGallery({ media }: CsrMediaGalleryProps) {
           className="w-[15%] md:w-[18%] hidden sm:block cursor-pointer transition-all duration-500 ease-out transform scale-90 hover:scale-95 opacity-50 hover:opacity-85 relative h-[180px] md:h-[260px] lg:h-[320px] rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/80 shadow-md bg-slate-900 flex-shrink-0 group/right"
         >
           {getThumbnailUrl(nextItem) ? (
-            <img
+            <Image
               src={getThumbnailUrl(nextItem)}
               alt="Next media preview"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover/right:scale-105"
+              fill
+              sizes="20vw"
+              loading="lazy"
+              className="object-cover transition-transform duration-500 group-hover/right:scale-105"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-slate-800 text-slate-500">

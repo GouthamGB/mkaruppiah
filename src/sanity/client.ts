@@ -18,21 +18,70 @@ export const client = !useMock
       projectId,
       dataset,
       apiVersion,
-      useCdn: false,
+      useCdn: true,
     })
   : null;
 
 const builder = client ? imageUrlBuilder(client) : null;
 
-// Clean image URL helper that handles both Sanity assets and local/external mock image strings
+export interface ImageUrlOptions {
+  width?: number;
+  height?: number;
+  quality?: number;
+}
+
+// Next.js custom image loader for Sanity image CDN
+export function sanityImageLoader({ src, width, quality }: { src: string; width: number; quality?: number }): string {
+  if (!src) return "";
+  if (!src.includes("cdn.sanity.io")) return src;
+  try {
+    const url = new URL(src);
+    url.searchParams.set("auto", "format");
+    url.searchParams.set("fit", "max");
+    url.searchParams.set("w", width.toString());
+    url.searchParams.set("q", (quality || 80).toString());
+    return url.toString();
+  } catch {
+    return src;
+  }
+}
+
+// Highly optimized image URL helper: automatically delivers WebP/AVIF, responsive widths, and quality compression
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function urlFor(source: any): string {
+export function urlFor(source: any, options?: ImageUrlOptions): string {
   if (!source) return "";
-  if (typeof source === "string") return source;
+  if (typeof source === "string") {
+    try {
+      if (source.includes("cdn.sanity.io")) {
+        const url = new URL(source);
+        url.searchParams.set("auto", "format");
+        url.searchParams.set("fit", "max");
+        if (!url.searchParams.has("q")) url.searchParams.set("q", (options?.quality || 80).toString());
+        if (options?.width) url.searchParams.set("w", options.width.toString());
+        if (options?.height) url.searchParams.set("h", options.height.toString());
+        return url.toString();
+      }
+      if (source.includes("images.unsplash.com")) {
+        const url = new URL(source);
+        url.searchParams.set("auto", "format");
+        url.searchParams.set("fit", "crop");
+        if (!url.searchParams.has("q")) url.searchParams.set("q", (options?.quality || 80).toString());
+        if (options?.width) url.searchParams.set("w", options.width.toString());
+        if (options?.height) url.searchParams.set("h", options.height.toString());
+        return url.toString();
+      }
+    } catch {
+      return source;
+    }
+    return source;
+  }
   if (source.asset && typeof source.asset._ref === "string") {
     try {
       if (builder) {
-        return builder.image(source).url();
+        let b = builder.image(source).auto("format").fit("max").quality(options?.quality || 80);
+        if (options?.width) b = b.width(options.width);
+        if (options?.height) b = b.height(options.height);
+        return b.url();
       }
     } catch (e) {
       console.warn("Builder failed to generate URL, using manual parser:", e);
@@ -47,11 +96,27 @@ export function urlFor(source: any): string {
       const ext = parts[3];
       const pId = projectId || "6k0ekm0q";
       const dSet = dataset || "production";
-      return `https://cdn.sanity.io/images/${pId}/${dSet}/${id}-${dims}.${ext}`;
+      const params = new URLSearchParams();
+      params.set("auto", "format");
+      params.set("fit", "max");
+      params.set("q", (options?.quality || 80).toString());
+      if (options?.width) params.set("w", options.width.toString());
+      if (options?.height) params.set("h", options.height.toString());
+      return `https://cdn.sanity.io/images/${pId}/${dSet}/${id}-${dims}.${ext}?${params.toString()}`;
     }
   }
   if (source.asset && typeof source.asset.url === "string") {
-    return source.asset.url;
+    try {
+      const url = new URL(source.asset.url);
+      url.searchParams.set("auto", "format");
+      url.searchParams.set("fit", "max");
+      url.searchParams.set("q", (options?.quality || 80).toString());
+      if (options?.width) url.searchParams.set("w", options.width.toString());
+      if (options?.height) url.searchParams.set("h", options.height.toString());
+      return url.toString();
+    } catch {
+      return source.asset.url;
+    }
   }
   return "";
 }

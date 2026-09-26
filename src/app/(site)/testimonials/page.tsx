@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Quote, Star, ArrowRight, PhoneCall } from "lucide-react";
 import { sanityFetch, urlFor } from "@/sanity/client";
 import { Testimonial, mockData } from "@/data/mockData";
@@ -95,12 +96,16 @@ export default async function TestimonialsPage() {
                   <div>
                     <div className="flex justify-center mb-5">
                       {avatarUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={avatarUrl}
-                          alt={item.name}
-                          className="w-16 h-16 rounded-full object-cover border-2 border-brand-gold/40 shadow-sm"
-                        />
+                        <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-brand-gold/40 shadow-sm">
+                          <Image
+                            src={avatarUrl}
+                            alt={item.name}
+                            fill
+                            sizes="64px"
+                            loading="lazy"
+                            className="object-cover"
+                          />
+                        </div>
                       ) : (
                         <AvatarIcon />
                       )}

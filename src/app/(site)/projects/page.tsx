@@ -55,7 +55,7 @@ export default async function ProjectsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            {categories.map((cat) => (
+            {categories.map((cat, index) => (
               <Link
                 key={cat.label}
                 href={`/projects/category/${encodeURIComponent(cat.label)}`}
@@ -67,7 +67,8 @@ export default async function ProjectsPage() {
                     src={cat.image}
                     alt={cat.label}
                     fill
-                    priority
+                    priority={index < 3}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-108 group-hover:rotate-1"
                   />
                   {/* Dark overlay with bottom gradient that becomes richer on hover */}
